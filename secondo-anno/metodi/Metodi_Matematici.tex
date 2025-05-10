@@ -1,0 +1,836 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{sidecap}
+\usepackage{wrapfig,lipsum}
+\usepackage[utf8]{inputenc} %lettere accentate da tastiera 
+\usepackage[T1]{fontenc} % higher quality font encoding
+
+%load the font and set it to default
+\usepackage{amsmath,amsthm,amsfonts,amssymb,mathrsfs}
+\usepackage[english,italian]{babel}
+\usepackage{amsmath}
+\usepackage{fontawesome} % Nel preambolo
+
+% Personalizza il simbolo QED con uno smiley
+\renewcommand{\qedsymbol}{\faSmileO} % Alternativa: \faSmile
+\usepackage{url}
+\usepackage{geometry}
+\geometry{a4paper,top=3cm,bottom=3cm,left=3.5cm,right=3.5cm,%
+	heightrounded,bindingoffset=5mm}
+\usepackage{tikz}
+\usepackage[x11names]{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=false,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=blue,
+	pdftitle={Analisi II},
+	pdfpagemode=FullScreen,
+}
+\usepackage{enumitem}
+
+\newtheorem{teorema}{Teorema}[subsection]
+
+\theoremstyle{definition}
+\newtheorem*{definizione}{Definizione}
+
+\newtheorem*{proprieta}{Proprietà}
+\newtheorem*{corollario}{Corollario}
+\newtheorem*{formula}{Formula}
+\newtheorem*{proposizione}{Proposizione}
+\newtheorem{prop}{Proposizione}
+\newtheorem*{lemma}{Lemma}
+
+\newtheorem{nulla}{}
+\newtcbtheorem[number within=section]{teo}{Teorema}{colback=black!5 ,colframe=black!90,sharp corners, description delimiters parenthesis}{}
+\newtcbtheorem[number within=section]{teo1}{}{colback=black!5 ,colframe=Burlywood4!80 }{}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\w}{\mathbb{W}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norma}{||\cdot||}\usepackage{mathtools}
+\newcommand{\Rn}{\R^n}
+\newcommand{\la}{\lambda}
+\newcommand{\on}{^{\perp}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\xb}{\overline{x}}
+\newcommand{\fn}{f: A\subseteq \Rn \rightarrow \R}
+\newcommand{\fnn}{f: A\subseteq \Rn \rightarrow \Rn}
+\newcommand{\fnm}{f: A\subseteq \Rn \rightarrow \R^m}
+\newcommand{\s}{$\Sigma$}
+\renewcommand{\labelitemi}{$\star$}
+\newcommand{\ec}{e^{i\omega t}}
+\newcommand{\eck}{e^{ik\omega t}}
+\newcommand{\eckm}{e^{-ik\omega t}}
+\newcommand{\inT}{\int_{0}^{T} }
+\renewcommand{\arraystretch}{1.5} % Aumenta l'altezza delle righe
+\newcommand{\intinf}{\int_{-\infty}^{+\infty}}
+\newcommand{\f}{\mathscr{F}}
+\newcommand{\norm}[1]{|#1|}
+\title{Metodi matematici }
+\author{Luca Mombelli}
+\date{2024-25}
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\newpage
+	\section{Richiami}
+	\subsection{Trigonometria}
+	\subsubsection{Formule di Werner}
+	\begin{align*}
+	\sin \alpha \ \sin \beta &= \frac{1}{2}\left[ \cos (\alpha - \beta ) -\cos(\alpha +\beta)\right ]  \\
+		\cos \alpha \ \cos\beta &= \frac{1}{2}\left[ \cos(\alpha +\beta)+\cos (\alpha - \beta )\right ]  \\
+			\sin \alpha \ \cos \beta &= \frac{1}{2}\left[ \sin(\alpha +\beta)+\sin(\alpha - \beta )\right ]  \\
+	\end{align*}
+	\subsection{Esponenziale complesso}
+	L'esponenziale complesso è definito come  $$e^{i\omega t}=cos(\omega t)+isen(\omega t)$$
+	quindi l'esponenziale complesso è una funzione periodica con periodo pari a $T=\frac{2\pi}{\omega }$
+	\subsubsection{Formule di Eulero}
+	\begin{align*}
+		y&\in \mathbb{C}\\
+cosy&=\frac{e^{iy}+e^{-iy}}{2}      \ \ \ \ \  (Re(z)=\frac{z+\bar{z}}{2})\\
+siny&=\frac{e^{iy}-e^{-iy}}{2i} \ \ \ \ \ ( Im(z)=\frac{z-\bar{z}}{2i})
+	\end{align*}
+\subsubsection{Derivazione}
+Considero la funzione $f: \R\rightarrow \mathbb{C}\ \ \  t \mapsto e^{i\omega t}=cos(\omega t)+isen(\omega t)$ quindi 
+$$\frac{df(t)}{dt}=\frac{d \ Re(f(t))}{dt}+\frac{d \ Im( f(t))}{dt}=-\omega sin(\omega t)+i\omega cos(\omega t)=i\omega e^{i\omega t}$$
+\subsubsection{Integrazione}
+se $a,b\in \R$ 
+$$\int_{a}^{b}f(t)=\int_{a}^{b}Re(f(t)) dt+i\int_{a}^{b}Im(f(t))dt=\int_{a}^{b} \ec =\frac{1}{i\omega }[\ec]_a^b=\frac{e^{i\omega b}-e^{i\omega a}}{i\omega}$$
+\newpage
+\section{Serie di Fourier}
+\begin{definizione}
+ una funzione $x:\R \rightarrow \R$ si dice periodica di periodo T se $$x(t+T)=x(t) \ vale \ \forall t \in R $$ Si dice \textit{periodo} di x il più piccolo T positivo per cui x è periodica. Se x è periodica di periodo T allora è periodica di periodo kT con $k>0$. 
+ \begin{align*}
+ 	f&=\frac{1}{T} \ \ \text{frequenza}\\
+ 	\omega &=\frac{2\pi}{T} \ \ \text{frequenza angolare }
+ \end{align*}
+ \subsection{Polinomio di Fourier}
+ \end{definizione}
+ \begin{definizione}
+Polinomi di Fourier \\
+Diremo polinomi di Fourier una funzione delle forma 
+\begin{align*}
+	P_n(t)&=\alpha_0+\sum_{k=1}^{n}(\alpha_k cos(k\omega t)+\beta_k sin(k\omega t)) \ \ \ \alpha_k , \beta_k\in \R\\
+	P_n(t)&=\sum_{k=-n}^n \gamma_ke^{ik\omega t}   \ \ \ \gamma_k\in \mathbb{C} \\
+	&=\gamma_0+\sum_{k=1}^n(\gamma_k \eck +\gamma_{-k} e^{-ik\omega t} ) \ \text{Supponiamo che } (\gamma_{-k}=\bar{\gamma_{k}})\\
+	&=\gamma_0+\sum_{k=1}^n(\gamma_k \eck +\overline{\gamma_{k} e^{ik\omega t}})\\
+	&=\gamma_0+\sum_{k=1}^n 2 Re(\gamma_{k} \eck) \\
+	&=\gamma_0+2 \sum_{k=1}^n (Re(\gamma_{k}) cos(k\omega t)+Im(\gamma_{k}) sin(k\omega t)) 
+\end{align*}
+ \end{definizione}
+Quindi abbia che sussistono le seguenti relazione tra le due rappresentazione della formula di Fourier 
+$$
+\begin{cases}
+\gamma_0=\alpha_0\\
+Re(\gamma_{k})=\frac{1}{2}\alpha_k\\
+Im(\gamma_{k})=-\frac{1}{2}\beta_k\\
+\gamma_{-k}=\overline{\gamma_{k}}
+\end{cases}
+$$
+\subsubsection{Energia di un polinomio di Fourier}
+
+\begin{definizione}
+	Energia di un segnale \\
+Dato un segnale periodico $x(t)$ di periodo T . si dice energia di $x(t)$ in $[0,T]$ l'espressione:
+$$||x(t)||^2=\int_{0}^{T}|x(t)|^2dt$$ 
+se invece voglia parlare della norma del segnale abbiamo che 
+$$||x(t)||=\sqrt{\int_{0}^{T}|x(t)|^2dt}$$
+\end{definizione}
+Calcoliamo l'energia di un polinomio di Fourier:
+\begin{align*}
+||Pn(t)||^2&=\int_0^T |P_n(t)|^2dt\\
+&=\int_{0}^{T}\left(\sum_{k=-n}^n \gamma_ke^{ik\omega t}\right )\left(\overline{\sum_{h=-n}^n \gamma_he^{ih\omega t}} \right) dt\\
+&=\int_{0}^{T} \sum_{h,k=-n}^n \gamma_{k} \overline{\gamma_h} e^{ik\omega t}e^{ih\omega t} dt\\
+&= \sum_{h,k=-n}^n \gamma_{k} \overline{\gamma_h}\int_{0}^{T}e^{i(k-h)\omega t}=\begin{cases}
+	T \ \ \ k=h\\
+	0 \ \ \ k\neq h 
+\end{cases} \\
+&=T\sum_{h,k=-n}^n |\gamma_{k}|^2 
+\end{align*}
+Ora fissato il segnale periodco $x(t)$ e sia $P_n(t)$ un generico polinomio di Fourier periodico . Cerchiamo il polinomio di Fourier che meglio approssimo il segnale x nel senso dell'energia , cioè il polinomio di Fourier che minimizzi la seguente espressione 
+\begin{align*}
+	||x(t)-P_n(t)||^2&= \int_{0}^{T}  |x(t)-P_n(t)|^2 dt \\ 
+	&=\int_{0}^{T} (x(t)-P_n(t))(\overline{x(t)}-\overline{P_n(t)})\ dt\\
+	&= \int_{0}^{T} |x (t)|^2+|P_n(t)|^2 - x(t)\overline{P_n}(t)-\overline{x}(t)P_n(t)\ dt\\
+	&= |x (t)|^2 +T\sum_{h,k=-n}^n |\gamma_{k}|^2  - \inT x(t) \sum_{k=-n}^n \bar{\gamma_k}e^{-ik\omega t}dt  - \inT \overline{x}(t)\sum_{k=-n}^n \gamma_ke^{ik\omega t}dt\\
+	&=  |x (t)|^2 +T\sum_{h,k=-n}^n |\gamma_{k}|^2 - \sum_{k=-n}^n \bar{\gamma_k} \ T \ \underbrace{\frac{1}{T}\inT x(t) e^{-ik\omega t}dt}_{c_k} -\sum_{k=-n}^n \gamma_k \ T \ \underbrace{\frac{1}{T}\inT \overline{x}(t)e^{ik\omega t}dt}_{\overline{c_k}}\\
+	&= |x (t)|^2 +T\left(\sum_{h,k=-n}^n |\gamma_{k}|^2 -\sum_{k=-n}^n \bar{\gamma_k}  c_k- \sum_{k=-n}^n \gamma_k \overline{c_k}\right)\\
+	&= |x (t)|^2 +T\sum_{h,k=-n}^n \left( |\gamma_{k}|^2 \bar{\gamma_k}  c_k-\gamma_k \overline{c_k} +|c_k|^2\right) - T \sum_{h,k=-n}^n |c_k|^2 \ \ \ \footnotemark
+\\
+&=|x (t)|^2 +T\sum_{h,k=-n}^n |\gamma_k-c_k|^2 - T \sum_{h,k=-n}^n |c_k|^2 
+			\end{align*}
+\footnotetext{Ho completato il quadrato con  i numeri complessi} 
+Dopo tutti sti cazzo di conti viene fuori che il coefficiente gamma del polinomio di Fourier necessaria a minimizzare l'energia è il seguente 
+$$\gamma_{k}= c_k=\frac{1}{T}\inT x(t) e^{-ik\omega t}dt \ \ \ \forall k=-n \dots n $$
+Questi sono chiamati Coefficienti di Fourier . \newpage
+Inoltre nelle seguente tabella sono presenti le equivalenze dei coeffcienti di Fourier nella forma complessa e nella forma "reale"  
+\begin{center}
+\begin{tabular}{||c||}
+	\hline
+	$a_0=c_0=\frac{1}{T}\inT x(t) dt$
+	\rule[-1ex]{0pt}{2.5ex}  \\
+	\hline
+	$a_k=2Re(c_k)=\frac{2}{T}\inT x(t)cos(k\omega t) dt$
+	\rule[-1ex]{0pt}{2.5ex}  \\
+	\hline
+	$b_k=-2Im(c_k)=\frac{2}{T}\inT x(t)sin(k\omega t) d$
+	\rule[-1ex]{0pt}{2.5ex}  \\
+	\hline
+\end{tabular}
+\end{center}
+\begin{definizione}(Disuguaglianza di Bessel )
+	 $$T\sum_{k=-n}^{n} |c_k|^2\leq ||x(t)||^2$$
+\end{definizione}
+\begin{teo}{}{}
+	Sia x è un segnale periodico a energia finita , cioé $\int_{0}^{T}x^2(t)dt < + \infty $ allora se $P_n$ è il polinomio di Fourier $P_n(t)=\sum_{k=-n}^n c_ke^{ik\omega t}  $ si ha che 
+	$$\lim_{n \rightarrow +\infty} ||x-P_n||^2=0$$ 
+\end{teo}
+\begin{corollario}(Identità di Parseval)
+	 $$T\sum_{k=-\infty}^{+\infty} |c_k|^2=||x(t)||^2$$
+\end{corollario}
+\subsection{Traslazione e riscalamento}
+\subsubsection{Traslazione orizzontale}
+Sia x un segnale di periodo T e di frequenza angolare $ \omega$ . Fissiamo $ a \in \R$ definisco 
+$$\tilde{x}(t)=x(t-a)$$ 
+Calcolo i coefficienti di Fourier 
+\begin{align*}
+\tilde{c_k}&= \frac{1}{T} \int_{0}^{T}\tilde{x}(t)\eckm dt\\
+&=\frac{1}{T}x(t-a)\eckm   dt  \ \ \ \ \ \ \begin{cases}
+	s=t-a \\
+	ds=dt 
+\end{cases} \\
+&=\frac{1}{T}\int_{-a}^{T-a} x(s)e^{-ik\omega (s+a)}ds\\
+&=\frac{1}{T} e^{-ik\omega a } \inT x(s)e^{-ik\omega s}ds\\
+&= e^{-ik\omega a } c_k
+\end{align*} 
+\subsubsection{Traslazione verticale}
+$$\hat{x(t)}=\alpha+x(t)$$
+$$\hat{c_0}=c_0+\alpha \ \ \hat{c_k}=c_k\ \ \ \  \  \forall k \neq 0$$
+\subsubsection{Riscalamento}
+Se $ a > 0$ 
+$$y(t)=x(at)$$
+Qual è il periodo $T_y$ di y , $T_y=\frac{T}{a}$ . Ora calcolo il coefficienti di Fourier del polinomio riscalato 
+\begin{align*}
+c^y_k&=\frac{a}{T} \int_{0}^{\frac{T}{a}}x(at)e^{-ika\omega t}  \ \ \ \ \ \begin{cases}
+	s=at \\
+	dt=\frac{1}{a}ds
+\end{cases}\\ 
+&=\frac{a}{T} \inT \frac{1}{a} \ x(s)e^{-ik\omega s} ds \\
+&=c_k
+\end{align*}
+\begin{definizione}
+	Diciamo che $P_n(t)$ converge a $x(t)$ puntualmente se per ogni $t \in \R$ si ha che :
+	$$\sum_{+\infty}^{-\infty} c_k e^{ik\omega t}=x(t)$$
+\end{definizione}
+\begin{definizione}
+	Diciamo che $P_n(t)$ converge a $x(t)$ uniformemente se per ogni $t \in \R$ si ha che :
+	$$\lim_{n \rightarrow \R} sup_{t \in \R }\ |x(t)-P_n(t)|$$
+\end{definizione}
+\begin{definizione}(Regolare a tratti) \newline
+	Una funzione $x:\left[0,T\right]\rightarrow \R$ si dica regolare a tratti se valgono le seguenti condizioni: esistono un numero finito di punti $t_1,t_2,\dots,t_n 1in \left]0,T\right[$ tale che  
+	\begin{itemize}
+\item se $t \in  \left]0,T\right[ \setminus \{t_1,t_2,\dots,t_n\}$ la funzione x è derivabile in T e la sua derivata è una funzione continua di T ( in quei punti x deve appartenere alla classe $C^1$)
+\item esistono i seguenti limiti e sono finiti
+\begin{align*}
+&\lim_{t \rightarrow t_i^-} x(t)\ \ & \  \lim_{t \rightarrow t_i^+} x(t)\\
+&\lim_{t \rightarrow 0^+} x(t)\ \ &\  \lim_{t \rightarrow T^-} x(t)\\
+&\lim_{t \rightarrow t_i^-} x'(t)\ \ & \  \lim_{t \rightarrow t_i^+} x'(t)\\
+&\lim_{t \rightarrow 0^+} x'(t)\ \ & \  \lim_{t \rightarrow T^-} x'(t)\\
+\end{align*}
+	\end{itemize}
+\end{definizione}
+	\begin{teo}{}{}
+		Sia x un segnale periodico di periodo T regolare a tratti in $\left[0,T\right]$. Allora 
+		$$\lim_{n\rightarrow +\infty}P_n(t)=x(t) \ \ \ \forall t \neq t_1,t_2,\dots,t_n,0,T$$
+		Inoltre 
+		$$\lim_{n\rightarrow +\infty}P_n(t_i)= \frac{\lim_{t \rightarrow t_i^-} x(t)+ \lim_{t \rightarrow t_i^+} x(t)\\}{2} $$
+	\end{teo}
+	\begin{teo}{}{}
+		Sia x un segnale continuo e regolare  a tratti (discontinuità della derivata).\\
+		Allora $P_n£$ converge uniformemente a x
+		\end{teo}
+
+\newpage 
+\section{Trasformata di Fourier}
+\begin{definizione}
+	Sia $x: \R \rightarrow \mathbb{C}$ una funzione a valori complessi è \textbf{sommabile} cioè : 
+	$$\intinf |x(t)|dt < + \infty $$
+\end{definizione}
+\begin{definizione}(Trasformata di Fourier) \newline
+Definiamo la trasformata di fourier di x  e denotiamo con 	$\f(x): \R \rightarrow \mathbb{C}$ 
+$$\f(x(t))=X(\omega)=\intinf x(t)e^{-i\omega tdt}$$
+\end{definizione}
+L'integrale $\intinf x(t)e^{-i\omega tdt}$ esiste finite in quanto 
+\begin{align*}
+\end{align*}
+\subsection{Proprietà della trasformata di Fourier}
+\begin{enumerate}
+	\item Siano $\la$ e $\mu$ due costanti complessi allora 
+	$$\f(\mu x(t)+\la y(t))(\omega)=\mu X(\omega)+\la Y(\omega)$$
+	\begin{proof}
+$$\intinf \left[\mu x(t)+\la y(t)\right]dt=\mu \intinf x(t)dt + \la \intinf y(t)dt$$
+	\end{proof}
+	\item Traslazione 
+	\begin{itemize}
+\item Traslazione nel tempo : \\
+Sia x una funzione sommabile , $t_0 \in \R$ e definiamo $y(t)=x(t-t_0)$ allora : 
+$$\f\left[y(t)\right](\omega))=\f\left[x(t)\right](\omega)\ e^{-i\omega t_0}$$
+\begin{proof}
+	Effettuo una cambio di variabili $\begin{cases}
+	u=t-t_0\\
+	du=dt
+	\end{cases}$
+	$$\f\left[y(t)\right](\omega))=\intinf x(t-t_0)e^{-i\omega t}dt=\intinf x(u)e^{-i\omega (u+t_0)}du=e^{-i\omega t_0} X(\omega)$$
+\end{proof}
+	\end{itemize}
+	\item Riscalamento :
+	Sia x una funzione sommabile e sia $ a \in R \setminus \{0\}$
+	$$\f\left[x(at)\right](\omega)=\frac{1}{|a|}X(\frac{\omega}{a})$$
+	\begin{proof}
+	Basta effettuare un cambio di variabili $at=u$
+	\begin{align*}
+		\f\left[x(at)\right](\omega)&=\intinf x(at)e^{-i\omega t}\\
+		&\begin{cases}
+			\frac{1}{a}\intinf x(u)e^{ \frac{-i\omega u}{a}} du \ \ \ a > 0\\
+				\frac{1}{a}\int_{+\infty}^{-\infty} x(u)e^{ \frac{-i\omega u}{a}} du \ \ \ a <0\\
+				\end{cases}\\
+		&= 		\frac{1}{|a|}\intinf x(u)e^{ \frac{-i\omega u}{a}} du = \frac{1}{|a|} X(\frac{\omega}{a})
+	\end{align*}
+	\end{proof}
+	\item Derivata 
+	\begin{itemize}
+\item Derivata nel tempo : \\
+Sia x un segnale sommabile , derivabile e tale che $x'(t)$ è sommabile
+$$\f(x'(t))(\omega)=i\omega X(\omega )$$
+\begin{proof}
+	$$\hat{x}'(\omega)=\intinf x'(t)e^{-i\omega t}=x(t)e^{-i\omega t} + i \omega \intinf x(t)e^{-i\omega t}=i\omega \hat{x}(\omega )$$
+\end{proof}
+\item Derivata nella frequenza : \\
+Se x è un segnale sommabile e anche $tx(t)$ è anche sommabile allora 
+$$\frac{d}{d\omega} \widehat{x}(\omega)=\f(-itx(t))(\omega)$$
+\begin{proof}
+	$$\frac{d}{d \omega}\widehat{x}(\omega)= \frac{d}{d \omega} \intinf x(t)e^{-i\omega t}=\intinf \frac{d}{d \omega} x(t)e^{-i\omega t}=\intinf -it x(t)e^{-i\omega t}$$
+\end{proof}
+\end{itemize}
+	\item Simmetria : \\
+	Sia x un segnale sommabile : 
+	\begin{itemize}
+		\item Se x è una segnale reale e pari allora anche la sua trasformata di Fourier è reale e pari 
+		\item Se x è una segnale reale e dispari allora la sua trasformata di Fourier è immaginaria puro e dispari 
+	\end{itemize}
+	\item Coniugazione : \\
+	Sia x un segnale sommabile e denotiamo con $\overline{x(t)}$ il segnale complesso coniugato  
+	$$\f(\overline{x(t)})(\omega)= \overline{X}(-\omega)$$
+	\begin{proof}
+	$$	\f(\overline{x(t)})(\omega)=\intinf \overline{x(t)}e^{-i\omega t}=\intinf \overline{x(t)e^{i\omega t}}=\overline{X(-\omega)}$$
+	\end{proof}
+	\item Convoluzione : 
+	\begin{definizione}(Convoluzione)\\\
+		Sia x e t due funzioni sommabili. La convoluzione di x e t è definita da 
+		\begin{align*}
+			(x *y)(t) &= \intinf x(t-s) y(s)ds \\
+			&= \intinf x(s)y(t-s)ds
+		\end{align*}
+	\end{definizione}
+	Se x e y sono segnali sommabili allora 
+	$$\f(x*y(t))=\f(x(t))\ \f(y(t))$$
+\begin{proof}
+	\begin{align*}
+	\f((x*y)(t))&=\intinf (x*y)(t)e^{-i\omega t}dt\\
+	&=\intinf \intinf x(t-s)y(s) e^{-i\omega t} ds dt\\
+	&= \intinf y(s)\underbrace{\left[\intinf x(t-s)e^{-i \omega (t-s)}dt\right] }_{\widehat{x}(\omega)}e^{-i\omega s} ds \\
+	&= \widehat{x}(\omega) \intinf y(s)e^{-i\omega s} ds = \widehat{x}(\omega)\ \widehat{y}(\omega)
+\end{align*}
+\end{proof}
+\end{enumerate}
+\begin{definizione}(Antitrasformata di Fourier)\\
+Sia $x:\R\rightarrow \mathbb{C}$ una funzione sommabile. Definiamo l'antitrasformata di Fourier di X come : 
+$$\f^{-1}[x(t)](\omega)=\frac{1}{2\pi}\intinf x(t)e^{i\omega t}dt$$
+\end{definizione}
+Osservazione : $$\f^{-1}[x(t)](\omega)=\frac{1}{2\pi}\f[x(t)](-\omega)$$
+\begin{teorema}
+	Se x è un segnale sommabile e la sua trasformata di Fourier $\widehat{X}(\omega)$ è sommabile allora : 
+	$$x=\f^{-1}(\f(x))=\f(\f^{-1}(x))$$
+	in altre parole 
+	$$x(t)=\frac{1}{2\pi}\intinf \widehat{X}(\omega)e^{i\omega t}$$
+\end{teorema}
+
+Denotiamo con $L^1$ l'insieme dei segnali sommabili 
+$$L^1 = \{x:\R\rightarrow\mathbb{C} | \intinf |x(t)| < \infty \}$$
+\begin{teo}{}{}
+	Se $ x \in L^1$ allora $\widehat{x}$ è continuo , limitato e $\lim_{\omega \rightarrow \pm \infty}\widehat{x}(\omega)=0$
+\end{teo}
+Definiamo con $L^2$ le funzioni quadrato sommabili ( i segnali ad energia finita)
+$$L^2=\left\{x:\R \rightarrow \C | \intinf |x(t)^2 < \infty\right\}$$
+\begin{proposizione}
+	Se x è una segnale limitato e $x \in L^2$ allora $x\in L^2$
+\end{proposizione}
+\begin{proof}
+	Supponiamo che $x\in L^1$ e limitato
+	\begin{align*}
+		|x(t)|^2&=|x(t)| \ |x(t)| \leq |x(t)| \ C \\
+		\intinf 	|x(t)|^2 &= C \intinf 	|x(t)| < \infty 
+	\end{align*}
+\end{proof}
+\begin{teo}{}{}
+Se $ x \in L^2$ , segnale ad energia finita allora 
+$$\lim_{n\rightarrow \infty}\int_{-n}^{n}x(t)e^{-i\omega t}dt \ $$
+esiste finito tranne al più per un insieme di valori di $\omega$  di misura nulla ( Secondo Lebesgue)
+Definiamo allora : 
+$$\f[x(t)](\omega)=\lim_{n\rightarrow \infty}\int_{-n}^{n}x(t)e^{-i\omega t}dt \ $$
+inoltre definendo $$\f^{-1}[x(t)(\omega)]=\frac{1}{2\pi}\f[x(t)](-\omega)$$ abbiamo che per ogni $x \in L^2$ 
+$$x=\f^{-1}(\f[x]))=\f[\f^{-1}(x)]$$
+Infine posto $\widehat{X}(\omega)=\f[x(t)](\omega)$ allora 
+$$\intinf |x(t)|^2 =\frac{1}{2\pi} \intinf| \widehat{X}(\omega) |^2$$
+allora $\widehat{X}\in L^2$
+\end{teo}
+\newpage
+\section{Distribuzioni}
+\begin{definizione}(spazio delle funzioni test)\\
+	Lo spazio delle funzioni test $\mathscr{S}$ è formata dalle funzioni di classe $C^\infty$ a supporto compatto e tali che 
+	$$\lim_{t\rightarrow \pm \infty}(1+t^2)^k D^{(m)}\varphi(t)=0  \ \ \ \ \forall k,m\geq 1$$
+	($\varphi$ e le sue derivate vanno più velocente a zero del reciproco del polinomio )
+	\end{definizione}
+	\begin{definizione}(Convergenza di funzioni test)\\
+	Sia $\varphi_n \in \mathscr{S}$ una successione , si dice che $\varphi_n \rightarrow \varphi$ se e solo se valgono le seguenti condizioni:
+	$$\lim_{n\rightarrow \infty} \norm{(1+t^2)^k (D^{(m)}\varphi_n(t)-D^{(m)}\varphi(t))}=0  \ \ \ \ \forall k,m \geq 0$$
+	\end{definizione}
+\begin{definizione}(Distribuzione)
+	Si dice \textbf{distribuzione} ogni funzionale lineare su $\mathscr{D}$ che sia continuo rispetto alla convergenza di funzioni test 
+	\end{definizione}
+	\subsection{Derivate}
+	Data $T \in \mathscr{S}'$  , si dice derivata di T , la distribuzione definita ponendo 
+	$$<T',\varphi>=-<T,\varphi'> \ \ \ \forall  \varphi \in \mathscr{D}$$	
+	Poniamo $$<T_x,\varphi>=\intinf x(t)\varphi(t)dt$$ allora 
+	\begin{align*}
+<T',\varphi>&=-<T,\varphi'> \\
+\intinf x'(t)\varphi(t)dt&=\underbrace{x(t)\varphi(t)\Bigg|_{-\infty}^{+\infty}}_0-\intinf x(t) \varphi'(t)dt
+	\end{align*}
+	\begin{teorema}
+		Se $T_x$ è una distribuzione regolare con x assolutamente continua sugli intervalli compatti $\R$ , la derivata nel senso delle distribuzioni coincide con  derivta ordinaria : 
+		$$T'_x=T_{x'}$$	
+		\end{teorema}
+		\subsection{Limiti}
+		Sia $T_n$ una successione di distribuzione , sia T una distribuzione. \\ Diciamo che $T_n\rightarrow T$ nel senso delle distribuzioni  se 
+		$$ \lim_{n \rightarrow \infty}T_n(\varphi)=T(\varphi) \ \ \ \forall \varphi \in \mathscr{D}$$
+		Se $x_n$ è una successione di segnali  scriviamo $$x_n \rightarrow T \text{ in luogo di } T_{x_n}\rightarrow T $$ 
+		Se $T=T_x$ per un segnale x allora scriveremo 
+		$$x_n \rightarrow x\ \text{in luogo di } T_{x_n}\rightarrow T_x $$
+			\begin{teo}{}{}
+			\begin{enumerate}
+				\item Siano $x_n,x$ due segnali limitati tali che $\lim_{n\rightarrow\infty}x_n(t)=x(t) \ \ \forall t \in \R$ allora è vero anche che $x_n \rightarrow x$ nel senso delle distribuzioni	
+				\item Sia x un segnale a valori maggiori uguale a zero e tale che $\intinf x(t)=1$.\\Definiamo $x_n(t)=nx(nt)$
+			\end{enumerate}
+		\end{teo}
+		\subsection{Convoluzione}
+		\begin{definizione}
+			Sia T una distribuzione e $\varphi \in \mathscr{D}$ definiamo 
+			$$T * \varphi(t)=T(\varphi_t)$$
+			Notiamo che $T*\varphi$ è una funzione infinitamente derivabile 
+			\begin{align*}
+			&=\lim_{h \rightarrow 0}\frac{t*\varphi(t+h)-T*\varphi(t)}{h}\\
+			&=\lim_{h\rightarrow 0}\frac{T(\varphi_t(h))-T(\varphi_t)}{h}\\
+			&=\lim_{h \rightarrow 0} T\left(\frac{\varphi_{t+h}(s)-\varphi_t(s)}{h}\right)\\
+			&=T\left(\lim_{h \rightarrow 0} \frac{\varphi(t+h-s)-\varphi(t-s)}{h}\right)\\
+			&=\varphi'(t-s)=\varphi_t'(s)\\
+			&=T(\varphi'_t(s))
+		\end{align*}
+		\end{definizione}
+	\begin{teo}{}{}
+		Sia $\varphi_n$ una successione di funzioni test tali che $\varphi_n\rightarrow \delta_o$ nel senso delle distribuzioni Allora $T *\varphi_n \rightarrow T$ nel senso delle distribuzioni. \\
+		Ogni distribuzione è il limite di segnali infinitamente derivabile 
+	\end{teo}
+	\subsection{Trasformata di Fourier }
+	Sia x un segnale ad energia finita $\widehat{x}(\omega)=v.p\intinf x(t)e^{-i\omega t} dt $ definisco la distribuzione associata alla trasformata di Fourier 
+	\begin{align*}
+		T_{\widehat{x}}(\varphi)&=\intinf \widehat{x}(\omega) \varphi(\omega)\\&=\intinf \intinf x(t)e^{-i\omega t} \varphi(\omega) dt d\omega \\
+		&=\intinf x(t)\underbrace{\left(\intinf e^{-i\omega t}\varphi(\omega)d\omega \right)}_{\widehat{\varphi}(t)} dt  \\
+		&=\intinf x(t)\widehat{\varphi}(t)dt = T_x(\widehat{\varphi })
+	\end{align*} 
+	Questo  ha senso in quanto se $\varphi \in \mathscr{S}$ all
+	ora $\widehat{\varphi} \in \mathscr{S}$. Questo motiva la seguente definizione  
+	\begin{definizione}(Trasformata di Fourier per distribuzioni) \\
+		Sia T una distribuzione , la sua trasformata di Fourier $\widehat{T}$ è la distribuzione definita da 
+		$$\widehat{T}(\varphi)=T(\widehat{\varphi})$$
+	\end{definizione}
+	Esempio : Calcoliamo la trasformata di Fourier della Delta di Dirac \\
+$$
+		\widehat{\delta_0}(\varphi)=\delta_0(\widehat{\varphi})=\intinf \varphi(t) dt = T_1(\varphi)=1
+	$$
+	Possiamo anche definire l'antitrasformata di Fourier 
+	$$\mathcal{F}^{-1}[T(\varphi)]=T(\mathcal{F}^{-1}[\varphi])$$
+	Inoltre vale che 
+	$$\f[T(\varphi)]=2\pi \mathcal{F}^{-1}[T(\varphi^r)] \ \ \ \ \phi^r(s)=\varphi(-s)$$
+	$$\f[T]=2\pi \mathcal{F}^{-1}[T^r]$$
+	Esempio : 
+	\begin{align*}
+		\mathcal{F}^{-1}[1]=\delta_0 \rightarrow f[1]=2 \pi \delta_0^r = 2 \pi \delta_0 
+	\end{align*}
+	\newpage
+\section{Funzione di una variabile complessa}
+Una funzione complessa di variabile complessa è una funzione del tipo 
+$$f:\Omega \subseteq \mathbb{C} \rightarrow \mathbb{C}$$
+Definiamo gli operatori 
+\begin{align*}
+	\partial_z&=\frac{1}{2}(\partial_x - i \partial_y)\\
+		\partial_{\overline{z}}&=\frac{1}{2}(\partial_x + i \partial_y)
+\end{align*}
+	\begin{lemma}
+		$f: \Omega \rightarrow\C$ è differenziabile in $z_0\in \Omega$ se e solo se esistano $c,d\in \C$ tali che 
+		\begin{align*}
+		f(z_0+w)=f(z_0)+cw+d\overline{w}+o(\norm{w})\\
+		c=\partial_zf(z_0) \ \ \ d=\partial_{\overline{z}}f(z_0)
+			\end{align*}
+	\end{lemma}
+	\begin{proof}
+		Sia $f=u+iv$ , nell'identificazione $\C=\R^2$ è differenziabile in $z_0=(x_0,y_0)$ SSE lo sono le sue componenti u,v
+		\begin{align*}
+			u(x_0+h,y_0+k)&=u(x_0,y_0)+\partial_xu(x_0,y_0) \cdot h +\partial_xu(x_0.y_0) \cdot k+o(\norm{(h,k)})\\
+			v(_0+h,y_0+k)&=v(x_0,y_0)+\partial_xv(x_0,y_0) \cdot h +\partial_xv(x_0.y_0) \cdot k+o(\norm{(h,k)}) \\ 
+			(h,k)&\rightarrow 0
+		\end{align*}
+		Ponendo $w=(h,k)=h+ik$ sommando otteniamo la differenziabilità di f notando che 
+		$$h=\frac{\omega+\overline{w}}{2} \ \ \  \ h=\frac{\omega-\overline{w}}{2}  $$
+	\end{proof}
+	\begin{definizione}
+		Siano $f:\Omega\rightarrow \C \ e \ z_0 \in \Omega$. Se esiste il limite di funzioni in due variabili 
+		$$f'(z_0)=\lim_{w\rightarrow 0\in \C}\frac{f(z_0+w)-f(z_0)}{w}$$ questo si dice derivata in senso complesso di f in $z_0$
+	\end{definizione}
+	\begin{proposizione}
+		$f:\Omega \rightarrow \C$ è \textit{derivabile in senso complesso} in $z_0 \in \Omega $ se e solo se esiste $c \in \C$ tale che :
+		$$f(z_0+w)=f(z_0)+cw+o(\norm{w}) \ per \ w \rightarrow 0$$ e in tal caso $c=f'(z_0)$
+	\end{proposizione}
+	\begin{proposizione}
+		$f:\Omega \in \C$ si dice \textbf{olomorfa} nell'insieme $\Omega$ se è derivabile in senso complesso in ogni punto di $\Omega$ e se $f'$ è continua . \\
+		Se $\Omega =\C$ la funzione si dice \textit{intera}
+	\end{proposizione}
+	\begin{proposizione}
+	La funzione 	$f:\Omega \in \C$  è olomorfa SSE è di classe $C^1$ e vale la condizione di \textbf{Cauchy-Riemann} 
+	$$\frac{\partial f}{\partial_{\overline{z}}}=0$$
+		\end{proposizione}
+	\textbf{Osservazione} : scritta $f=u+iv$ si ha : 
+	\begin{align*}
+		\partial_{\overline{z}}f&=\frac{1}{2}[\partial_x(u+iv)+i\partial_y(u+iv)] \\
+		&= \frac{1}{2} \left[(\partial_xu-\partial_yv)+i(\partial_xv+\partial_yu)\right] \\
+		&=\begin{cases}
+			\partial_xu=\partial_yv\\
+			\partial_xv=-\partial_yu
+		\end{cases}
+	\end{align*}
+	\textbf{Osservazione : } Prendiamo $F(z)=a(x,y)+iv(x,y)$ olomorfa con u,v due volte derivabili dalle condizione di Cauchy-Riemann in forma reali  $\begin{cases}
+		\partial_xu=\partial_yv\\
+		-\partial_xv=\partial_yu
+	\end{cases}$. \\
+	Ora deriviamo queste condizioni rispetto a x e somma membro a membro 
+	\begin{align*}
+\partial_{x^2}u-\partial_{xy}v+\partial_{xy}u+\partial_{x^2}v=0 \\
+\text{Derivata rispetto a y e diiferenza membro a membro} \\
+\partial_{xy}u-\partial_{y^2}v-\partial_{y^2}u-\partial_{xy}v=0 \\
+\text{Ora facciamo (1) - (2)}\\
+\partial_{x^2}u+\partial_{y^2}u+\partial_{x^2}v+\partial_{y^2}v=0 \\
+(\partial_{x^2}+\partial_{y^2}u)=0 \ \ \ \partial_{x^2}v+\partial_{y^2}v=0 \\
+\Delta u=0 \ \ \ \Delta v=0
+	\end{align*}
+	Le componenti di f sono funzioni armoniche , cioè funzione che risolvono l'equazioni di Laplace $$\Delta g=\nabla^2 g =0$$
+	\subsection{Formula di Cauchy}
+	\begin{definizione}
+		Sia $f:\Omega \subseteq \C \rightarrow \C $ con $\Omega$ aperto con $\partial \Omega = \Gamma$ curva regolare è detto olomorfa su $\Omega \cup \Gamma$ se esiste $\tilde{\Omega} \subseteq \C$ aperto contente  $\Omega \cup \Gamma$ su cui f è olomorfa 
+	\end{definizione}
+	\begin{teo}{}{}
+		Sia $\Omega \subseteq \C $ aperto e limitato con $\partial \Omega = \Gamma$ unione di curva regolari $\Gamma=\gamma_1 \cup \dots \cup \gamma_n$ e sia f olomorfa su $\Omega \cup \Gamma$
+		$$\int_{\Gamma}f(z)dz=0$$
+	\end{teo}
+	\begin{teo}{Fomula di cauchy del cerchio}{}
+			Sia $\Omega \subseteq \C $ aperto e limitato con $\partial \Omega = \Gamma$ unione di curva regolari $\Gamma=\gamma_1 \cup \dots \cup \gamma_n$,infine sia f olomorfa su in $\Omega \cup \Gamma$. \\ Se $z_0 \in \Omega $ allora 
+			$$f(z_0)=\frac{1}{2 \pi i } \int_{\Gamma} \frac{f(z)}{z-z_0}dz $$
+	\end{teo}
+	Se fè oleomorfa e nota sul bordo $\Gamma$ allora conosciamo f su tutto $\Omega$ 
+	\begin{proof}
+		sia $\delta > 0$ tale che $$B(z_0 , \delta)\in \Omega$$ Per il teorema (5.1) abbiamo che $$\frac{1}{2 \pi i }\int_{\Gamma \cup \gamma_{-\delta}} \frac{f(z)}{z-z0}=0$$ poichè la funzione è olomorfa in $\Omega \cup \Gamma \setminus z_0$
+		\begin{align*}
+			\frac{1}{2 \pi i }\int_{\Gamma} \frac{f(z)}{z-z0}=\frac{1}{2 \pi i }\int_{\gamma_{\delta}} \frac{f(z)}{z-z_0}
+		\end{align*}
+		Il bordo $\gamma_\delta= \{z \in \C \ |\ \norm{z-z_0}=\delta\}$ è parametrizzato da $\theta \mapsto z_0+e^{i\theta } \ ,\ \theta \in [0,2\pi]$. Risulta allora 
+		\begin{align*}
+\frac{1}{2 \pi i }\int_{\gamma_{\delta}} \frac{f(z)}{z-z0} &= \frac{1}{2 \pi i }\int_{0}^{2\pi} \frac{f(z_0+e^{i\theta})}{\delta e^{i\theta }}\delta ie^{i\theta } d\theta \\
+&=\frac{1}{2 \pi } \int_{0}^{2\pi}f(z_0+\delta e^{i\theta})d\theta\\
+		\end{align*}
+		Osservando che il primo membro è indipendente dalla delta ed utilizzando la conntinuità di f , si ottiene infine :
+		\begin{align*}
+			\frac{1}{2 \pi i }\int_{\Gamma} \frac{f(z)}{z-z0}&=\lim_{\delta \rightarrow 0} \frac{1}{2 \pi } \int_{0}^{2\pi}f(z_0+\delta e^{i\theta})d\theta\\ 
+			&=\frac{1}{2\pi}\int_{0}^{2\pi}f(z_0)d\theta\\ 
+			&= f(z_0) \\
+			\frac{1}{2 \pi i }	\int_{\Gamma} \frac{f(z)}{z-z0}&=f(z_0)
+		\end{align*}
+	\end{proof}
+	\begin{proposizione}
+		Una funzione f  olomorfa in $\Omega$ ammette derivate complesse di ogni ordine , anch'esse olomorfe. Se D è un dominio semplice con $z_o \in D$ e $\overline{D}\subset \Omega$ vale 
+		$$f^{(m)}(z_0)=\frac{m!}{2 \pi i } \int_{\partial D}\frac{f(z)}{(z-z_0)^{m+1}}dz$$
+ 	\end{proposizione} 
+ 	\subsection{Serie di potenze}
+	\begin{teo}{}{}
+		Sia $f:\Omega \subseteq \C \rightarrow \C $ olomorfa su $D=\{z \in \C \ |\  \norm{z-z_0}<R\} $ allora 
+		$$f(z)=\sum_{n=0}^{+\infty}\frac{f^{(n)(z_0)}}{n!}(z-z_0)^n \ \ \ \ \forall z \in D$$
+	\end{teo}
+	\begin{proof}
+		Sia $f:D\rightarrow \C $ olomorfa su $D=\{z \in \C \ |\  \norm{z-z_0}<R\} $  allora 
+	$$f(z)=\sum_{n=0}^{+\infty}\frac{f^{(n)(z_0)}}{n!}(z-z_0)^n \ \ \ \ \forall z \in D$$
+	Sia $0<r<R$ e poniamo $D_r=\{z:\norm{z-z_0}<r\}$ , dalla formula di Cauchy abbiamo che 
+$$f(z)=\frac{1}{2 \pi i } \int_{\Gamma} \frac{f(\xi)}{\xi-z}d\xi \ \ su \ \ d_k$$
+Per $\xi \in \Gamma$ 
+\begin{align*}
+	\frac{f(\xi)}{\xi-z}&=\frac{f(\xi)}{\xi-z_0-z+z_0}\\
+	&\vdots \\
+	&=\frac{f(\xi)}{\xi-z_0} \ \frac{1}{1-\frac{z-z_0}{\xi-z_0}} \\
+	&=\frac{f(\xi)}{\xi-z_0}  \ \sum_{n=0}^{+\infty}\left(\frac{z-z_0}{\xi-z_0} \right)^n \\
+	f(z)=&\frac{1}{2 \pi i}\oint_{\Gamma}\frac{f(\xi)}{\xi-z_0}  \ \sum_{n=0}^{+\infty}\left(\frac{z-z_0}{\xi-z_0} \right)^n \\
+	&=\sum_{n=0}^{\infty}\left(\frac{1}{2\pi i}\oint_{\Gamma}\frac{f(\xi)}{(\xi-z_0)^{n+1}}  \right)(z-z_0)^n\\
+	&=\sum_{n=0}^{\infty}\left(\frac{f^{n}(z_0)}{n!}\right)(z-z_0)^n
+\end{align*}
+	\end{proof}
+	Il fatto che una funzione con infinite derivate sia localmente rappresentabile in serie di potenze è \textbf{falso} se la funzione in questione non è derivabile in senso complesso \\
+	Esempio : $$f(x)= \begin{cases}
+		e^{-\frac{1}{x^2}} \ \ \ x \neq 0
+		0 \ \ \ x=0 
+	\end{cases} $$ f(x) ammette infinite derivate e $f(0)=0\ \ \ \forall n \in \mathbb{N}$ , la serie di Taylor centrata in zero converge alla funzione nulla , tuttavia $f(x)\neq 0 \ \ \ \forall x \neq 0$   
+	\begin{definizione}(Funzione analitica)\\
+		Una funzione f $\Omega \rightarrow \C$ di dice \textbf{analitica in $\Omega$} se è localmente rappresentabile come serie di potenze
+	\end{definizione}
+	Cioè se per ogni $z_0 \in \Omega$ esistono $r>0$ e una serie di potenze $\sum_{n=0}^{+\infty}c_n(z-z_0)^n$ con raggio di convergenza r tale che $f(z)= \sum_{n=0}^{+\infty}c_n(z-z_0)^n$ per ogni $z \in \Omega : \norm{z-z_0}<r$
+	\subsection{Zeri e singolarità di funzioni complesse}
+	\begin{definizione}
+		Se $f^{(n)}(z_0)=0 \ \ \ \forall n \in \mathbb{N} \ , \ z_0$ si dice zero di molteplicità/ordine infinito per f . \\ $z_0$ si dice zero di molteplicità ordine m se  $f^{(n)}(z_0)= 0$ se n< m e $f^{(m)}(z_0)\neq 0$
+	\end{definizione}
+	\begin{proposizione}
+		Sia f olomorfa in $\Omega$ , $z_0\in \Omega$ è zero di ordine m se e solo se esiste un funzione g olomorfa in $\Omega$ con $g(z_0)\neq 0$ tale che 
+		$$f(z)=(z-z_0)^m g(z)$$	
+		In particolare uno zero di \textbf{molteplicità finita è isolato } , ossia esiste un introno U di $z_0\in \Omega$ tale che $f(z)\neq 0\ \ \  \ \forall z \in U \setminus \{z_0\} $
+		\end{proposizione}
+		\begin{proof}
+			Sia $z_0 \in \Omega $ uno zero di f di molteplicità e sia $R=dist(z_o,\partial \Omega)$ , per gli $\norm{z-z_0}< R$ si ha 
+			$$f(z)=\sum_{n=0}^{\infty}\frac{f^{(n)(z_0)}}{n!}(z-z_0)^n = (z-z_0)^m \sum_{n=m}^{+\infty}\frac{f^{(n)(z_0)}}{n!}(z-z_0)^{n-m}$$ 
+		l'ultima uguaglianza segue da $f^{n}=0 \ \ n < m $ . Basta allora porre 
+		$$g(z)=\begin{cases}
+			(z-z_0)^{-m}f(z) \ \ \ \forall z \in \Omega \setminus \{z_0\} \\
+			\sum_{n=m}^{+\infty}\frac{f^{(n)(z_0)}}{n!}(z-z_0)^{n-m} \norm{z-z_0} < R
+ 		\end{cases}$$
+ 		Per l'inverso supponiamo che g sia funzione olomorfa , che quindi ammette sviluppo di Taylor centro in $z_0 , \sum_{n=0}^{+\infty}c_n (z-z_0)^n$ inoltre abbiamo che f si può scrivere come 
+ 		\begin{align*}
+ 			f(z)&=(z-z_0)^m g(z) \\
+ 			f(z)&=(z-z_0)^m \sum_{n=0}^{+\infty}c_n(z-z_0)^n\\
+ 			f(z)&= \sum_{n=0}^{+\infty}c_n(z-z_0)^{n+m} \ \ \ \ k=n+m \ \ \ \ \ \ n=k-m\\
+ 			f(z) & = \sum_{k=m}^{+\infty}c_{k-m}(z-z_0)^{k} \\
+ 			\sum_{n=0}^{\infty}\frac{f^{(n)(z_0)}}{n!}(z-z_0)^n & = \sum_{k=m}^{+\infty}c_{k-m}(z-z_0)^{k} \\
+ 		\end{align*} 		
+ 		allora dall'unicità dei coefficienti della serie di Fourier segue che $f^{(n)}(z_0)=0 \ \ n<m$
+				\end{proof}
+				\begin{proposizione}
+					Sia f olomorfa in $\Omega$. Un punto $z_0 \in \Omega$ è uno zero di molteplicità infinita se e solo se è identicamente nulla nella componente connessa di $z_0 \in \Omega$
+ 				\end{proposizione}
+ 				\begin{teo}{Unicità del prolungamento}{}
+ 					Siano f e g funzioni olomorfe in $\Omega$ con $\Omega \subseteq_{ap} \C$ connesso. Allora se una delle seguenti ipotesi è verificata $f=g$
+ 					\begin{enumerate}
+ 					\item 	f e g hanno lo stesso sviluppo in serie di Taylor in un punto di $\Omega$
+ 						\item l'insieme $\{z:f(z)=g(z) \}$ ha un punto non isolato
+ 					\end{enumerate}
+ 				\end{teo}
+ 				\begin{proof}
+ \begin{enumerate}
+ \item Entrambe le funzioni sono olomorfe quindi possono essere espresse come serie di funzioni , imponiamo che esse siano uguali in $z_0 \in \Omega$ 
+ \begin{align*}
+	\sum_{n=0}^{+\infty}f^{(n)}(z_0)=	\sum_{n=0}^{+\infty}g^{(n)}(z_0) \\
+			\sum_{n=0}^{+\infty}f^{(n)}(z_0)	-\sum_{n=0}^{+\infty}g^{(n)}(z_0) =0
+			\end{align*}
+ quindi la funzione $f-g$ ha in $z_0$ una zero di molteplicità infinita quindi per la proposizione precedente f-g è identicamente nulla in tutto $\Omega$ quindi $f=g$
+ \item L'insieme $\{z\ : \ f(z)=g(z)\} \rightarrow \{z\ :\ f(z)-g(z)=0 \}$ ha un punto non isolato questo vuol dire che la f-g presenta uno zero di molteplicità infinita in quel punto e quindi f-g è identicamente su tutto il connesso di $z_0$ quindi in tutto $\Omega$
+ \end{enumerate}
+ 				\end{proof}
+ 				\newpage
+ 				\subsection{Serie di Laurent}
+ 				\begin{definizione}
+ 					La Serie di Laurent di una funzione complessa in un punto $z_0$ è da ta da : 
+ 					$$\sum_{n=-\infty}^{+\infty}c_n(z-z_0)^n$$
+ 				\end{definizione}
+ 				\begin{teo}{dello sviluppo di Laurent}{}
+Sia f una funzione olomorfa in $B(z_0,R) \setminus \{z_0\}$ allora 
+$$f(z)=\sum_{n=-\infty}^{+\infty}c_n(z-z_0)^n$$  Inoltre dato $\norm{z-z_0}<r<R \ \ r \in \R$ e posto $D=\{z : \norm{z-z_0}\leq r\}$ risutla $$c_n=\frac{1}{2\pi i}\oint_{\partial D}\frac{f(z)}{(z-z_0)^{n+1}}dz$$ e tali coefficienti sono unici	.\\ 
+Inoltre 
+\begin{align*}
+	\sum_{n=0}^{+\infty}c_n(z-z_0)^n \ \ \ \text{è detta \textbf{ parte regolare}} \\
+	\sum_{n=1}^{+\infty} c_{-n}\frac{1}{(z-z_0)^n} \ \ \ \text{è detta \textbf{parte principale }}
+	\end{align*}	\end{teo}
+\begin{definizione}
+	Sia $f(z)=\sum_{n=0}^{+\infty}c_n (z-z_0^n)$  cioè sviluppabile in serie di Laurent
+	\begin{itemize}
+		\item f(z) ha in $z_0$ una singolarità \textbf{eliminabile} se $c_n=0 \ \ \forall n <0$
+		\item f(z) ha in $z_0$ una singolarità \textbf{essenziale} se $c_n\neq 0$ per infiniti n 
+		\item f(z) ha in $z_0$ una singolarità \textbf{polare di ordine} $m\geq 1$ se $c_n=0$ per ogni $n <-m$ e $z_0$ è detto polo di ordine/molteplicità m
+	\end{itemize}
+\end{definizione} 
+\begin{definizione}(singolarità eliminabile)
+DA COMPLETARE
+\end{definizione}
+\subsection{Residui}
+\begin{definizione}(Residuo) \\
+	Sia f olomorfa in intorno (disco) di $z_0$ tranne che in $z_0$ stesso . Si dice \textbf{residuo} di f in $z_0$ il coefficiente di $(z-z_0)^{-1}$ nello sviluppo in serie di Laurent di f centrato in $z_0$ 
+	$$Res(f,z_0)=c_{-1}=\frac{1}{2 \pi i}\oint_{\partial D}f(z)dz$$
+\end{definizione}
+	\subsubsection{Calcolo dei residui}
+	\begin{tcolorbox}
+	\begin{proposizione}
+		Sia f olomorfa in un intorno di $z_0$ , tranne che in $z_0$ stesso. Allora $z_0$ è un polo di f di ordine m se esiste una funzione olomorfa g , con $g(z_0)\neq 0$ tale che 
+		\begin{align*}
+		f(z)&=\frac{g(z)}{(z-z_0)^m} \\
+		g(z)&=(z-z_0)^m g(z) \\
+		\lim_{z->z_0}g(z)&=g(z_0)=(z-z_0^m)f(z)\neq 0 
+	\end{align*}
+	\end{proposizione}
+\end{tcolorbox}
+	\begin{proposizione}
+		\item se $z_0$ è un polo di ordine m di f (olomorfa in $B(z_0,R)\setminus \{z_0\}$) allora :  $$Res(f,z_0)=\lim_{z\rightarrow z_0}\ \ \frac{1}{(m-1)!}\frac{d^{m-1}}{dz^{m-1}}\left[(z-z_0)^m \ f(z)\right]$$
+	\end{proposizione}
+
+	\begin{corollario}
+		Siano g e h funzioni olomorfe in $z_0$ e sia $f=\frac{h}{g}$.\\Se $z_0$ è uno zero di ordine m di h e di ordine m+1 di g allora 
+		$$Res(f,z_0)=(m+1)\frac{h^{(m)}(z_0)}{g^{(m+1)(z_0)}}$$
+		In particolare se $z_0$ è un zero di ordine 1 per g , allora 
+		$$Res(f,z_0)=\frac{h(z_0)}{g'(z_0)}$$
+	\end{corollario}
+\begin{teo}{dei Residui}{}
+	Sia f olomorfa sulla chiusura di $\Omega$ tranne che in un insieme di finito di punti $\{z_1,\dots,z_k\}$ tutti contenuti in $\Omega$. Allora : 
+	$$\int_{\partial \Omega}f(z)dz=2\pi i \sum_{j=1}^{k}Res(f,z_j)$$
+\end{teo}
+\begin{proof}
+	Dato che ci sono un numero finito di singolarità dentro la chiusura di Omega , esiste un $r>0$ tale che i le palle di $B(z_j,r) \subseteq \Omega  \ \  B(z_j,r)\cap B(z_h,r) = \emptyset \ \ \forall \ j,h =  , \dots , k$ .\\ Inoltre definiamo $\gamma_j=\partial B(z_j,r)$ allora f è olomorfa su $\Omega \setminus \bigcup_j B(z_j,r) $ , quindi per la formula integrale di Cauchy 
+	\begin{align*}
+		 \oint_{\Gamma}f(z)dz&-\oint_{\gamma_1 , \cup \dots \cup \gamma_k}f(z)dz=0  \\ 
+		  \oint_{\Gamma}f(z)dz&=\oint_{\gamma_1 , \cup \dots \cup \gamma_k}f(z)dz \\
+		  &= \oint_{\gamma_1}f(z)dz + \dots + \oint_{\gamma_k}f(z)dz \\ 
+		  Ora  \ \ Res(f,z_0)& =\frac{1}{2 \pi i}\oint_{\partial D}f(z)dz\\ 
+		  &=2 \pi i \sum_{j=1}^{k}Res(f,z_j)
+	\end{align*}
+\end{proof}
+\subsection{Integrali del primo tipo}
+Vogliamo Calcolare integrali del tipo 
+$$I=\int_{0}^{2 \pi} R(cos\theta,sin\theta)$$
+in cui $R(x,y)$ è una funzione razionale a coefficienti reali o complessi , definita sulla circonferenza unitaria. 
+\\ Si parametrizza la circonferena unitaria con la funzione 
+$\theta \mapsto (\cos \theta , \sin \theta)$ a questo punto conviene porre $z=e^{i\theta}$ da cui  \begin{align*}
+	cos\theta&=\frac{e^{i\theta+e^{-i\theta}}}{2} \ \ \ \ \ \ \ \  \	&sin\theta=\frac{e^{i\theta-e^{-i\theta}}}{2i}  \\
+	&=\frac{z+1/z}{2} &=\frac{1}{2i}(z-\frac{1}{z}) \\ 
+	dz&=i e^{i\theta}d\theta &d\theta=\frac{dz}{iz} 
+\end{align*}
+Quindi l'integrale diventa 
+$$I=\int_{0}^{1}\frac{R(\frac{z+1/z}{2}, \frac{1}{2i}(z-\frac{1}{z}))}{iz}dz$$
+\subsection{Integrali del terzo tipo o di Fourier}
+Vogliamo calcolare integrali del tipo 
+$$\intinf f(t)e^{i \alpha t} \ \ \ \ \ \alpha >0$$ con f olomorfa nel \textbf{semipiano positivo} eccetto al più un numero finito di singolarità isolate appartenenti al semipiano positivo.\\ 
+\textbf{Nota bene } se $\alpha <0$ ci si localizza sul \textbf{semipiano negativo }\\
+Possiamo riscrivere l'integrale come un integrale improprio 
+$$I_2=\lim_{r \rightarrow +\infty}\int_{+r}^{-r}f(x)e^{i\alpha x}$$
+L'idea ora è calcolare l'integrale della funzione complessa $f(z)$ sul seguente dominio 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.10]{lemma}
+\end{figure}
+Quinid scriviamo questo integrale come 
+$$\left[\int_{-r}^{r}f(z)e^{i\alpha z}+\int_{\gamma_r}f(z)e^{i\alpha z}\right]=2 \pi i Res(f,z_j) \ \ \ z_j \in [-r,r]\cup \gamma_r$$
+dove come possiamo vedere $\gamma_r $ è la semi conferenza di raggio r e centro (0,0)
+\begin{tcolorbox}
+\begin{lemma}(di Jordan)\\
+	Sia $0 \leq \theta_1\leq \theta_2\leq \pi$ e si consideri l'angolo 
+	$$A(0,[\theta_1,\theta_2])=\{z\in\C \ :\ \theta_1\leq arg(z)\leq \theta_2\}$$
+	Sia $f:A(0,[\theta_1,\theta_2])\rightarrow \C$ una funzione continua , per $r >0$ sia $\gamma_r(\theta)=ee^{i\theta} \ , \ \theta\in [\theta_1,\theta_2]$
+	\begin{enumerate}
+		\item Se $\lim_{\substack{|z| \to +\infty \\ z \in A(0, [\theta_1, \theta_2])}}f(z)=0$ e $\alpha>0$ allora 
+		$$\lim_{r\rightarrow \infty} \int_{\gamma_r}f(z)e^{i\alpha z}=0$$
+		\item Se  $\lim_{\substack{|z| \to +\infty \\ z \in A(0, [\theta_1, \theta_2])}}zf(z)=0$  e $\alpha \geq 0$ allora 
+		$$\lim_{R\rightarrow \infty}\int_{\gamma_r}f(z)e^{i\alpha z}=0$$
+	\end{enumerate}
+\end{lemma}
+\end{tcolorbox}
+Passiamo al limite , quindi scriviamo l'integrale come 
+$$\lim_{r\rightarrow \infty}\left[\int_{-r}^{r}f(z)e^{i\alpha z}+\int_{\gamma_r}f(z)e^{i\alpha z}\right]=2 \pi i Res(f,z_j) \ \ \ z_j \in [-r,r]\cup \gamma_r$$ , ora se soddisfiamo le ipotesi del lemma di jordan quindi  $\lim_{\substack{|z| \to +\infty \\ z \in A(0, [\theta_1, \theta_2])}}f(z)=0$ e $\alpha>0$ allora sappiamo che $\lim_{\gamma_r}f(z)e^{i\alpha z}=0$  quindi l'integrale diventa
+$$\lim_{r\rightarrow \infty }\int_{-r}^{r}f(z)e^{i\alpha z}=\intinf f(z)e^{i \alpha z}=2\pi i Res(f,z_j)\ \ \ \ \  z_i \in H_+$$
+\subsubsection{Integrali del secondo tipo}
+Uno caso particolare degli integrali di Fourier sono gli integrali del tipo : 
+$$\intinf f(x)dx$$ quindi integrali dove $\alpha=0$ , l'idea risolutiva è la stessa solo che per applicare il teorema di Jordan la funzione f deve soddisfare la seguente condizione  $\lim_{\substack{|z| \to +\infty \\ z \in A(0, [\theta_1, \theta_2])}}zf(z)=0$ , però abbiamo anche abbiamo la seguente condizione che ci semoplificaq un po' la vita 
+\begin{tcolorbox}
+	Se f(z) è una funzione razione con P e q polinomi con $deg D \geq deg N+2$ , è assicurato che la funzione soddisfi l'ipotesi del lemma di jordan 
+\end{tcolorbox}
+Poi la strategia risolutiva rimane identica a quella spiegato per gli integrali del terzo tipo 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Approfondimenti}
+\subsection{Teorema di Cauchy}
+Diamo una seconda formulazione del teorema di Cauchy , dando prima le necessarie definizione
+\begin{definizione}(Cycle)
+	A chain ($\gamma=a_1\gamma_1+a_2\gamma_2+\dots+a_n\gamma_n$) is a cycle if it can be represented as a sum of  closed curves
+\end{definizione}
+\begin{definizione}
+	A region is simply connected if its complement with  respect to the extended plane is connected 
+\end{definizione}
+\begin{definizione}
+	A cycle $\gamma$ in an open set $\Omega$ is said to be homologous to zero with respect to $\Omega$ if $n(\gamma,a)=0$ for all points a in the complement of $\Omega$
+\end{definizione}
+\begin{teorema}
+	if f is analytic n $\Omega$ , then $$\int_\gamma f(z)dz=0 $$ for all $\gamma$ homologous to zero in $\Omega$
+\end{teorema}
+if $\Omega$ is a simply connected domain the theorem holds for all cycle  . \\ The theorem can also be expressed in the following form 
+\begin{teorema}
+	$$f(z)=\frac{1}{2\pi i}\int_{\gamma}\frac{f(\xi)}{\xi-z}d\xi$$
+for every cycle $\gamma$ which is homologous to zero in $\Omega$
+\end{teorema}
+\begin{definizione}
+	A cycle $\gamma$ is said to bound the region $\Omega$ if and only if $n(\gamma,a)$ is defined and equal to 1 for all points $a \in \Omega$ and either undefined or equal to zero for all points $\notin \Omega$ 
+\end{definizione}
+\begin{teorema}(Variation of the Cauchy's Theorem) \\
+	If $\gamma$ bound a region $\Omega$ and f is holomorphic in $\Omega$ the 
+	$$\int_\gamma f(z)dz=0$$
+	and
+	$$f(z)=\frac{1}{2\pi i}\int_{\gamma}\frac{f(\xi)}{\xi-z}d\xi$$
+\end{teorema}
+\end{document}

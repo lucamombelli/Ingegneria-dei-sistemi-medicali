@@ -1,0 +1,1093 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{sidecap}
+\usepackage{wrapfig,lipsum}
+\usepackage[utf8]{inputenc} %lettere accentate da tastiera 
+\usepackage[T1]{fontenc} % higher quality font encoding
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+%load the font and set it to default
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage[english,italian]{babel}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{geometry}
+\geometry{a4paper,top=3cm,bottom=3cm,left=3.5cm,right=3.5cm,%
+	heightrounded,bindingoffset=5mm}
+\usepackage{tikz}
+\usepackage[x11names]{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=false,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=blue,
+	pdftitle={Analisi II},
+	pdfpagemode=FullScreen,
+}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\newtheorem{teorema}{Teorema}[subsection]
+
+\theoremstyle{definition}
+\newtheorem{definizione}{Definizione}[section]
+
+\newtheorem*{proprieta}{Proprietà}
+\newtheorem*{corollario}{Corollario}
+\newtheorem*{formula}{Formula}
+\newtheorem*{proposizione}{Proposizione}
+\newtheorem{prop}{Proposizione}
+\newtheorem*{lemma}{Lemma}
+
+\newtheorem{nulla}{}
+\newtcbtheorem[number within=section]{teo}{Teorema}{colback=black!5 ,colframe=black!70,sharp corners,separator sign dash,fonttitle=\bfseries }{thm}
+\newtcbtheorem[number within=section]{teo1}{}{colback=black!5 ,colframe=Burlywood4!80 }{}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\w}{\mathbb{W}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norma}{||\cdot||}\usepackage{mathtools}
+\newcommand{\Rn}{\R^n}
+\newcommand{\la}{\lambda}
+\newcommand{\on}{^{\perp}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\xb}{\overline{x}}
+\newcommand{\fn}{f: A\subseteq \Rn \rightarrow \R}
+\newcommand{\fnn}{f: A\subseteq \Rn \rightarrow \Rn}
+\newcommand{\fnm}{f: A\subseteq \Rn \rightarrow \R^m}
+\newcommand{\s}{$\Sigma$}
+\renewcommand{\labelitemi}{$\star$}
+\newcommand{\ec}{e^{i\omega t}}
+\newcommand{\eck}{e^{ik\omega t}}
+\newcommand{\inT}{\int_{0}^{T} }
+\newcommand{\norm}[1]{|#1|}
+\newcommand{\tom}{\widetilde{\Omega}}
+\newcommand{\defeq}{\overset{\text{def}}{=}}
+\renewcommand{\arraystretch}{1.5} % Aumenta l'altezza delle righe
+\title{Sistemi dinamici }
+\author{Luca Mombelli}
+\date{2024-25}
+
+\begin{document}
+		\maketitle
+	\tableofcontents
+	\newpage
+	\section{Problemi di Cauchy per ODE del primo ordine in forma normale}
+	\begin{definizione}
+\textbf{Dati:} Un aperto $D\subseteq R \times \Rn$  e una funzione $f:D \rightarrow \Rn , (t_0,y_0)\in \D$ \\ 
+\textbf{Problema:} Dobbiamo trovare un intervallo $I\subseteq D$ e una funzione differenziabile (di classe $C^1$) $y: I \rightarrow \Rn$ tale che 
+$$\begin{cases}
+y'(t)=f(t,y(t))\\
+y(t_0)=y_0
+\end{cases} \ \ \ \forall t \in I$$
+	\end{definizione}
+	\begin{teo}{di esistenza e unicità locale}{}
+	Se f è di classe $C^1$ allora esiste un certo alpha tale che il problema di Cauchy possiede una ed una sola soluzione definita nell'intervallo $[t_0-\alpha , t_0+\alpha]$
+			\end{teo}
+			\begin{definizione}(soluzioni distinte)\newline
+				$y_1,y_2$ sono due soluzione distinte se esiste un certo $t_0$ reale tale che $y_1,y_2$ sono definite in $t_0$ però $$y_1(t_0)\neq y_2(t_0)$$
+			\end{definizione}
+			\begin{corollario}(di unicità locale)\newline
+				Se f è di classe $C^1$  e $y_1,y_2$ sono soluzioni distinte dell'equazione differenziale $y'(t)=f(t,y(t))$ allora i grafici di $y_1,y_2$ sono disgiunti 
+			\end{corollario}
+		\begin{definizione}(prolungamento di una soluzione)\newline
+			Sia $y_1:I_1\rightarrow\Rn$ una soluzione del problema di Cauchy.sia $y_2:I_2 \rightarrow\Rn$ un'altra soluzione del problema di Cauchy definita in un intervallo $I_2 \supseteq I_1$.Si dice prolungamento di $y_1$ se $y_2(t)=y_1(t) \ \ \forall t \in I $
+		\end{definizione}
+		\begin{definizione}(soluzione massimale)\newline
+			Si dice che una soluzione è massimale se non è ulteriormente prolungabile
+			
+		\end{definizione}
+		\begin{definizione}
+			Si dice che una soluzione è globale quando è definita su $tutto \R$ 
+					\end{definizione}
+					\begin{teo}{di fuga dei compatti}{}
+						Se f è di classe $C^1$ il problema di Caucht possiede una ed una sola soluzione massimale $y:(\alpha_-,\alpha_+)\rightarrow \Rn$. Inoltre , per ogni insieme compatto  K (chiuso e limitato) contenuto in D esiste un intorno $U_+$ di $\alpha_+$ tale che $$(t,y(t))\notin K \ \ \forall t\in I $$
+					\end{teo}
+					\begin{corollario}
+						Se $f:R \times \Rn \rightarrow \Rn$è di classe $C^1$ , se y è una soluzione massimale limitata dell'equazione differenziale allora y è una soluzione globale 
+					\end{corollario}
+					\begin{proof}
+Sia $y:(\alpha_-,\alpha_+)\rightarrow \Rn$ soluzione massimale limitata. Per assurto suppongo che non sia anche  globale quindi $\alpha <  +\infty$> Per ipotesi esiste $M >0 \ t.c \ ||y(t)||\leq M \forall t\in (\alpha_-,\alpha_+)$. Definisco l'insieme 
+$$K=\{(t,z)\in \R\times\Rn : t_0\leq t\leq \alpha_+ , ||z||\leq M \}$$ K è un insieme compatto , inoltre per costruzione 
+$$(t,y(t))\in K \ \ \forall t \in [t_0,\alpha_+) $$ ma ciò contraddice il teorema di fuga dai compatti , allora $\alpha_+=+\infty$ , allora stesso modo si dimostrerà che $alpha_-=-\infty$ 
+					\end{proof}
+					\begin{teo}{dell'asintoto}{}
+Sia $u:[\alpha,=\infty) \rightarrow \R$ una funzione differenziabile. Supponiamo che esistano 
+$$L=\lim_{t\rightarrow +\infty}u(t) \ \ \ L'=\lim_{t\rightarrow +\infty}u'(t)$$ se L è finito allora L'=0
+					\end{teo}
+					\begin{proof}
+Per assurdo supponiamo che $L'\neq 0$. Consideriamo il caso $0<L<=\infty$. Per la definizione di limite esiste $M>0$ tale che per ogni $s\geq M$ 
+\begin{align*}
+	u'(s)&\geq \frac{L'}{2} \ \\ &\text{Prendo $t\geq M $ e integro membro a membro la disuguaglianza su $(M,t)$ }\\
+	\int_{M}^{t}	u'(s)\ ds&\geq\int_{M}^{t} \frac{L}{2} \ ds\\
+	u(t)-u(M)& \geq \frac{L'}{2}t - \frac{L'}{2} M \\
+	u(t) &\geq u(M)  \frac{L'}{2}t - \frac{L'}{2} M  \ \ \underrightarrow{t \rightarrow +\infty} +\infty
+\end{align*}
+ ma ciò è assurdo perchè contraddice l'ipotesi che L sia finito , dunque L=0
+					\end{proof}
+\begin{teo}{del confronto}{}
+sia $f:\R \times \R \rightarrow \R $ una funzione di classe $C^1$ e $(t_0,y_0)\in \R \times \R$. Siano $y,u: I \rightarrow \R$ due funzioni differenziabili , definito sullo stesso intervallo I contente $t_0$ , tali che 
+$$\begin{cases}
+y'(t)\leq f(t,y(t))\\
+y(t_0)=y_0
+\end{cases} \ \ \ \begin{cases}
+u'(t)=u(t,u(t))\\
+u(t_0)=y_0
+\end{cases}$$
+Allora 
+\begin{align*}
+y(t) &\leq u(t) \forall t \in I , t \geq t_0 \\
+y(t)& \geq u(t) \forall t \in I , t \leq t_0
+\end{align*}
+Un risultato analogo vale anche per le disuguaglianze nel verso opposto : 
+$$\begin{cases}
+	y'(t)\geq f(t,y(t))\\
+	y(t_0)=y_0
+\end{cases} \ \ \ \begin{cases}
+	u'(t)=u(t,u(t))\\
+	u(t_0)=y_0
+\end{cases}$$
+Allora ne dedurremmo che : 
+\begin{align*}
+	y(t) &\geq u(t) \forall t \in I , t \geq t_0 \\
+	y(t)& \leq u(t) \forall t \in I , t \leq t_0
+\end{align*}
+\end{teo}
+\begin{definizione} (crescita lineare) \newline
+Si dice che una funzione $f: \R \times \Rn \rightarrow \R $ ha crescita al più lineare nella variabile y se e solo se esistono funzioni continue e non negative  $\phi , \psi \R \rightarrow \R $ tali che 
+$$|f(t,y)|\leq \phi(t)|y|+\psi(t) \ \ \ \forall (t,y)\in \R\times \Rn $$
+\end{definizione}
+Se f è di classe $C^1$ ed è definita su tutto il prodotto cartesiano , per verificare questa condizione basta studiare il comportamento di f quando $|y|\rightarrow +\infty$
+\begin{teo}{di esistenza globale}{}
+	\label{teo:1.5}
+	Sia $f: \R \times \Rn \rightarrow \R $ una funzione di classe $C^1$ di crescita al più lineare nella variabile y. Allora per ogni $(t_0,y_0)\in \R \times \Rn$ il problema di Cauchy (PC) possiede soluzione globale (condizione sufficiente ma non dimostrabile)
+	\end{teo}
+\begin{lemma}(di Grönwall)\newline
+Sia $I \subseteq \R$ un intervallo , siano $\beta , u : I \rightarrow R$ funzioni continue e $\beta \geq 0$ ,Siano  $t_0 \in I , \alpha \in \R$ costanti  . Se  
+$$u(t)\leq \alpha + \int_{t_0}^{t} \beta (s) u(s)ds$$
+Per ogni $t\in I $ , allora 
+$$u(t)\leq \alpha \exp \left( \int_{t_0}^{t} \beta(s)ds \right)$$
+per ogni $t \in I \ , \ t\geq t_0 $ 
+ \end{lemma}
+ \begin{proof}
+ 	Per $t\in I , t \geq t_0$ definisco 
+ 	$$R(t):= \int_{t_0}^{t}\beta (s)u(s)ds$$
+ 	Per il teorema fondamentale del calcolo , R è di classe $C^1$ 
+ 	\begin{align*}
+ 	R'(t)&=\beta (t)u(t)\leq \beta(t)(\alpha + R(t)) \\
+ 	R'(t)&-\beta (t)R(t)\leq \alpha \beta (t)
+ \end{align*}
+ questa è una disequazione differenziale  lineare di primo ordine. 
+ $$B(t)=\int_{t_0}^{t}\beta(s)ds$$
+ Moltiplico entrambi i membri della disuguaglianza per $\exp(-B(t))$
+ \begin{align*}
+ 	(R'(t)-\beta (t)R(t))e^{(-B(t))}&\leq \alpha \beta (t)e^{(-B(t))} \\
+ 	\dfrac{d(R(t)e^{-B(t)})}{dt}& \leq -\alpha \frac{d(\alpha e^{-B(t)})}{dt}
+ \end{align*}
+ Fissiamo ora $t \in I , t \geq t_0$: integrando ambo i membri di questa disuguaglianza sull'intervallo $\left[t_0,t\right]$ e osservando che $R(t_0)=B(t_0)=0$
+ \begin{align*}
+ 	R(t)e^{-B(t)} &\leq \alpha - \alpha e^{-B(t)}\\
+ 	R(t) & \leq \alpha e^{B(t)} - \alpha  \\
+ 	u(t) & \leq \alpha + R(t) \leq \alpha e^{B(t)}
+ 	 \end{align*}
+ \end{proof}
+ \begin{proof} del teorema di  esistenza globale \ref{teo:1.5} \newline
+Sia $y: (\alpha_+,\alpha_-)\rightarrow \Rn$ una soluzione massimale del problema di Cauchy. Dobbiamo dimostrare che $\alpha_-=-\infty , \alpha_+=+\infty$.Supponiamo per assurdo che $\alpha_+ < +\infty$ .Fissiamo un punto $ t \in (t_0,y_0)$ , per il teorema fondamentale del calcolo e la disuguaglianza triangolare abbiamo che 
+$$|y(t)|=\left|y(t_0)+\int_{t_0}^{t} y'(s)ds\right|  \leq |y(t_0)|+ \int_{t_0}^{t}|y'(s)|ds$$
+y è la soluzione dell'equazione differenziale e abbiamo supposto che f sia a crescita al più lineare : 
+\begin{align*}
+	\norm{y(t)}&\leq \norm{y(t_0)}+ \int_{t_0}^{t}\norm{f(s,y(s))}ds \\
+	&\leq \norm{y(t_0)}+ \int_{t_0}^{t} \varphi(s)|y(s)|+\psi(s)ds\\
+	&\leq  \underbrace{\norm{y(t_0)}+ \int_{t_0}^{\alpha_+} \psi (s)ds}_{:=\alpha} + \int_{t_0}^{t} \varphi (s)\norm{y(s)}ds
+\end{align*}
+Possiamo dunque applicare il lemma di Grönwall alla funzione $\norm{y}$ e ne deduciamo che :
+$$\norm{y}\leq \alpha \exp \left(\int_{t_0}^{t}\varphi(s)ds\right) \ \ \ \ \forall t \in \left[t_0,\alpha_+\right)$$
+Ne consegue che la funzione y è limitata nell'intervallo , ma questo contraddice il teorema di fuga dai compatti , si ottiene quindi una contraddizione 
+ \end{proof}
+ \subsubsection{Dipendenza continua dai dati inziali}
+ \begin{definizione}(funzione lipschitziana) \newline 
+ 	 	 Sia $f:\R \times \Rn \rightarrow \Rn$. Si dice che f è lipschitziana in y ( uniformemente rispetto a t ) se esiste una costate $L > 0$ tale che , per ogni $t \in \R , y_1 \in \R , y_2 \in \R $ valga 
+ 	 	 \begin{equation}
+ 	 	 \norm{f(t,y_1)-f(t,y_2)} \leq L \norm{y_1 - y_2}
+ 	 	  	 	 \end{equation}
+ 	 	 \end{definizione}
+ 	 	 Una funzione lipschitziana in y ha necessariamente crescita al più lineare 
+ 	 	 \begin{lemma}
+ 	 	 	Sia $f:\R \times \Rn \rightarrow \Rn$ una funzione di classe $C^1$ tale che la matrice delle derivate parziali $\nabla_y f$ , rispetto alla variabile y , sia limitata , vale a dire che esiste $L > 0 $ tale che , per ogni $(t,y) \in \R \times \Rn$ ed ogni indice i , j valga $$\norm{\nabla_{y_i}f_i } \leq L $$
+ 	 	 	Allora la funzione è lipschitziana in y. Viceversa se f è di classe $C^1$ e lipschitzianain y , allora $\nabla_y f$  è limitata 
+ 	 	 \end{lemma}
+ 	 	 \begin{teo}{di dipendenza continua dal dato iniziale }{}
+ 	 	 	Sia $f:\R \times \Rn \rightarrow \Rn$ sia lipschitziana nella variabile y (uniformemente rispetto a t e una funzione di classe $C^1$) . Allora le soluzioni massimali  dei due problemi di Cauchy sono globali e soddisfano 
+ 	 	 	$$\norm{y_1(t)-y_2(t)}\leq e^{L\norm{t-t_0}}\norm{y_{1,0}-y_{2,0}}  \ \ \ \forall t \in \R \ $$
+ 	 	 	dove L è una costante che soddisfa la disuguaglianza di Lipschiz. (1)
+ 	 	 \end{teo}
+ 	 	 \begin{proof}
+ 	 	 	Le soluzione massimali sono globali per il teorema di esistenza globale , questo teorema li posso applicare perchè le funzioni lipschitziana in y hanno crescita al più lineare in y. \\
+ 	 	 	Definisco la quantità $$z(t)=\frac{1}{2}\norm{y_1(t)-y_2(t)}^2$$  per la regola della catena z è differenziabile come funzione di t e la sua derivata è  
+ 	 	 	\begin{align*}
+ 	 	 	&z'(t)=(y_1(t)-y_2(t))(y_1'(t)-y_2'(t))\\
+ 	 	 	&z'(t)=(y_1(t)-y_2(t))(f(t,y_1)-f(t,y_2)) \\
+ 	 	 	&\text{Applico la disuguaglianza di Cauchy- Schwarz}\\
+ 	 	 	&\leq \norm{ y_1(t)-y_2(t)}\ \norm{(f(t,y_1)-f(t,y_2))} \\
+ 	 	 	&\leq L\norm{y_1(t)-y_2(t)}^2=2Lz(t)\\
+ 	 	 	&z'(t)\leq 2Lz(t)
+ 	 	 		\end{align*}
+ 	 	 	Per il lemma di Gronwall (in forma differenziale ) , supponiamo che $$z(t) \leq \frac{1}{2}e^{L(t-t_0)} \norm{y_{0,1}-y_{0,2}}^2  \ \ \ \ \forall t \geq t_0$$. Moltiplicando per 2 ed estraendo la radice ottengo  DA COMPLETARE 	 	 	\end{proof}
+ 	 	 	\newpage
+ 	 	 	\section{Risoluzione esplicite di alcune equazioni differenziali}
+ 	 	 	\subsection{Equazione di riccati}
+ 	 	 	Le equazione di Riccati sono equazioni differenziali del primo ordine nella forma 
+ 	 	 	$$y'(t)=\alpha(t)+\beta(t)y+\gamma(t)y^2$$
+ 	 	 	dove $\alpha , \beta , \gamma $ sono funzioni continue. \\
+ 	 	 	Il primo  metodo di risoluzione di questa famiglia di equazioni differenziali è il seguente. \\
+ 	 	 	Introduco una variabile u tale che risolva la seguente equazione 
+ 	 	 	$$y(t)=\frac{u'(t)}{\gamma(t)u(t)}$$
+ 	 	 	sostituendo questo fattore nell'equazione di Riccati ottiene un'equazione lineare del secondo ordine per la variabile u 
+ 	 	 	$$\gamma u'' - (\gamma'+\beta \gamma )u'+\alpha \gamma^2 u=0$$
+ 	 	 	Il secondo metodo di risoluzione riduce l'equazione di Riccati ad un'equazione lineare del primo ordine. Richiede di conoscere una soluzione $\bar{y}$ dell'equazione di Riccati. \\
+ 	 	 	Cambip di variabile 
+ 	 	 	$$w \ \ tale \ che \ \  y(t)=\bar{y}(t)+\frac{1}{w(t)}$$
+ 	 	 	\subsection{Equazioni differenziali totali}
+ 	 	 	Le equazioni differenziali totali sono equazioni differenziali nella forma : $$\alpha(t,y(t))+\beta(t,y(t))y'(t)=0$$ 
+ 	 	 	dove $\alpha , \beta : D \subset \R \times \R \rightarrow \R$ soni funzioni date , di classe $C^1(D)$. \\ Cerchiamo , se esiste , una \textbf{primitiva} dell'equazione , ovvero una funzione differenziabile 
+ 	 	 	\begin{align*}
+  	 	 		F:D \rightarrow \R \ tale\  che\ : \\
+  	 	 		\begin{cases}
+  	 	 			\partial_t F=\alpha \\
+  	 	 			\partial_y F = \beta 
+  	 	 		\end{cases}
+ 	 	 	\end{align*}
+ 	 	 	\begin{proposizione}
+Sia F una primitiva dell'equazione differenziale totale. Allora ogni soluzione y dell'equazione differenziale totale $$F(t,y(t))=costante$$Viceversa , se $(t_0,y_0)\in D $ è tale che $\partial_y F(t_0,y_0)\neq 0 $ , allora la curva di livello di F passante per $(t_0,y_0)$è localmente , in un intorno di $(t_0,y_0)$ , il grafico di una soluzione dell'equazione differenziale totale 
+\end{proposizione}
+\begin{proof}
+	Sia y una soluzione dell'equazione differenziale totale 
+	\begin{align*}
+		\frac{d}{dt}F(t,y(t))&=\\&=\partial_t F(t,y(t))+\partial_y F(t,y(t))y'(t) \\ &=\alpha(y,y(t))+\beta (t,y(t))y'(t)\\
+		&=0
+	\end{align*}
+	Quindi la funzione primitiva è costante. \\
+	Il viceversa discende dal teorema del Dini
+\end{proof}
+Affinchè esista una primitiva F dell'equazione differenziale totoale è \textbf{necessario} che 
+$$\partial_y \alpha - \partial_t \beta =0 $$
+su tutto D. Inoltre se il dominio D è semplicemente connesso non è solo condizione necessaria ma anche sufficiente affinchè esista 
+\section{Sistemi Dinamici}
+\begin{definizione}(campo vettoriale)\\
+	Sia $\Omega \subseteq \Rn$ aperto. Un campo vettoriale è una mappa che $$X:\Omega \rightarrow \Rn$$
+	Una definizione più precisa sarebbe la seguente :
+	\begin{align*}
+		\overline{X}&: \Omega \rightarrow \Omega \times \Rn \\
+		\overline{X} &:z \mapsto (z,X(z))
+	\end{align*}
+\end{definizione}
+Quest'ultima definizione ci è utile se lavoriamo sulle varietà , se $\Omega\subset \Rn$ allora il prodotto cartesiano $\Omega \times \Rn $ viene detto fibrato tangente. Noi utilizzeremo la prima definizione di campo vettoriale e inoltre consideremo unicamente campi di vettoriale di classe $C^{\infty}$\\
+Inoltre definiamo $\Omega$ come \textbf{Spazio delle fasi}
+\begin{definizione}
+	Una curva integrale di un campo vettoriale $X:\Omega \rightarrow \Rn$ è una funzione differenziabile $z:I \subseteq \R  \rightarrow \Rn$ intervallo , che risolve l'equazione $$\dot{z}(t)=X(z(t)) \ \ \ \forall t \in I$$
+\end{definizione}
+Il sistema di equazioni differenziali $\dot{z}(t)=X(z(t)$ è autonomo , cioè non dipende esplicitamente dalla variabile t . Segue che se $z:I \subseteq \R  \rightarrow \Rn$ è un curva integrale integrale di X allora vale che 
+$$w(t)=z(t-t_0)$$ con $t_0$ fissato è una curva integrale. \\
+Di conseguenza basta studiare i problemi di cauchy della seguente forma 
+$$\begin{cases}
+	\dot{z}(t)=X(z(t)) \\
+	z(0)=z_0
+\end{cases}$$
+Una curva integrale è tangente al campo vettoriale in ogni suo punto. Inoltre non è detto che una curva integrale sia definita su tutto $\R$ (le soluzioni massimale non sono sempre globali)
+\begin{definizione}(Orbita)\\
+	Un'orbita del campo vettoriale $\Omega \subseteq \Rn$ è l'immagine di una delle curve integrali di X , orientata nel verso dei tempi crescenti. L'insieme di tutte le orbite di un campo vettoriale X si chiama ritratto in fase di X 
+\end{definizione}
+\begin{proposizione}
+	Per ogni punto dello spazio delle fasi $\Omega$ passa una ed una sola orbita di X. 
+\end{proposizione}
+\begin{proof}
+	Dato $z_0\in \mathbb{C}$ esiste (almeno localmente) una soluzione di 
+	$$\begin{cases}
+		\dot{z}=X(z)\\
+		z(0)=z_0
+	\end{cases}$$. L'immagine di tale soluzione è un'orbita che passa per $z_0$.\\
+	Suppongo che due orbite , $O_1\neq O_2$ , si intersechino in un punto $z_0 \in O_1\cup O_2$. Allora esistono curve integrali $z_1:I_1 \rightarrow \Omega $ $z_2:I_2 \rightarrow \Omega $ e tempi $t_1 \in I_1 \ , \ t_2 \in I_2$ tali che 
+	$$z_1(t_1)=z_2(t_2)=z_0$$
+	Considero $w_1(t)=z_1(t-t_1) \ , \  w_2(t)=z_2(t-t_2)$. Allora il problema di Cauchy 
+	$$\begin{cases}
+		\dot{z}=X(z)\\
+		z(0)=z_0
+			\end{cases}$$ avrebbe due soluzioni distinte , $w_1,w_2$. Assurdo per il teorema di esistenza locale 
+\end{proof}
+\begin{definizione}(Campo vettoriale completo )
+	Un campo vettoriale $X:\Omega \rightarrow \Rn$ si dice \textbf{completo} se e solo se tutte le sue curve integrali massimali sono globali 
+\end{definizione}
+Tutti i campi vettoriali con crescita al più lineare sono completi , per il teorema di esistenza globale
+\begin{proposizione}
+	Per ogni campo vettoriale $X:\Omega \rightarrow \Rn$ esiste una campo completo he ha le stesse orbite di X (Stesse orbite ma curve integrali diverse)
+\end{proposizione}
+\begin{definizione}
+	Dato un campo vettoriale $X:\Omega \rightarrow \Rn$ , una soluzione di equilibrio è una curva integrale costante $t \in \R \mapsto \bar{z} \in \Omega $. Si dice che $\bar{z}$ è un punto di equilibrio di X.  
+\end{definizione}
+\begin{proposizione}
+	Sia $X:\Omega \rightarrow \Rn$ campo vettoriale e $z:(\alpha , +\infty)\rightarrow \Omega$ una curva integrale. Se esiste $\overline{z}=\lim_{t\rightarrow +\infty} z(t) $ e se $\overline{z}\in \R$, allora $\overline{z}$ è un equilibrio di X 
+\end{proposizione}
+\begin{proof}
+	Per definizione di curva integrale  $$\dot{z}(t)=X(z(t))\ \underrightarrow{t \rightarrow +\infty}\  X(\bar{z})$$. ( supponendo X continuo). Per il teorema dell'asintoto applicato componente per componente , segue che $X(\bar{z})=0$
+	\end{proof}
+	\textbf{NB :} questa proposizione si applica unicamente a sistemi autonomi
+	\begin{definizione}
+		Sia $X:\Omega \rightarrow \Rn$ un campo vettoriale, sia $\bar{z} \in \Omega$ equilibrio. Diremo che $\bar{z} $ è un equilibrio 
+		\begin{itemize}
+			\item \textcolor{red}{Attrattivo}: se e solo se esiste un intorno $V \subseteq \Omega$ di $\bar{z}$ tale che , per ogni curva integrale $z:I \rightarrow \Omega $ di X con $z(0)\in V$ sia ha 
+			$$\lim_{t\rightarrow +\infty}z(t)=\bar{z}$$
+				\item \textcolor{red}{Repulsivo}: se e solo se esiste un intorno $V \subseteq \Omega$ di $\bar{z}$ tale che , per ogni curva $z:I \rightarrow \Omega $ di X con $z(0)\in V$ sia ha 
+			$$\lim_{t\rightarrow -\infty}z(t)=\bar{z}$$
+		\end{itemize}
+	\end{definizione}
+	\begin{proposizione}
+		Sia $\Omega \subseteq \R$ un intervallo , $X:\Omega \rightarrow \R$ e $\bar{z}$ un equilibrio di X 
+		\begin{enumerate}
+			\item Se $X'(\bar{z})<0$ l'equilibrio è \textbf{attrattivo}
+			\item Se $X'(\bar{z})>0$ l'equilibrio è \textbf{repulsivo}
+		\end{enumerate}
+		Se $X'(\bar{z})<0$ tutto può succedere 
+	\end{proposizione}
+	\subsection{Equazioni del secondo ordine}
+	Consideriamo l'equazione del secondo ordine 
+	$$\ddot{x}=Y(x,\dot{x})$$
+	dove $C \subseteq \Rn$ aperto , $x \in X  \ , x: I \subseteq \R \rightarrow \Rn \ ,  \ Y: C \times \Rn \rightarrow \Rn $.\\ Possiamo ricondurci ad un sistema del primo ordine 
+	$$\begin{cases}
+		\dot{x}=v \\
+		\dot{v}=Y(x,v)=\ddot{x}
+	\end{cases}$$
+	Il campo vettoriale associato al sistema $X: C \times \Rn \rightarrow \Rn \times \Rn$
+	$$\begin{pmatrix}
+		\dot{x}\\
+		\dot{v}
+	\end{pmatrix}=X(x,v)=\begin{pmatrix}
+		v \\
+		Y(x,v)
+	\end{pmatrix}$$
+	Per il sistema definiamo 
+	\begin{itemize}
+		\item \textbf{Spazio delle fasi :} $C \times \Rn$ quindi lo spazio della fasi corrisponde al dominio
+		\item \textbf{Spazio delle configurazioni :} C 
+		\item \textbf{Le orbite} sono le immagini delle curve $t \mapsto (x(t),\dot{x}(t))$ contenute in $C \times \Rn$. Inoltre le orbite sono a due a due disgiunte 
+		\item Le proiezione delle orbite sullo spazio delle configurazioni sono dette \textbf{traiettorie} 
+		\item Gli equilibri sono i punti che annullano il  campo vettoriale , quindi tutti e solo i punti $(\bar{x},\bar{y})$ tali che 
+		$$X(\bar{x},\bar{y})=0 \leftrightarrow \begin{cases}
+			\bar{v}=0 \\
+			Y(\bar{x},0)=0
+		\end{cases}$$
+		Gli equilibri che hanno la forma $(\bar{x},0)$ tali che $Y(\bar{x},0)=0$ si chiamano \textbf{configurazioni d'equilibrio}
+	\end{itemize}
+	\section{Sistemi lineari}
+	Chiamiamo i sistemi lineari quelli della forma 
+	$$\dot{z}=Az \ \ A \in R^{n\times n}$$ quindi il camo vettoriale $X(z)=Az$ è una mappa lineare $\Rn \rightarrow \Rn$
+\begin{definizione}
+	Si dice linearizzato di X nell'equilibrio $\bar{z}$ il sistema lineare \begin{align*}
+	z&=\bar{z}+u\\
+\dot{u}&=Au \ \ \ \ A= J(X(\bar{z}))	\\
+\dot{z}&=A(z - \bar{z})
+\end{align*}dove J(X) è la matrice jacobiana del campo vettoriale 
+\end{definizione}
+\subsection{Linearizzazione del secondo ordine }
+Sia $C \subseteq \Rn$ aperto , $Y: C \times \Rn \rightarrow \Rn$allora 
+$$\ddot{x}=Y(x,\dot{x})$$
+Sia $\bar{x}$ un equilibrio quindi $Y(\bar{x},0)=0$ 
+Considero il sistema di primo rodine associato 
+$$\begin{cases}
+	\dot{x}=v\\
+	\dot{v}=Y(x,v) 
+\end{cases}\Rightarrow \begin{pmatrix}
+\dot{x} \\
+\dot{v}
+\end{pmatrix} = X(x,v)= \begin{pmatrix}
+v\\
+Y(x,v)
+\end{pmatrix}$$
+Linearizzando nel suo equlibrio $\bar{x}$ ottengo 
+$$
+\begin{pmatrix}
+	\dot{x}\\
+	\dot{v}
+\end{pmatrix}=JX(\bar{x},0)\begin{pmatrix}
+x- \bar{x} \\
+v 
+\end{pmatrix}= 
+\begin{pmatrix}
+0 & I_d \\
+D_xY(\bar{x},0) & D_vY(\bar{x},0)
+\end{pmatrix}
+\begin{pmatrix}
+x- \bar{x} \\
+v 
+\end{pmatrix}
+$$
+Quindi ottengo il seguente sistema lineare 
+$$\begin{cases}
+	\dot{x}=v \\
+	\dot{v}=J_xY(\bar{x},0)+J_vY(\bar{x},0)
+\end{cases}$$
+\subsection{Generalità}
+I campi vettoriali lineari sono completi , la curva integrale di $\dot{z}=Az$ con dato iniziale $z_0 \in \Rn$  è 
+$$z(t)=e^{tA} z_0 \ \ con \ \ e^{tA}:= \sum_0^{+\infty} \frac{(tA)^k}{k!}$$ 
+Siano \( X \) e \( Y \) due matrici complesse di dimensione \( n \times n \) e siano \( a \) e \( b \) due numeri complessi. 
+
+\begin{itemize}
+	\item \( e^0 = I \).
+	
+	\item \( e^{aX}e^{bX} = e^{(a+b)X} \).
+	
+	
+	\item Se \( AB = BA \), allora \( e^Ae^B = e^{A+B} \).
+	
+	\item Se \( Y \) è invertibile, allora 
+	\[
+	e^{YtXY^{-1}} = Ye^{tX}Y^{-1}.
+	\]
+	
+	\item \(\det(e^X) = e^{\operatorname{tr}(X)} \).
+	
+\item Se $A=diag(\la_1,\dots,\la_n)$ allora $e^{tA}=diag(e^{\la_1 t},\dots , e^{\la_n t})$
+	
+	\item L'esponenziale di una matrice è sempre una matrice invertibile, in analogia con il fatto che l'esponenziale di un numero complesso non è mai nullo.
+\end{itemize}
+\subsection{Decomposizone in sottospazi invarianti di grado 1 e 2 }
+\begin{definizione}
+	Sia $X : \Omega \rightarrow \Rn$ un campo vettoriale liscio. Un insieme $ M \subset \Omega$ si dice invariante ( per il flusso di X ) se per ogni curva integrale $z: \R \rightarrow \Omega$ tale che $z(0)\in M$ si ha $$z(t)\in M \ \ \ \forall t \in \R$$
+\end{definizione}
+\begin{definizione}(Sottospazio invariante)\\
+	Un sottospazio invariante relativo a un operatore lineare $T:V \rightarrow V $ su uno spazio vettoriale V è un sottospazio $W \subseteq V$ tale che per ogni vettore $w \in W $ , l'immagine $T(w)$ appartiene ancora W. Formalmente $T(W)\subseteq w$
+\end{definizione}
+\begin{proposizione}
+	Uno sottospazio vettoriale $V \subseteq \Rn$  è invariante per il flusso $\dot{z}=Az$  se e solo se $$AV=\left\{Az \ | \ z \in V \right\}\subseteq V$$
+\end{proposizione}
+\begin{proof}
+	Suppongo $AV \subseteq V $ allora $$A^2V=A(AV)\subseteq AV \subseteq V$$ , per induzione $A^KV\subseteq V$.\\
+	Sia $z_0 \in V $ allora la curva integrale passante per $z_0$ è : 
+	$$t \mapsto e^{tA}\ z_0 = \sum_{0}^{+\infty}\frac{t^K A^k z_0}{k!} \in V $$
+	quindi V è invariante per il flusso.	\\
+	Supponiamo invece che V sia invariante per il flusso . Sia $z_0 \in V $ , sappiamo che $e^{tA}z_0 \in V  \ \forall t \in \R $. Per la linearità di V  abbiamo che $\frac{1}{t} (e^{tA}z_0 -z_0)  \in V \forall t \in \R\setminus\left\{0\right\}$
+	\begin{align*}
+\frac{1}{t} (e^{tA}z_0 -z_0) &= \\
+&=\frac{1}{t} \left(z_0 + tAz_0+\frac{t^2 A^2 z_0}{2!}+\frac{t^3 A^3 z_0}{3!}+ \dots - z_0\right)\\
+&=Az_0 + \frac{t A^2 z_0}{2!} + \frac{t^2 A^3 z_0}{3!}+ \dots
+	\end{align*}
+	quest'ultima seria converge \textbf{uniformemente} in t sui compatti di $\R$ , quindi la somma della serie è una funzione continua di t.\\
+	Segue che $$\lim_{t \rightarrow 0}\frac{1}{t}(e^{tA}z_0 -z_0)=Az_0$$
+	Ma siccome $\frac{1}{t} (e^{tA}z_0 -z_0)  \in V \forall t \in \R\setminus\left\{0\right\}$ segue dalla chiusura di V ( V sottospazio vettoriale) che $Az_0 \in V$
+\end{proof}
+Consideriamo ora $\dot{z}=Az $ con A matrice diagonalizzabile su $\mathbb{C}$. Allora potremmo scrivere 
+$$A=PDP^{-1}\Rightarrow e^{tA}=P \ diag(e^{\la_1t} , \dots,e^{\la_n t}) \ P^{-1}$$ 
+Ma gli autovalori e la matrice P generalmente sono complessi mentre noi vogliamo studiare il ritratto in fase di $\Rn$
+Osservazione : $$Av=\la v \Rightarrow \overline{Av}=\overline{\la v} \Rightarrow A\overline{v}=\overline{\la} \overline{v}$$
+Otteniamo quindi : \\
+\begin{center}
+\begin{tabular}{|c|c|}
+	\hline
+	Autovalori di A & $\overbracket[0.5pt]{\la_1,\overline{\la}_1,\dots,\la_k,\overline{\la}_k}^{\in \mathbb{C}\setminus \R} , \overbracket[0.5pt]{\la_{2k+1},\dots,\la_n}^{\in \R}$  \\
+	\hline
+	Basi di autovettori di A& $\overbracket[0.5pt]{u_1,\overline{u}_1,\dots,u_k,\overline{u}_k}^{\in \mathbb{C^n}\setminus \Rn} , \overbracket[0.5pt]{u_{2k+1},\dots,u_n}^{\in \Rn}$ \\
+	\hline
+\end{tabular}
+\end{center}
+\begin{proposizione}
+	Sia  $A \in \R^{n\times n}$ una matrice diagonalizzabile su $\mathbb{C}$ allora esiste una decomposizione in spazi invarianti di $\Rn$ 
+	$$\Rn=<v_1,w_1> \oplus \dots \oplus <v_k,w_k> \oplus <\mu_{2k+1}>\oplus \dots \oplus<\mu_n>$$
+	di dimensione 1 o 2 .\\
+	Inoltre 
+	\begin{itemize}
+		\item La restrizione di $e^{tA}$ su sottospazi di dimensione 1 è una dilatazione di fattore $e^{\la_i t}$ con $\la_i$autovalore associato 
+		\item La restrizione di $e^{tA}$ (del flusso) su sottospazi di dimensione 2 è simile a 
+		$$e^{\alpha_i t}\begin{pmatrix}
+\cos(\beta_i t) & \sin (\beta_i t) \\
+-\sin(\beta_i t) & \cos(\beta_i t)
+		\end{pmatrix}$$
+		Quindi una composizione di rotazione e dilatazione , dove $\la_i=\alpha_i+j\beta_i $ è l'autovalore associato 
+		
+	\end{itemize}
+\end{proposizione}
+Di conseguenza le orbite sui sottospazi di dimensione 1 sono semirette per $\la_i\neq0$ 
+\begin{center}
+\begin{tikzpicture}
+	
+	% Linee con frecce
+	\draw[red, thick, ->]  (0,0.5) -- (-1,0.5);
+	\draw[red, thick, ->] (0,0.5) -- (1,0.5);
+	\draw[red, thick, ->] (-1,-0.5) -- (-0.08,-0.5);
+	\draw[red, thick, ->] (1,-0.5) -- (0.08,-0.5);
+	
+	% Punti centrali
+	\draw[red] (0,0.5) circle (2pt);
+	\filldraw[red] (0,-0.5) circle (2pt);
+	
+	% Etichette sopra e sotto
+	\node[above] at (1, 0.5) {\small $\lambda_j > 0$};
+	\node[below] at (1, -0.5) {\small $\lambda_j < 0$};
+	
+\end{tikzpicture}
+\end{center}
+\newpage
+Sia $\dot{z}=Az , A \in \R^{2\times 2}$ classifichiamo il sistema a seconda degli autovalori di A che indicheremo con $\la_1,\la_2$  
+\begin{itemize}
+	\item Autovalori complessi coniugati 
+	\begin{center}
+	\begin{tikzpicture}
+		% Griglia di sfondo
+		\draw[gray!20, thin] (-2,-2) grid (2,2);
+		\draw[gray!20, thin] (8,-2) grid (12,2);
+		\draw[gray!20, thin] (3,-2) grid (7,2);
+		
+		% Assi 
+		\draw[->, line width=1pt] (-2,0) -- (2,0) node[below right] {\large $x$};
+		\draw[->, line width=1pt] (0,-2) -- (0,2) node[above left] {\large $y$};
+		
+		\draw[domain=-20:200,smooth , thick , red,->] plot({0.01*\x*cos(3*\x)+0.1},{ 0.01*\x *sin(3*\x)-0.2});
+		\node at (1.5,1.7) {$a_i >0$};	
+		\node[below] at (0,-2) {Fuoco instabile};
+		%assi
+		\draw[->, line width=1pt] (3,0) -- (7,0) node[below right] {\large $x$};
+		\draw[->, line width=1pt] (5,-2) -- (5,2) node[above left] {\large $y$};
+		
+		\draw[smooth , thick,red] (5,0) circle[radius=1cm];
+		\draw[smooth , thick,red] (5,0) circle[radius=0.5cm];
+		\draw[smooth , thick,red] (5,0) circle[radius=1.5cm];
+		\node at (6.5,1.7) {$a_i =0$};	
+		\node[below] at (5,-2) {Centro};
+		
+		% Assi 
+		\draw[->, line width=1pt] (8,0) -- (12,0) node[below right] {\large $x$};
+		\draw[->, line width=1pt] (10,-2) -- (10,2) node[above left] {\large $y$};
+		
+		\draw[domain=-20:200,smooth , thick , red,<-] plot({0.01*\x*cos(3*\x)+10.1},{ 0.01*\x *sin(3*\x)-0.2});
+		\node at (11.5,1.7) {$a_i <0$};	
+		\node[below] at (10,-2) {Fuoco stabile};
+	\end{tikzpicture}
+	\end{center}
+	\item Autovalori reali distinti e non nulli 
+	\begin{center}
+	\begin{tikzpicture}
+		% Griglia di sfondo
+		\draw[gray!20, thin] (-2,-2) grid (2,2);
+		\draw[gray!20, thin] (8,-2) grid (12,2);
+		\draw[gray!20, thin] (3,-2) grid (7,2);
+		
+		% Assi 
+		\draw[->, line width=1pt] (-2,0) -- (2,0) node[below right] {\large $x$};
+		\draw[->, line width=1pt] (0,-2) -- (0,2) node[above left] {\large $y$};
+		
+			\draw[domain=-1:1,smooth , thick , red,<->] plot({\x},{0.5*\x*\x+0.05});
+		\draw[domain=-1:1,smooth , thick , red,<->] plot({\x},{1.5*\x*\x+0.05});
+			\draw[domain=-1:1,smooth , thick , red,<->] plot({\x},{\x*\x+0.05});
+				\draw[domain=-1:1,smooth , thick , red,<->] plot({\x},{-0.5*\x*\x-0.05});
+			\draw[domain=-1:1,smooth , thick , red,<->] plot({\x},{-1.5*\x*\x-0.05});
+			\draw[domain=-1:1,smooth , thick , red,<->] plot({\x},{-\x*\x});
+		\node at (1.5,1.7) {$a_i >0$};	
+			\draw[domain = -1.5:-0.5,red,thick,<-] plot({\x},{0});
+		\draw[domain = 0.5:1.5,red,thick,->] plot({\x},{0});
+		\draw[domain = -1.5:-0.5,red,thick,<-] plot({0},{\x});
+		\draw[domain = 0.5:1.5,red,thick,->] plot({0},{\x});
+		
+		\node[below] at (0,-2) {Nodo instabile , $\la_2 >\la_1 >0$};
+		%assi
+		\draw[->, line width=1pt] (3,0) -- (7,0) node[below right] {\large $x$};
+		\draw[->, line width=1pt] (5,-2) -- (5,2) node[above left] {\large $y$};
+	
+		\draw[domain=-1.4:1.4,smooth , thick , red,postaction={decorate}, % Applica la decorazione
+			decoration={
+				markings,
+			mark=at position 0.2 with {\arrow{>}},
+			mark=at position -0.2 with {\arrow{<}},  % Posizione della freccia (0.7 = 70% della curva)
+			}] plot({\x*\x+5.055},{0.5*\x});
+			\draw[domain=-1.4:1.4,smooth , thick , red,postaction={decorate}, % Applica la decorazione
+			decoration={
+				markings,
+				mark=at position 0.2 with {\arrow{>}},
+				mark=at position -0.2 with {\arrow{<}},  % Posizione della freccia (0.7 = 70% della curva)
+			}] plot({-\x*\x+4.96},{0.5*\x});
+			\draw[domain=-1.4:1.4,smooth , thick , red,postaction={decorate}, % Applica la decorazione
+			decoration={
+				markings,
+				mark=at position 0.2 with {\arrow{>}},
+				mark=at position -0.2 with {\arrow{<}}, % Posizione della freccia (0.7 = 70% della curva)
+			}] plot({-\x*\x+4.96},{1.2*\x});
+			\draw[domain=-1.4:1.4,smooth , thick , red,postaction={decorate}, % Applica la decorazione
+			decoration={
+				markings,
+				mark=at position 0.2 with {\arrow{>}},
+				mark=at position -0.2 with {\arrow{<}}, % Posizione della freccia (0.7 = 70% della curva)
+			}] plot({\x*\x+5.055},{1.2*\x});
+				\draw[domain = -1.5:-0.5,red,thick,->] plot({\x+5},{0});
+			\draw[domain = 0.5:1.5,red,thick,<-] plot({\x+5},{0});
+			\draw[domain = -1.5:-0.5,red,thick,->] plot({5},{\x});
+			\draw[domain = 0.5:1.5,red,thick,<-] plot({5},{\x});
+			
+		
+		\node at (6.5,1.7) {$a_i =0$};	
+		\node[below] at (5,-2) {Nodo Stabile $\la_1 < \la_2 <0$};
+		
+		% Assi 
+		\draw[->, line width=1pt] (8,0) -- (12,0) node[below right] {\large $x$};
+		\draw[->, line width=1pt] (10,-2) -- (10,2) node[above left] {\large $y$};
+		
+		\draw[domain=0.5:2,thick,red,postaction={decorate}, % Applica la decorazione
+		decoration={
+			markings,
+			mark=at position 0.5 with {\arrow{<}},
+		}] plot({\x+10},{1/\x)});
+		\draw[domain=-2:-0.5,thick,red,postaction={decorate}, % Applica la decorazione
+		decoration={
+			markings,
+			mark=at position 0.5 with {\arrow{>}},
+		}] plot({\x+10},{1/\x)});
+		\draw[domain=0.1:2,thick,red,postaction={decorate}, % Applica la decorazione
+		decoration={
+			markings,
+			mark=at position 0.5 with {\arrow{<}},
+		}] plot({\x+10},{0.2/\x)});
+		\draw[domain=-2:-0.1,thick,red,postaction={decorate}, % Applica la decorazione
+		decoration={
+			markings,
+			mark=at position 0.5 with {\arrow{>}},
+		}] plot({\x+10},{0.2/\x)});
+		
+			\draw[domain=0.5:2,thick,red,postaction={decorate}, % Applica la decorazione
+		decoration={
+			markings,
+			mark=at position 0.5 with {\arrow{<}},
+		}] plot({\x+10},{-1/\x)});
+		\draw[domain=-2:-0.5,thick,red,postaction={decorate}, % Applica la decorazione
+		decoration={
+			markings,
+			mark=at position 0.5 with {\arrow{>}},
+		}] plot({\x+10},{-1/\x)});
+		\draw[domain=0.1:2,thick,red,postaction={decorate}, % Applica la decorazione
+		decoration={
+			markings,
+			mark=at position 0.5 with {\arrow{<}},
+		}] plot({\x+10},{-0.2/\x)});
+		\draw[domain=-2:-0.1,thick,red,postaction={decorate}, % Applica la decorazione
+		decoration={
+			markings,
+			mark=at position 0.5 with {\arrow{>}},
+		}] plot({\x+10},{-0.2/\x)});
+		
+		\draw[domain = -1.5:-0.5,red,thick,->] plot({\x+10},{0});
+		\draw[domain = 0.5:1.5,red,thick,<-] plot({\x+10},{0});
+		\draw[domain = -1.5:-0.5,red,thick,<-] plot({10},{\x});
+		\draw[domain = 0.5:1.5,red,thick,->] plot({10},{\x});
+		
+		\node at (11.5,1.7) {$a_i <0$};	
+		\node[below] at (10,-2) {Sella $\la_1 <0 , \la_2 > 0$};
+	\end{tikzpicture}
+	\end{center}
+	\textbf{NB :} le orbite non toccano mai l'origine poichè essa è un equilibrio
+	\item Autovalori coincidenti reali : $\la_1=\la_1\neq 0$
+		\begin{center}
+		\begin{tikzpicture}
+			%DEFINIZIONE ASSI
+			\draw[gray!20, thin](-3,-3) grid(3,3);
+			\draw[gray!20, thin](6,-3) grid(12,3);
+			\draw[->, line width=1.5pt] (-3,0) -- (3,0) node[below right] {\large $x$};
+			\draw[->, line width=1.5pt] (0,-3) -- (0,3) node[above left] {\large $y$};
+			
+			\draw[domain=2.5:0.2,thick , red,<-] plot({\x},{\x});
+			\draw[domain=2.5:0.2,thick , red,<-] plot({-\x},{\x});
+			\draw[domain=2.5:0.2,thick , red,<-] plot({\x},{-\x});
+			\draw[domain=2.5:0.2,thick , red,<-] plot({-\x},{-\x});
+			
+			
+			\draw[domain = -2.5:-0.5,red,thick,<-] plot({\x},{0});
+			\draw[domain = 0.5:2.5,red,thick,->] plot({\x},{0});
+			\draw[domain = -2.5:-0.5,red,thick,<-] plot({0},{\x});
+			\draw[domain = 0.5:2.5,red,thick,->] plot({0},{\x});
+			
+				\node[below] at (0,-3) {Nodo a stella instabile $\la_2 >0$};
+			
+			\draw[->, line width=1.5pt] (6,0) -- (12,0) node[below right] {\large $x$};
+			\draw[->, line width=1.5pt] (9,-3) -- (9,3) node[above left] {\large $y$};
+			
+			\draw[domain=2.5:0.2,thick , red,->] plot({\x+9},{\x});
+			\draw[domain=2.5:0.2,thick , red,->] plot({-\x+9},{\x});
+			\draw[domain=2.5:0.2,thick , red,->] plot({\x+9},{-\x});
+			\draw[domain=2.5:0.2,thick , red,->] plot({-\x+9},{-\x});
+			
+			
+			\draw[domain = -2.5:-0.5,red,thick,->] plot({\x+9},{0});
+			\draw[domain = 0.5:2.5,red,thick,<-] plot({\x+9},{0});
+			\draw[domain = -2.5:-0.5,red,thick,->] plot({9},{\x});
+			\draw[domain = 0.5:2.5,red,thick,<-] plot({9},{\x});
+		
+			
+			\node[below] at (9,-3) {Nodo a stella stabile $\la_2 <0$};
+			
+			
+		\end{tikzpicture}
+	\end{center}
+	\item Un autovalore nullo e l'altro no : $\la_1 =0,\la_2\neq 0$
+	\begin{center}
+		\begin{tikzpicture}
+	%DEFINIZIONE ASSI
+	\draw[gray!20, thin](-3,-3) grid(3,3);
+	\draw[gray!20, thin](6,-3) grid(12,3);
+	\draw[->, line width=1.5pt] (-3,0) -- (3,0) node[below right] {\large $x$};
+	\draw[->, line width=1.5pt] (0,-3) -- (0,3) node[above left] {\large $y$};
+	
+	\draw[red,thick,<-,domain=2.5:0.5,line width=1.5pt]plot({-1},{\x});
+	\draw[red,thick,<-,domain=2.5:0.5,line width=1.5pt]plot({-2},{\x});
+	\draw[red,thick,<-,domain=2.5:0.5,line width=1.5pt]plot({1},{\x});
+	\draw[red,thick,<-,domain=2.5:0.5,line width=1.5pt]plot({2},{\x});
+
+	\draw[red,thick,<-,domain=-2.5:-0.5,line width=1.5pt]plot({-1},{\x});
+	\draw[red,thick,<-,domain=-2.5:-0.5,line width=1.5pt]plot({-2},{\x});
+	\draw[red,thick,<-,domain=-2.5:-0.5,line width=1.5pt]plot({1},{\x});
+	\draw[red,thick,<-,domain=-2.5:-0.5,line width=1.5pt]plot({2},{\x});
+	
+	\node[below] at (0,-3) {Nodo a pettine instabile $\la_2 >0$};
+	
+	
+	\draw[->, line width=1.5pt] (6,0) -- (12,0) node[below right] {\large $x$};
+	\draw[->, line width=1.5pt] (9,-3) -- (9,3) node[above left] {\large $y$};
+	
+	\draw[red,thick,->,domain=2.5:0.5,line width=1.5pt]plot({8},{\x});
+	\draw[red,thick,->,domain=2.5:0.5,line width=1.5pt]plot({7},{\x});
+	\draw[red,thick,->,domain=2.5:0.5,line width=1.5pt]plot({10},{\x});
+	\draw[red,thick,->,domain=2.5:0.5,line width=1.5pt]plot({11},{\x});
+
+	\draw[red,thick,->,domain=-2.5:-0.5,line width=1.5pt]plot({8},{\x});
+	\draw[red,thick,->,domain=-2.5:-0.5,line width=1.5pt]plot({7},{\x});
+	\draw[red,thick,->,domain=-2.5:-0.5,line width=1.5pt]plot({10},{\x});
+	\draw[red,thick,->,domain=-2.5:-0.5,line width=1.5pt]plot({11},{\x});
+	
+	\node[below] at (9,-3) {Nodo a pettine stabile $\la_2 <0$};
+	
+	
+		\end{tikzpicture}
+	\end{center}
+\end{itemize}
+\textbf{NOTA BENE} in tutti questi casi  i disegni sono stati tracciati rispetto nella base degli autovettori. e orbite nella base canonica sono trasformate per deformazioni affini 
+
+\subsection{Sistemi lineari diagonalizzabili}
+Consideriamo il sistema lineare $\dot{z}=Az \ \ A \in \R^{n\times n}$ diagonalizzabile in $\mathbb{C}$. Abbiamo visto una decomposizione in sottospazi invarianti 
+$$\Rn = \underbrace{<v_1,w_1> \oplus \dots \oplus <v_k,w_k>}_{\la_1 , \overline{\la_1} \ \ \dots \la_k , \overline{\la_k} \in \mathbb{C} \setminus \R } \oplus \underbrace{<u_{2k+1}> \oplus \dots \oplus< u_n >}_{\la_{2k+1} , \dots  ,\la_n \ \ \in \R}  $$
+Ora raggruppiamo i sotto spazi in questa decomposizione secondo il segno di $$Re(\la_i)=E^c \oplus E^s \oplus E^u$$
+\begin{itemize}
+	\item  $E^s :=$ somma diretta dei sottospazi invarianti di dimensione 1 o 2 associato ad autovalori con $Re(\la_i)<0$. sottospazio \textbf{STABILE}
+	\item  $E^c :=$ somma diretta dei sottospazi invarianti di dimensione 1 o 2 associato ad autovalori con $Re(\la_i)=0$. sottospazio \textbf{CENTRALE}
+	\item  $E^u :=$ somma diretta dei sottospazi invarianti di dimensione 1 o 2 associato ad autovalori con $Re(\la_i)>0$. sottospazio \textbf{INSTABILE}
+\end{itemize}
+Poichè il sistema è lineare , una soluzione qualsiasi si può decomporre come somma di una componente $E^s$ , una componente $E^c$ e una componente $E^u$ (eventualmente nulle)
+\subsection{Relazione tra sistemi non lineari e i loro linearizzati }
+Dato $X: \Omega\subseteq\Rn\rightarrow\Rn$ campo vettoriale liscio , $\overline{z}$ un equilibrio. Si dice che $\overline{z}$ è: 
+\begin{itemize}
+	\item  \textbf{Iperbolico} : se tutti gli autovalori di $Jx(\overline{z})$ hanno\textbf{ parte reale diversa da zero }
+	\item  \textbf{Ellittico} : se tutti gli autovalori di $Jx(\overline{z})$ hanno\textbf{ parte reale uguale da zero }
+\end{itemize}
+\begin{definizione}(Omeomorfismo)\newline
+Siano $\Omega,\Omega' \subset \Rn$ aperti. Una mappa $f:\Omega \rightarrow \Omega'$ si dice \textit{omeomorfismo} se è continua , invertibile e con inversa continua. 
+Se esiste un omeomorfismo $\Omega \rightarrow \Omega'$ i due insiemi si dicono omeomorfi  
+\end{definizione}
+\begin{teo}{Hartman-Grobbman}{}
+	Se $\overline{z}$ è un \textit{equilibrio iperbolico} di X allora esiste un intorno dell'equilibrio in cui il ritratto di fase di X è omeomorfo al ritratto di fase del sistema  linearizzato 
+	$$\dot{z}=Dx(\overline{z})(z-\overline{z})$$
+\end{teo}
+Se vi sono autovalori con parte reale nulla . i termini non lineari giocano un ruolo determinante e il risultato del teorema non vale più.\\
+Un risultato di questo tipo per i sistemi non lineari è il Teorema della varietà stabile . Supponiamo che X sia un campo vettoriale completo , sia $$t \mapsto z(t;z_0)$$ la soluzione massimale (globale ) del problema di Cauchy $$\begin{cases}
+	\dot{z}=X(z)\\
+	z(0)=z_0
+\end{cases}$$
+Data $\overline{z}$ un'equilibrio definisco 
+\begin{align*}
+	\varepsilon^s(\overline{z})&=\left\{z_0 \in \Omega : \lim_{t\rightarrow+\infty}z(t;z_0)=z\right\} \ \ \ \text{Varietà \textbf{STABILE} (Arrivano all'equilibrio )}\\
+		\varepsilon^u(\overline{z})&=\left\{z_0 \in \Omega : \lim_{t\rightarrow-\infty}z(t;z_0)=z\right\} \ \ \ \text{Varietà \textbf{INSTABILE} (Provengono dall ' equilibrio)}
+\end{align*} 
+Questi insieme sono ben definiti ma non disgiunti ($\overline{z} \in \varepsilon^s , \overline{z} \in \varepsilon^u$).\\
+Inoltre $	\varepsilon^s,\varepsilon^u$ sono invarianti rispetto al flusso di X poichè sono unioni di orbite 
+\begin{teo}{della varietà iperbolica}{}
+	Se $\overline{z}$ è un equilibrio iperbolico di un campo vettoriale completo $X: \Omega \rightarrow \Rn$ allota $	\varepsilon^s(\overline{z}) , \varepsilon^u(\overline{z})$ sono sottovarietà immerse di $\Rn$. \\Inoltre lo spazio tangente a $\begin{cases}
+		\varepsilon^s(\overline{z}) \\  \varepsilon^u(\overline{z})
+	\end{cases}$ in $\overline{z}$ è il sottospazio  $\begin{cases}
+	E^s \ stabile \\
+	E^u\ instabile
+	\end{cases}$ del sistema linearizzato di X in $\overline{z}$
+\end{teo}
+\newpage
+\section{Flusso e coniugazione di campi vettoriali }
+\subsection{Flusso}
+Sia $X : \Omega \rightarrow \Rn$ un campo vettoriale liscio e completo. Dato $z_0 \in \Omega$ indichiamo con $t \mapsto z(t,z_0)$ la soluzione massimale del problema di Cauchy $$\begin{cases}
+	\dot{z}=X(z)\\
+	z(0)=z_0
+\end{cases}$$
+\begin{definizione}(Flusso di una campo vettoriale) \newline
+	ll flusso di un campo vettoriale completo  $X : \Omega \rightarrow \Rn$ è la mappa $\Phi^X: \R \times \Omega \rightarrow \Omega $ definita da 
+	$$\Phi^X(t,z_0):=z(t,z_0)\ \ \forall(t,z_0 ) \in \R \times \Omega$$
+	Si chiama mappa  al tempo t del flusso di X la mappa $\Phi_t^X:  \Omega \rightarrow \Omega $ definita da 
+	$$\Phi_t^X:=\Phi^X(t,z_0):=z(t,z_0)\ \ \forall,z_0  \in  \Omega$$
+\end{definizione}
+IIl flusso $\Phi^X$ esiste poichè la soluzione massimale del problema di Caucht esiste ed è unica.\\
+Per ogni campo vettoriale X liscio e completo , il flusso di  $\Phi^X: \R \times \Omega \rightarrow \Omega $  è una mappa liscia. Inoltre anche  $\Phi_t^X:  \Omega \rightarrow \Omega $  è una mappa liscia $\forall t \in \R$ (deriva dal teorema delle dipendenza continua )
+\subsubsection{Proprietà del flusso }
+\begin{enumerate}
+	\item $$\Phi_0^x=Id_{\Omega}$$
+	\item $$\forall t \in R , s \in \R \ \ \Phi_t^X \circ \Phi_s^X=\Phi_{t+s}^X$$
+	\item $$\forall t \in R  \ \ \Phi_t^X \ \text{e' invertibile e }(\Phi_T^X)^{-1}=\Phi_{-t}^X$$
+	\item $$\Phi_t^X:  \Omega \rightarrow \Omega \ \text{ e' un diffeomorfismo } \forall t \in R $$
+\end{enumerate}
+\begin{proof}(proprietà del flusso) \\
+	\begin{enumerate}
+\item $$\Phi_0^X(z_0)=z(0,z_0)=z_0 \ \ \forall z_0 \in \Omega $$
+\item Dato $z_0 \in \Omega $ , considero le due funzioni $\R \rightarrow \Omega$  date da \begin{align*}
+	c_1(t):=\Phi_{t+s}^x(z_0)=z(t+s,z_0) \\
+	c_2(t)=\Phi_t^X(\Phi_s^X(z_0))=z(t,z(s,z_0))
+\end{align*}
+Entrambe sono soluzioni  dell'ODE $\dot{z}=X(z)$. Inoltre  $$c_1(o)=z(s,z_0)=c_2(t)$$ Per unicità segue $$c_1(t)=c_2(t) \ \ \ \forall t \in \R $$
+\item Prendendo la $s=-t $ in 2 si ha che $$\Phi_t^X \circ \Phi_{-t}^x=\Phi_0^XId_{\Omega}$$
+	\end{enumerate}
+\end{proof}
+\subsection{Coniugazione}
+Siano $\Omega , \widetilde{\Omega} \subseteq \Rn  $  due insieme aperti. Siano  $X : \Omega \rightarrow \Rn$ e  $\widetilde{X} : \widetilde{\Omega} \rightarrow \Rn$ due campi vettoriali completi e sia $\zeta: \Omega \to \tom$ un diffeomorfismo ( in sostanza un cambio di coordinate).
+\begin{definizione}
+Si dice che i campi $X : \Omega \rightarrow \Rn$ e  $\widetilde{X} : \widetilde{\Omega} \rightarrow \Rn$ sono coniugati dal diffeomorfismo $\zeta: \Omega \to \tom$ se le curve integrali di $\widetilde{X}$ sono tutte e sole le immagini mediante $\zeta$ delle curve integrali di X e viceversa 
+\begin{center}
+	\Large
+\begin{tikzcd}
+	\Omega \arrow[r, "\zeta"] \arrow[d, "\Phi_t^X"']
+	& \tom \arrow[d, "\Phi_t^{\widetilde{X}}"]\\ 
+	\Omega \arrow[r, "\zeta "] & \tom  
+\end{tikzcd}
+\end{center}
+\end{definizione}
+\begin{prop}
+Due campi vettoriali completi $X,\widetilde{X}$ sono coniugati dal diffeomorfismo $\zeta$ se e solo se 
+$$\widetilde{X}=(D(\zeta)X)\circ \zeta^{-1}$$
+Si dice che il membro di destra è il \textbf{PUSH-FOWARD} di X mediante $$\zeta_{*} X=\zeta_{\#}X:=(D(\zeta)X)\circ \zeta^{-1}$$
+\end{prop}
+\begin{proof}
+	Sia $t \in \R \mapsto z(t) \in \Omega$ una curva integrale di X, I campo X e $\widetilde{X}$ sono coniugati se e solo se , per ogni curva integrale $t \mapsto z(t)$ di X $t \mapsto \zeta(z(t))$ è una curva integrale di $\widetilde{X}$  questo significa che 
+	\begin{align*}
+		&\widetilde{X}(\zeta(z(t)))=\frac{d}{dt} \left(\zeta(z(t))\right) \\
+		&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ =(D\zeta) (z(t))\dot{z}(t) = (D\zeta )(z(t)X(z(t)) \\ 
+		&Posto \ w=\zeta(z(t)) \\ 
+		&\widetilde{X}(w)=(D\zeta)(\zeta^{-1}(w))X(\zeta^{-1}(w))
+	\end{align*}
+\end{proof}
+\begin{proposizione}
+	Sia $\Omega \subseteq \Rn$ un aperto $X : \Omega \times \Rn \rightarrow \Rn\times \Rn$un campo vettoriale associato ad un sistema del secondo ordine $\left( X(x,v)=\begin{pmatrix} 
+v \\
+y(x,v)
+\end{pmatrix}\right)$. Sia $\zeta : \omega \times \Rn \rightarrow \tom \times \Rn$ un diffeomorfismo del tipo
+\begin{align*}
+	\zeta(x,v)=\begin{pmatrix}
+		F(x) \\
+		G(x,v)
+	\end{pmatrix}
+\end{align*}
+allora $\zeta_{\#}X$ è ancora associato ad un sistema del secondo ordine  se e solo se 
+$$G(x,v)=(DF(x))v$$
+\end{proposizione}  
+\begin{proof}
+	Sia $t \in \R \mapsto z(t) \in \Omega$ una curva integrale di X , definiamo \\$\widetilde{x}(t)=F(x(t)) \ e \ \widetilde{v}(t)=G(x(t),v(t))$. \\Affinchè $\widetilde{x} , \widetilde{y}$ risolvano $\begin{cases}
+		\dot{\widetilde{x}} =\widetilde{v} \\
+			\dot{\widetilde{v}} =\widetilde{y}(\widetilde{x},\widetilde{v}) \\
+	\end{cases}$ è necessario e sufficiente che $	\dot{\widetilde{x}} =\widetilde{v} $ , ma questo significa che 
+	\begin{align*}
+		\widetilde{x}(t)&=\frac{d}{dt}F(x(t)) \\ &= (DF(x(t)))\dot{x}(t) \\&= DF(x(t)) v(t) \\ \widetilde{v}(t)&=G(x(t),v(t)) \\ \dot{\widetilde{x}} =\widetilde{v}  &\iff G(x,v)=(DF(x))v
+ 	\end{align*}
+\end{proof}
+\begin{teo}{Rettificazione locale}{}
+	Sia $X \Omega \rightarrow \Rn $ una campo vettoriale $\bar{z}$ un punto tale che \textcolor{red}{$X(\bar{z} ) \neq 0  $  } ( non è punto di equlibrio) allora esiste un diffeomorfismo , definito localmente in un intorno di $\bar{z}$ , tale che  il campo sia coniugato a $$ \begin{cases}
+	\dot{u}_1=0 \\ 
+	\vdots \\
+		\dot{u}_{n-1}=0 \\
+		\dot{\theta } = 1 
+	\end{cases} $$
+ \end{teo} 
+ 
+ \begin{figure}[h]
+ 	\centering 
+ \includegraphics[scale=0.40]{rett.png}
+ \caption{Rettificazione locale}
+ \end{figure}
+ \begin{teo}{Riparametrizzazione in tempo }{}
+ 	Sia $X :\Omega \rightarrow \Rn $ campo vettoriale , sia $f: \Omega \rightarrow \R$ una funzione liscia tale che $f(z) \neq 0	\ \  \  \forall z \in \Omega $ , e si $\widetilde{X}: \Omega \rightarrow \Rn $ il campo vettoriale definito come $$\widetilde{X}(z)=f(z)X(z)$$ 
+ 	\begin{itemize}
+ 		\item Se $f > 0 $ allora $X \ e \ \widetilde{X}$ hanno lo stesso ritratto di fase 
+ 		 		\item Se $f < 0 $ allora $X \ e \ \widetilde{X}$ hanno lo stesso ritratto di fase , tranne che le orbite sono orientate in versi opposti 
+ 	\end{itemize}
+ \end{teo}
+ \newpage 
+ \section{Integrali primi}
+ \begin{definizione}(Integrale primo) \\ 
+ 	una funzione $f:\Omega \rightarrow \R $ si dice integrale primo di X se tutti gli insiemi di livello di $f$ sono invarianti. \\ 
+ 	Equivalentemente $f$ è un integrale primo se di X se e solo se è costante lungo le soluzioni (curve integrali) $\dot{z}=X(z)$ cioè se e solo se $$f \circ \phi^X_t=f \ \ \ \forall t \in \R$$  
+ 	\end{definizione}
+ 	\begin{definizione}(Derivata di Lie) \\
+ 		Sia $f:\Omega \rightarrow \R $  una funzione differenziabile , si definisce \textbf{derivata di Lie} di f lungo X 
+ 		\begin{align*}
+ 			\mathscr{L}_xf &: \Omega \rightarrow \Omega \\ 
+ 				\mathscr{L}_xf &=X(z) \cdot \nabla f (z)\\
+ 				&=\sum_{j=0}^{n}X_j(z)\ \frac{\partial f}{\partial z_i}(z)
+ 		\end{align*}
+ 	\end{definizione}
+ 	\begin{proposizione}
+ 		Sia $X : \Omega \rightarrow \Rn$ un campo vettoriale e $f:\Omega \rightarrow \R $  una funzione differenziabile
+ 			\begin{enumerate}
+ 				\item Per ogni curva integrale $t \mapsto z(t)$ di X si ha $$\frac{df(z(t))}{dt}=\mathscr{L}_xf(z(t)) \ \ \ \forall t \in \R $$ ovvero $$\frac{d(F \circ \Phi_t^x)}{dt}=\mathscr{L}_xf\circ \Phi^X_t \ \ \ \forall t \in \R$$
+ 				\item F è integrale primo di X $\iff \ \mathscr{L}_xf=0$ 
+ 			\end{enumerate}
+ 	\end{proposizione}
+ 	\begin{proof} \textcolor{white}{succhiamelo}\\
+ 		\begin{enumerate}
+ 			\item $$\frac{df(z(t)}{dt}= \nabla f (z(t))\cdot  \dot{z}(t) =\nabla f (z(t))\cdot  X(z) = \mathscr{L}_x f (z(t))$$
+ 			\item 
+ 			\begin{align*}
+ 				f \ \text{è integrale primo } & \iff t \in \R \mapsto f \circ \Phi_t^x \ \text{è costante } \\ 
+ 				& \iff (\mathscr{L}_x f ) \circ \Phi_t^x = \frac{d(f \circ \Phi_t^x)}{dt}=0
+ 			\end{align*}
+ 		\end{enumerate}
+ 	\end{proof}
+ 	\begin{definizione}(Funzionalmente indipendenti) \\
+ 		Si dice che gli integrali primi 
+ 		$$f_1  : \Omega \rightarrow \R , \dots ,f_k: \Omega \rightarrow \R$$ 
+ 	sono \textit{funzionalmente indipendenti} se per ogni $z \in \Omega$ gradienti 
+ 	$$\nabla f_1 (z) , \dots , \nabla f_k(z)$$ sono linearmente indipendenti come vettori di $\Rn$
+ 	\end{definizione}
+ 	\begin{proposizione}
+ 		Sia $X : \Omega \rightarrow \Rn$ un campo vettoriale , $\bar{x} \in \Omega$ un \textit{equilibrio attrattivo}. Allora ogni integrale primo (continuo) di X è costante in un intorno di $\bar{z}$
+ 	\end{proposizione}
+ 	\begin{proof}
+ 		Per definizione di equilibrio attrattivo , esiste un intorno V di $\bar{z}$ tale che per ogni curva integrale $t \mapsto z(t)$ con $z_0=z(0) \in V $ valga 
+ 		$$\lim_{t \rightarrow \infty}z(t)=\bar{z}$$ 
+ 		Sia f un integrale primo continuo di $\bar{z}$. Allora $f(z(t))=\bar{z} \ \ \ \forall t \in \R$ , dunque per continuità 
+ 		$$f(\bar{z})=f(\lim_{t \rightarrow \infty}z(t))=\lim_{z \rightarrow +\infty}f(z(0))=f(z_0)$$ 
+ 		Poichè $z_0$ può essere preso arbitrariamente in V , segue che f è costante in V 
+ 		 	\end{proof}
+ 		 	\newpage 
+ 		 	\section{Stabilità}
+ 		 	\begin{definizione}
+ 		 		Sia $X : \Omega \subseteq \Rn \rightarrow \Rn$ un campo vettoriale , , $\bar{x} \in \Omega$ un equilibrio. \\
+ 		 		Si dice che $\bar{z}$ è : 
+ 		 		\begin{itemize}
+ 		 			\item \textbf{Stabile} (secondo lyapunov) :  \\
+ 		 			Per ogni intorno U di $\bar{z}$  esiste un intorno $U_0 \ di \ \bar{z}$ tale che 
+ 		 			$$ \forall t \geq 0  \ , \ \Phi^X_t(U_0) \subseteq U $$
+ 		 			\item \textbf{Stabile per tutti i tempi} : \\
+ 		 			se per ogni intorno U di $\bar{z}$  esiste un intorno $U_0 \ di \ \bar{z}$ tale che 
+ 		 			$$ \forall t  \ , \ \Phi^X_t(U_0) \subseteq U $$
+ 		 			\item \textbf{Asintoticamente stabile} : \\se è stabile e attrattivo
+ 		 			\item \textbf{Instabile} : \\
+ 		 			se non è stabile 
+ 		 		\end{itemize} 
+ 		 	\end{definizione}
+ 		 	Note bene : Esistono equilibri attrattivi non stabili 
+\begin{teo}{Secondo teorema di Lyapunov}{}{}
+Sia  $X : \Omega \subseteq \Rn \rightarrow \Rn$ ,  $\bar{x} \in \Omega$ un equilibrio , $W \subseteq \Omega $ un intorno di $\bar{z}$ e $F : W \rightarrow \R$ una funzione differenziabile con \textbf{minimo stretto in $\bar{z}$} : 
+\begin{enumerate}
+\item Se $\mathcal{L}_X F \leq 0$ in W , allora $\bar{z}$ è \textbf{stabile}
+\item Se $\mathcal{L}_X F = 0$ in W , allora $\bar{z}$ è \textbf{stabile per tutti i tempi}
+\item Se $\mathcal{L}_X F < 0  \ in \ W \setminus \{\bar{z}\}$ in W , allora $\bar{z}$ è \textbf{asintoticamente stabile}
+\end{enumerate}
+$\mathcal{W}$ si dice funzione di Lyapunov. L'esistenza di una funzione di Lyapunov è una condiziona sufficiente ma non necessaria per la stabilità. 
+ \end{teo}
+ \begin{proof}
+ 	A meno di una costante posso supporre $F(\bar{z})=0$ poichè per ipotesi la funzione di Lyapunov presenta un minimo stretto in $\bar{z}$ dunque $F> 0 \forall z \in W \setminus\{\bar{z}\}$ 
+ 	\begin{enumerate}
+ 		\item Devo dimostrare che $\bar{z} $ è stabile , cioè 
+ 		\begin{align}
+ 		\forall \sigma > 0 \ \exists \varepsilon > 0  \ t.c \ \forall t \geq 0 \\ \Phi^X_t(B_\sigma(\bar{z}))\subseteq B_\varepsilon(\bar{z})
+ 			\end{align}
+ 		Fisso $\varepsilon >0$ , abbastanza piccolo da avere $B_\varepsilon \subseteq W$ . Per il teorema di Weierstraß esiste 
+ 		$$\alpha:= \min_{z \in \partial B_\varepsilon(\bar{z})} F(z) > 0$$ 
+ 		Inoltre poichè $F$ è continua (quindi per definizione di continuità), esiste $\sigma>0$ - che possiamo prendere minore di $\varepsilon$ - tale che $$F(z) \leq \frac{\alpha}{2} \ \ \ \forall z \in B_\sigma(\bar{z})$$ 
+ 		Voglio arrivare a dimostrare che questo particolare valore di $\sigma$ soddisfa (3) $\forall t \geq 0$: \\
+ 		Procediamo per assurdo , supponiamo che esista un valore $t_0 \geq 0$ tale che $$\Phi^X_t(B_\sigma(\bar{z})) \nsubseteq B_\varepsilon (\bar{z})$$ 
+ 		Ciò significa che esiste $z_0 \in B_\sigma(\bar{z})$ tale che $$\Phi_{t_0}^X(z_0)\notin B_\varepsilon(\bar{z})$$La funzione $t \in \R \mapsto z(t):=\Phi^X_{t}(z_0)$ è una soluzione del sistema $\dot{z}=X(z)$ che parte dal dato iniziale $z_0 \in B_\sigma(\bar{z}) \subseteq B_\varepsilon(\bar{z})$ e , al tempo $t_0$ assume valore non contenuto in $B_\varepsilon(\bar{z})$. Per continuità esistera un valore  $t_1 \in [0,t_0]$ tale che $t_1 \in \partial B_\varepsilon(\bar{z}) $. Avremmo allora 
+ 		\begin{equation}
+ 		F(z(t_1)) \geq \alpha \ \ \ \ F(z(0))=F(z_0) \leq \frac{\alpha}{2}
+ 		\end{equation}
+ 		Inoltre sappiamo che $\frac{d}{dt}F(z(t))=\mathcal{L}_XF(z(t)) 	\leq  0  \ \ \ \ \forall \{t: z(t) \in W\}$. Ciò contraddice (4)
+ 		\item Dimostrazione simile alla precedente 
+ 		\item Per quanto appena dimostrato l'ipotesi $\mathcal{L}_XF < 0 \ \ W \setminus \{\bar{z}\}$ implica che $\bar{z}$ è un punto di equilibrio stabile , occorre dimostrare che $\bar{z} $ è attrattivo. Prendiamo la palla $\overline{B}_\varepsilon (\bar{z})\subseteq W$ ed un numero postivo $\sigma > 0$ tale che 
+ 		\begin{equation}
+\Phi^X_t(B_\sigma(\bar{z}))\subseteq \overline{B}_\varepsilon (\bar{z}) \subseteq W \ \ \ \forall t \geq 0
+ 		\end{equation}
+ 		 $\sigma > 0 $ esiste poichè $\bar{z}$ è stabile. Prendiamo un qualsiasi $z_0 \in B_\sigma(\bar{z})$.\\ Sia $z(t) \overset{\text{def}}{=}\Phi^X_t(z_0)$ la soluzione di $\dot{z}=X(z)$ generata dal dato iniziale $z_0$.Dobbiamo dimostare che 
+ 		$$\lim_{t \rightarrow +\infty}z(t)=\bar{z}$$
+ 		Procediamo per assurdo e supponiamo che la condizione di attrattivita non sia soddisfatta. Per definizione di limite , ciò significa che esistono $\eta > 0$ ed una succesione di tempi $t_k \rightarrow \infty$ tale che $$|z(t_k)-\bar{z}|<\eta  \ \ \forall k \in \mathbb{N}$$Pero la condizione (5) implica che z(t) assumo valori nella palla di raggio epsilon , quindi possiamo affermare che z(t) converge ad un limite $z_\infty \in \overline{B}_\varepsilon (\bar{z})$. Vogliamo dire che $z_\infty=\bar{z}$ , se dimostriamo ques'ultima condizione avremo ottenuto un assurdo e la dimostrazione sarà completata. \\ Consideriamo $t \mapsto \Phi^X_t(z_\infty)$ , ossia la soluzione generata dal dato iniziale $z_\infty $. per continuità del flusso e di F abbiamo 
+ 		$$F(\Phi^X_t(z_\infty ))=F(\Phi^X_t(\lim_{k\rightarrow \infty}z(t_k) ))=\lim_{k\rightarrow \infty}F(\Phi^X_t(z(t_k) ))$$ e per le proprietà del flusso 
+ 		$$F(\Phi^X_t(z(t_k) ))=\lim_{k\rightarrow \infty} F(\Phi^X_t( \Phi^X_{t_k}(z_0)))=\lim_{k\rightarrow \infty}\Phi^X_{t+t_k}(z_0) \ \ \ \ \forall t \geq 0$$ La funzione $s \mapsto \Phi^X_s(z_0)$ è monotona poichè 
+ 		$$\frac{d}{ds}F(\Phi^X_{s}(z_0))=\mathcal{L}_XF(\Phi^X_{s}(z_0))\geq 0$$ dunque ammette limite anche quando $s \rightarrow + \infty$ di conseguenza possiamo dire che 
+ 		$$F(\Phi^X_{t}(z_\infty))=\lim_{s\rightarrow +\infty}F(\Phi^X_{s}(z_0)) \ \ \forall t \geq 0$$ In particolare , F è costante sulla soluzione uscente dal dato iniziale $z_\infty $. Tuttavia sappiamo che $\mathcal{L}_XF < 0 \ in \ W \setminus \{\bar{z}\}$ , dunque se $z_\infty $ fosse diverso dall'equilibrio $\bar{z}$
+  allora F sarebbe strettamente decrescente lungo la soluzione uscente da $z_\infty $ , poicgè questo non è il caso deve essere $z_\infty = \bar{z}$, cio completa la dimostrazione 	\end{enumerate}
+ 		\end{proof}
+ 		\begin{teo}{Principio di La Salle - Krasovski}{}
+Sia  $X : \Omega \subseteq \Rn \rightarrow \Rn$ ,  $\bar{x} \in \Omega$ un equilibrio , $W \subseteq \Omega $ un intorno di $\bar{z}$ e $F : W \rightarrow \R$ una funzione differenziabile con \textbf{minimo stretto in $\bar{z}$}. Se
+\begin{itemize}
+	\item Se $$\mathcal{L}_XW \leq 0 \ in \ W$$
+	\item Nessun orbita , eccetto $\bar{z}$ è contenuta per intero in $\mathscr{L}_XW=0$ (Insieme di livello) \footnotemark
+\end{itemize}
+ 		\end{teo}
+ 		\footnotetext{{Dato una funzione $f:A \rightarrow \R $ si dice insieme di livello di f associato a c l'insieme\\ $f^{-1}(c)=\{x \in A | f(x)=c\}$}}
+ 		\begin{teo}{Primo teorema di Layupunov}{}
+Sia  $X : \Omega \subseteq \Rn \rightarrow \Rn$ ,  $\bar{x} \in \Omega$ un equilibrio : 
+\begin{enumerate}
+	\item Se tutti gli autovalori di $DX(\bar{z})$ hanno parte reale negativa , allora $\bar{z}$ è asintoticamente stabile.
+	\item Se esiste un autovalore di $DX(\bar{z})$  che ha parte reale positiva , allora $\bar{z}$ è instabile 
+\end{enumerate}
+ 		\end{teo}
+ 		\newpage 
+ 		\section{Equazioni di Newton}
+ 		Data $V : \R \rightarrow \R$ una funzione liscia ($C^\infty$) , considero 
+ 		$$\ddot{x}=-V'(x)$$ vogliamo tracciare il ritratto di fase di fase , nel piano delle fasi $(x.\dot{x})$.\\ 
+ 		Poichè l'energia 
+ 		\begin{align*}
+ 			E &: \R \times \R \rightarrow\R \\ 
+ 			(x,\dot{x}) &\mapsto \frac{1}{2} \dot{x}^2+V(x)  \ \ \ \ \  \footnotemark
+ 		\end{align*}  
+ 		\footnotetext{Energia cinetica più energia potenziale}
+ 		è integrale primo , ogni orbita è contenuta n un insieme di livello 
+ 		\begin{align*}
+ 			E^{-1}(e)&=\{(x,\dot{x})\in \R\times \R \  | \   \frac{1}{2} \dot{x}^2+V(x)=e  \} \\ 
+ 			&=\{(x,\dot{x})\in \R\times \R \ |\   \dot{x} = \pm \sqrt{2(e-V(x))}  \}
+ 		\end{align*}
+ \textbf{Osservazioni : } 
+ \begin{itemize}
+ 	\item La proiezione di $E^{-1}$ sull'asse x è $\{x \in \R | V(x)\leq e\}$
+ 	\item ogni $E^{-1}$ è simmetrico rispetto all'asse x . Le intersezioni di $E^{-1}(e)$ con l'asse delle x avvengo nei punto tali che $V(x)=e$
+ 	\item Il teorema della funzione implicita ci permette di dimostrare che $E^{-1}$ è una curva regolare , tranne eventualmente quelle che contengono gli equilibri  
+ \end{itemize}
+ Ora passiamo ad esaminare dei casi particolari : 
+ \begin{itemize}
+ 	\item Se $\{x \in \R | V(x)\leq e\}=[x_-,x_+]$ è un insieme di sottolivello  connesso  e limitato e non c'è nessun $\overline{x}$ tale che $V'(\overline{x})=0 \ e \ V(\overline{x})+e$  allora a questo livello corrisponde un'orbita chiusa , inoltre i punti $x_-,x_+$ sono detti punti di inversione 
+ 	\item 	 Se $\{x \in \R | V(x)\leq e\}=[x_-,x_+]$ è un insieme di sottolivello  connesso  e illimitato e non c'è nessun $\overline{x}$ tale che $V'(\overline{x})=0 \ e \ V(\overline{x})+e$  allora a questo livello corrispondono una o due orbite non chiuse  dette orbite aperte 
+ \item Se $\{x \in \R | V(x)\leq e\}=[x_-,x_+]$ è un insieme di sottolivello  non connesso passiamo a considerare le sue componenti connesse separatamente 
+ \item Orientazione delle orbite : \\ 
+ Nel semipiano $\dot{x} > 0$ le orbite sono percorse  sinistra a destra , nel semipiano $\dot{x} < 0 $ le orbite sono percorse da destra a sinistra  
+ \item I minimi locali stretti di V(x) sono configurazione di equilibrio stabili per tutti i tempi 
+ \item  I massimi localli stretti di V(x) sono configurazione di equilibrio instabili 
+ 	\end{itemize}
+ 	\subsection{Abbassamento dell'ordine e formula del periodo}
+ 	L'esistenza di un integrale primo (energia) per l'equazione $$m \ddot{x}=-V'(x) \ \ \ x \in \R$$ con $m \in \R_{>0} $ e V funzione liscia , permette di abbassare l'ordine del problema , cioè ricondursi a studiare un'equazione del primo ordine. \\ 
+ 	Infatti consideriamo una soluzione dell'equazione di newton con dati iniziali $\begin{cases}
+ 		x(0)=x_0 \\
+ 		\dot{x}(0)=v_0 > 0
+ 	\end{cases} $
+ 	Sia $[t_-,t_+]$ un intervallo su cui la soluzione soddisfa $\dot{x}(t) \geq 0 \ \ \ \forall t \in [t_-,t_+]$ , poichè l'energia è un integrale primo , si ha 
+ 	$$\frac{1}{2}m\dot{x}^2+V(x)=e \ \ \ e \in \R $$ 
+ 	e è una costante determinata univocamente dai dati iniziali $e=\frac{1}{2}m \dot{v_0}^2+V(x_0)$ otteniamo $$\dot{x}=\sqrt{\frac{2}{m}(e-V(x))}\ \ \ \  \   \ \ \ \  (ER)$$
+ 	Supponiamo che $V(x)< e$ su $(t_-,t_+)$ in modo il membro di destra  di (ER) sia strettamente positivo su $(t_-,t_+)$ , allora $\dot{x} > 0 $ e la soluzione $t \mapsto x(t)$ è strettamente crescente su $(t_-,t_+)$. In particolare $t \mapsto x(t)$ è invertibile , l'inversa soddisfa 
+ 	\begin{align*}
+ 		\frac{dt}{dx}(x)&=\frac{1}{\dot{x}(t)} = \frac{1}{\sqrt{\frac{2}{m}(e-V(x))}} \\
+ 		t(x)&=\int_{x_0}^{x}\frac{1}{\sqrt{\frac{2}{m}(e-V(\xi))}} d\xi  \ \ \  (\star)
+ 	\end{align*}
+ 	Cio consente di determinare le soluzione di equazioni di newton a meno di calcolare un integrare e invertire la funzione.\\
+ 	L'equazione $(\star)$ consenta anche di determinare il periodo di una soluzione periodica dell'equazione di newton. \\
+ 	Sia $t \mapsto x(t)$ una soluzione periodica con punti di inversione $(x,0) \ (x_+,0) $ nel piano delle fasi. Il periodo T di tale soluzione dipende dall'energia e della soluzione $T=T(e)$ e si ha 
+ 	$$T(e)=2(t(x_+-t(x_-)))=\sqrt{2m}\int_{x_-(e)}^{x_+(e)} \frac{dx}{\sqrt{e-V(x)}}$$
+ 	Il sistema si dice \textbf{sincrono} se $T(e)$ è costante al variare di tutte le e , altrimenti si dice \textbf{asincrono }
+ 		\end{document}

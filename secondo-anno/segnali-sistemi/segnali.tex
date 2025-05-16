@@ -68,7 +68,8 @@
 \newcommand{\inT}{\int_{0}^{T} }
 \newcommand{\intinf}{\int_{-\infty}^{+\infty}}
 \renewcommand{\arraystretch}{1.5} % Aumenta l'altezza delle righe
-\newcommand{\sistema}{\sum_{i=0}^{n}a_i \frac{d^i v(t)}{dt^i}=\sum_{j=0}^{m}b_j \frac{d^i u(t)}{dit^i}}
+\newcommand{\sistema}{\sum_{i=0}^{n}a_i \frac{d^i v(t)}{dt^i}=\sum_{j=0}^{m}b_i \frac{d^i u(t)}{dit^i}}
+\newcommand{\sisdiscr}{\sum_{i=0}^n a_iv(k-i)=\sum_{i=0}^m b_iu(k-i) \ \ \ \ k \in \mathbb{Z}}
 \newcommand{\suminf}{\sum_{n=-\infty}^{\infty}}
 \title{Segnali e sistemi  }
 \author{Luca Mombelli}
@@ -381,9 +382,9 @@ Risposta in frequenza :
 Un sistema è :
 \begin{itemize}
 	\item \textbf{algebrico o senza memoria} se la relazione tra l'input e l'output è una funzione algebrica
-	\item \textbf{dinamico} se l'outpur dipende dal valore attuale dell'input e anche dalla sua evoluzione passata 
+	\item \textbf{dinamico} se l'output dipende dal valore attuale dell'input e anche dalla sua evoluzione passata 
 	\item \textbf{autonomo o libero} se non riceve input , dipende unicamente dalle condizioni iniziali 
-	\item \textbf{forzato} se è influenzato da input esogeni. Gli inpu manipolabile vengono chiamati segnali di controllo , gli input sconosciuti vengono chiamati disturbi.
+	\item \textbf{forzato} se è influenzato da input esogeni. Gli input manipolabile vengono chiamati segnali di controllo , gli input sconosciuti vengono chiamati disturbi.
 \end{itemize}
 \begin{definizione} (Linearità)
 	\\ Un sistema dinamico $\Sigma$ è lineare se vale il principio della sovrapposizione degli effetti : per un sistema inizialmente a riposo , se i valori di output $v_1 , v_2$ corrispondenti ai valori di input $u_1,u_2$ allora l'ingresso $u=\alpha u_1 + \beta u_2$ corrisponde l'uscita $\alpha v_1 + \beta v_2$ qualuque siano i valori dei parametri $\alpha , \beta \in \R$
@@ -391,14 +392,14 @@ Un sistema è :
 \begin{definizione}(Tempo-invarianza)\\
 	Un sistema dinamico inizialmente a riposo è tempo invariante se traslazioni nel tempo dei valori assunti dagli ingressi $u(t)$ provocano le stesse traslazioni nel tempo dei valori assunti dalle uscite $v(t)$
 \end{definizione}
-\begin{definizione}(Causalità)
+\begin{definizione}(Causalità)\\
 	Un sistema dinamico inizialmente a riposo è causale se l'output al tempo t ($v(t)$) ,dipende solo dall'input al tempo t ($u(t)$). In altre parole , per determinare il valore dell'uscita ad un certo istante di tempo T , mon è necessario conoscere il valore dell'ingresso per istanti di tempo $t > T$
 \end{definizione}
 \begin{definizione}(Stabilità esterna o BIBO , bounded-input bounded output)\\
 Un sistema dinamico a tempo continuo,  inizialmente a riposo  , $\Sigma$ è BIBO stabile se per ogni costante positiva $M_u$ esiste una costante positiva $M_v$ , tale che per ogni segnale di ingresso u(t) che soddisfa 
-$$|u(t)|\leq M_u \ \  t \geq t_0\ \ \ \forall M_u \in R^{+} $$
+$$|u(t)|\leq M_u \ \  t \geq t_0\ $$
 la corrispondente risposta in uscita v(t) è soddisfatta 
-$$|v(t)|\leq M_v \ \  t \geq t_0\ \ \ \forall M_v \in R^{+} $$
+$$|v(t)|\leq M_v \ \  t \geq t_0\ \  $$
 \end{definizione}
 \begin{definizione}(Stabilità interna o asintotica)\\
 	Il Sistema $$\sum_{i=0}^{n}a_i \frac{d^i v(t)}{d^it}=\sum_{j=0}^{m}b_j \frac{d^i u(t)}{d^it}  \ \ \ \ t \geq 0	$$ è \textbf{asintoticamente stabile } se per ogni condizione iniziale $$v\left(0^{-}\right),\left.\frac{d v(t)}{d t}\right|_{t=0^{-}},\left.\frac{d^2 v(t)}{d t^2}\right|_{t=0^{-}}, \ldots,\left.\frac{d^{n-1} v(t)}{d t^{n-1}}\right|_{t=0^{-}}
@@ -929,10 +930,10 @@ $$\begin{cases}
 		$$[rep_tx](t)=\sum_{n=-\infty}^{\infty}x(t-nT)$$
 		L'operazione di replicazione è definita solo se il segnale ha durata limitata.\\
 		Inoltre possiamo anche definire il \textbf{treno campionatore ideale} di periodo T come 
-		$$\widetilde{\delta_T}\sum_{n=-\infty}^{\infty}\delta(t-nT)$$ 
+		$$\widetilde{\delta_T}=\sum_{n=-\infty}^{\infty}\delta(t-nT)$$ 
 		Ora possiamo definire la versione replicata nel seguente modo 
 		$$[rep_Tx](t)=[x(t)*\widetilde{\delta_t}]$$
-		Se passiamo nel dominio della frequenza possiamo calcolare $$X_{rep}(f)=\suminf X\left(\frac{K}{T}\right)\delta\left(f-\frac{k}{T}\right)$$
+		Se passiamo nel dominio della frequenza possiamo calcolare $$X_{rep}(f)=\frac{1}{T}\suminf X\left(\frac{K}{T}\right)\delta\left(f-\frac{k}{T}\right)$$
 		Possiamo vedere che la ripetizione nel dominio delle frequenze è una sequenza di valori discreti della trasformata di x in corrispondenza di $k/T$ e scalati di $1/T$;
 		Abbiamo che quindi \textcolor{blue}{una replicazione nel dominio del tempo corrisponde con un campionamento nel dominio della frequenza}
 	\end{definizione}
@@ -940,7 +941,7 @@ $$\begin{cases}
 	Un modo semplice per campionare un segnale è ill \textbf{campionamento impulsivo} , ciuoe utilizzando il treno di impulsi. 
 	$$x_p(t)=[samp_Tx](t)=\suminf x(nT)\delta(t-nT)$$
 	Se passiamo nel dominio della frequenza ed esiste la trasformata di Fourier del segnale , possiamo calcolare la trasformata di Fourier della versione campionata , allora troviamo che 
-	$$X_p(f)=\frac{1}{T}\suminf X(f-\frac{k}{T})=\frac{1}{T}[rep_{\frac{1}{T}}X](f)$$
+	$$X_p(f)=\frac{1}{T}\suminf X(f-\frac{n}{T})=\frac{1}{T}[rep_{\frac{1}{T}}X](f)$$
 Quindi In conclusione : 
 \begin{itemize}
 	\item Campionamento nel dominio del tempo corrisponde ad una replicazione nel dominio della frequenza 
@@ -953,4 +954,41 @@ Quindi In conclusione :
 	\item La frequenza di campionamento $f_c$ è maggiore della \textcolor{red}{frequenza di Nyquist $f_n=2B$} dove B rappresenta la larghezza di banda monolatera del segnale , che è definita come $$B=inf\{\overline{f}\in \R_+: |X_a(f)|=0 \ \ per \ \ |f|>\overline{f}\}$$
 	\end{enumerate}
 	\end{teo*}
+	Se le condizioni del questo teorema sono soddisfatte allora il segnale può essere ricostruito  a partire dal $[samp_Tx](t)$ utilizzando un filtro con risposta in frequenza del tipo 
+	$$H_r(f)=T \prod \left(\frac{f}{2 f_L}\right)=\frac{1}{f_c}\left(\frac{f}{2 f_L}\right) $$
+	A condizione che $B < f_L < f_c$ , normalmente si assume che $f_c=2f_L$.
+	Quindi il segnale può essere ricostruito attraverso la \textbf{formula di interpolazione ideale} 
+	\begin{align*}
+		x_a(t)&=[samp_Tx * h_r](t)= \left[\suminf x(nT)\delta(t-nT)\right]\\
+		&=X_p(f )H_r(f) = \frac{1}{T} \suminf X(f-\frac{n}{T}) T \prod \left(\frac{f}{2 f_L}\right) = \suminf X(f-\frac{n}{T})  \prod \left(\frac{f}{2 f_L}\right) \\
+		&= \suminf x(n)sinc \left(\frac{t-nT}{T}\right)
+	\end{align*}
+	Nel caso in cui campionassimo un segnale a durata limita , quindi banda \textit{illimitata} , oppure campionassimo un segnale a Banda limitato con frequenza minore di quella di Nyquist allora avviene il fenomeno dell'\textbf{aliasing}
+	\newpage
+	\section{Sistemi a tempo discreto}
+	\begin{definizione}(Tempo-invarianza)\\
+		Un sistema dinamico inizialmente a riposo è \textbf{tempo invariante} se traslazioni nel tempo dei valori assunti dagli ingressi $u(k)$ provocano le stesse traslazioni nel tempo dei valori assunti dalle uscite $v(k)$.\\
+		In altre parole se u(k) produce v(k) allora $u(k-d)$ produce $v(k-d)$ con $d \in \mathbb{Z}$ (In realtà $d \in \mathbb{N}$ poichè nella realtà possiamo solo ritardare un segnale e non anticiparlo , non conoscendo il futuro)\\
+		Inoltre possiamo definire l'operatore \textbf{ritardo $\sigma$ } come 
+		$$[\sigma^d u](k)=u(k-d)$$
+			\end{definizione}
+	\begin{definizione}(Stabilità esterna o BIBO , bounded-input bounded output)\\
+		Un sistema dinamico a tempo discreto $\Sigma$ è \textbf{BIBO stabile }se per ogni costante positiva $M_u$ esiste una costante positiva $M_v$ , tale che per ogni segnale di ingresso u(k) che soddisfa 
+		$$|u(k)|\leq M_u \ \  k \in \mathbb{Z}$$
+		la corrispondente risposta in uscita v(k) soddisfa
+		$$|v(k)|\leq M_v \ \  \textbf{} $$
+	\end{definizione}
+	Un sistema \textbf{SISO lineare} può essere espresso nella seguente forma : 
+	$$\sum_{i=0}^n a_i(k)v(k-i)=\sum_{i=0}^m b_i(k)u(k-i) \ \ \ \ k \in \mathbb{Z}$$
+	dove $a_i(k),b_i(k)$ sono coefficienti  valori reali che possono dipendere dla tempo con $a_0,b_m,a_n$ non nulli
+	Se invece abbiamo un sistema \textbf{SISO lineare tempo.invariante} abbiamo che l'equazione alle differenza diventa 
+	$$\sisdiscr$$
+	\begin{itemize}
+		\item Se $n=0$ il sistema viene descritto dall'equazione 
+		$$v(k)=\sum_{i=0}^{m}\frac{b_i}{a_0}u(k-i)  \ \ \ k \in \mathbb{Z}$$
+		Questo modello è chiamato \textbf{Modello a media mobile}
+		\item Se $m=0$ il sistema viene descritto dall'equazione
+		$$\sum_{i=0}^{n}\frac{a_i}{b_0}v(k-i)=u(k)$$
+		Questo modello è chiamato \textbf{Modello autoregressivo}
+	\end{itemize}
  \end{document}

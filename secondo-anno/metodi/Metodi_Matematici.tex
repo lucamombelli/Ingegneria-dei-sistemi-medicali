@@ -767,6 +767,30 @@ $$\intinf f(x)dx$$ quindi integrali dove $\alpha=0$ , l'idea risolutiva è la st
 	Se f(z) è una funzione razione con P e q polinomi con $deg D \geq deg N+2$ , è assicurato che la funzione soddisfi l'ipotesi del lemma di jordan 
 \end{tcolorbox}
 Poi la strategia risolutiva rimane identica a quella spiegato per gli integrali del terzo tipo 
+\newpage
+\subsection{Valori Principali}
+\begin{definizione}(Valori Principali)\\
+	Sia [a,b] un intervallo chiuso e limitato di $\R$ e sia $c \in ]a,b[$ c è una singolarità per f continua su $I\setminus \{c\}$. \\ si definisce \textcolor{red}{valore principale} di un integrale la quantità 
+	\begin{align*}
+		v_p\int_{a}^{b}f(x)&:= \lim_{r \rightarrow 0} \left[\int_{a}^{c-r}f(x)dx+\int_{c+r}^{b}f(x)dx\right] \\
+		&:=  \lim_{r \rightarrow 0} \int_{[a,b]\setminus B(c,r)} f(x)dx
+		\end{align*}
+		se tale limite esiste finito.
+\end{definizione}
+In questo contesto si considera la retta reale come munita di un unico punto all'infinito che sia sempre una possibili singolarità. In tal caso possiamo considerare il valore principale delle integrale $\R\setminus [a,b]$ 
+$$vp \int_{\R \setminus [a,b]}f(x)dx=\lim_{r \rightarrow \infty}\left[\int_{-r}^{a}f(x)d(x)+\int_{b}^rf(x)dx\right]$$
+\textcolor{blue}{Osservazione}: Le proprietà di linearità dell'integrale si estendono al valore principale : 
+$$vp\int_I \la f \mu g= \la \in_It f + \mu \int_i g$$
+con $\la,\mu \in \R$ e  $\int _I f \ e \int _I g$ esistono. \\
+Inoltre se f è complessa 
+$$vp \int_I f= vp \int Re(f) + i \ vp \int_I Im(f)$$
+\begin{tcolorbox}
+
+\begin{lemma}(del cerchio piccolo) \\
+	Sia $z_0\in \Omega $ , f olomorfa in $\Omega \setminus \{z_0\}$  con $z_0$ polo di ordine 1 per f. Se $\theta_1 , \theta_2 \in \R \ , \theta_1 < \theta_2$ , posto $\gamma_\rho(\theta)=z_0+e^{i\theta} \ \theta \in [\theta_1,\theta_2]$ 
+	$$\lim_{\rho \rightarrow 0^+} \int_{\gamma_{\rho}}f(z)dz= i (\theta2 -\theta_2)Res(f,z_0) $$
+p\end{lemma}
+\end{tcolorbox}
 
 
 
@@ -832,5 +856,6 @@ for every cycle $\gamma$ which is homologous to zero in $\Omega$
 	$$\int_\gamma f(z)dz=0$$
 	and
 	$$f(z)=\frac{1}{2\pi i}\int_{\gamma}\frac{f(\xi)}{\xi-z}d\xi$$
+	\
 \end{teorema}
 \end{document}

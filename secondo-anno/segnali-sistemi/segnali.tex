@@ -70,6 +70,7 @@
 \renewcommand{\arraystretch}{1.5} % Aumenta l'altezza delle righe
 \newcommand{\sistema}{\sum_{i=0}^{n}a_i \frac{d^i v(t)}{dt^i}=\sum_{j=0}^{m}b_i \frac{d^i u(t)}{dit^i}}
 \newcommand{\sisdiscr}{\sum_{i=0}^n a_iv(k-i)=\sum_{i=0}^m b_iu(k-i) \ \ \ \ k \in \mathbb{Z}}
+\newcommand{\sisdiscro}{\sum_{i=0}^n a_iv(k-i)=\sum_{i=0}^m b_iu(k-i) \ \ \ \ k \geq 0}
 \newcommand{\suminf}{\sum_{n=-\infty}^{\infty}}
 \title{Segnali e sistemi  }
 \author{Luca Mombelli}
@@ -955,15 +956,113 @@ Quindi In conclusione :
 	\end{enumerate}
 	\end{teo*}
 	Se le condizioni del questo teorema sono soddisfatte allora il segnale può essere ricostruito  a partire dal $[samp_Tx](t)$ utilizzando un filtro con risposta in frequenza del tipo 
-	$$H_r(f)=T \prod \left(\frac{f}{2 f_L}\right)=\frac{1}{f_c}\left(\frac{f}{2 f_L}\right) $$
+	\begin{align*}
+H_r(f)&=T \prod \left(\frac{f}{2 f_L}\right)=\frac{1}{f_c}\left(\frac{f}{2 f_L}\right) \\
+h_r(t)&=F^{-1}[H_r(f)](t)= (2f_LT) sinc(2f_Lt) \ \ \ \xrightarrow{f_L=f_c/2} sinc\left(\frac{t}{T}\right)
+	\end{align*}
+	
+	
 	A condizione che $B < f_L < f_c$ , normalmente si assume che $f_c=2f_L$.
 	Quindi il segnale può essere ricostruito attraverso la \textbf{formula di interpolazione ideale} 
 	\begin{align*}
-		x_a(t)&=[samp_Tx * h_r](t)= \left[\suminf x(nT)\delta(t-nT)\right]\\
-		&=X_p(f )H_r(f) = \frac{1}{T} \suminf X(f-\frac{n}{T}) T \prod \left(\frac{f}{2 f_L}\right) = \suminf X(f-\frac{n}{T})  \prod \left(\frac{f}{2 f_L}\right) \\
+		x_a(t)&=[samp_Tx * h_r](t)= \left[\suminf x(nT)\delta(t-nT)*h_r\right](t)= \left[\suminf x(nT)\delta(t-nT)* sinc\left(\frac{t}{T}\right)\right](t)\\
 		&= \suminf x(n)sinc \left(\frac{t-nT}{T}\right)
 	\end{align*}
-	Nel caso in cui campionassimo un segnale a durata limita , quindi banda \textit{illimitata} , oppure campionassimo un segnale a Banda limitato con frequenza minore di quella di Nyquist allora avviene il fenomeno dell'\textbf{aliasing}
+	Nel caso in cui campionassimo un segnale a durata limita , quindi banda \textit{illimitata} , oppure campionassimo un segnale a Banda limitato con frequenza minore di quella di Nyquist , le repliche risultano sovrapposte una all'altra , questo fenomeno prende il nome di \textbf{aliasing}.In presenza di aliasing non è possibile ricostruite il segnale di partenza. \\
+	Però e possibile utilizzare filtri \textbf{anti-alising} , cioè filtri di tipo passa-basso con risposta in frequenza costante e non nulla nell'intervallo [-B,B] e nulla al di fuori dell'intervallo e campionare l'uscita con frequenza maggiore di quella di Nyquist. Questo è fatto per preservare le frequenza che ci interessano per una specifica applicazione.	
+	\newpage
+	\subsection{Serie di Fourier}
+	Nel caso di un segnale x(n) a tempo discreto e periodico , $x(n+N)=x(n)$ dove N è il più piccolo intero che soddisfa la relazione $\theta=\frac{2\pi}{N}$ ($v_0=\frac{1}{N}$). \footnote{nel tempo discreto un fasore o segnale sinusoidale sono periodico solo se $v_0$ è razionale}.
+	Allora possiamo scrivere la DFS del segnale 
+	\begin{align*}
+		x(n)&=\sum_{k=0}^{N_1} a_k e^{jk\left(\frac{2 \pi }{N}\right)n} \ \ \ \ \ \ \ \ \ \ \ \text{Equazione di sintesi}\\
+		a_k&=\frac{1}{N} \sum_{k=0}^{N-1}x(n)e^{-jk\left(\frac{2 \pi }{N}\right)n}  \ \ \text{Equazione di analisi}
+	\end{align*}
+	Ci serve solo N esponenziali complessi per rappresentare un segnale discreto periodico con periodo N poichè 
+	$$e^{j(k+N)\left(\frac{2 \pi }{N}\right)n=e^{jk\left(\frac{2 \pi }{N}\right)n} e^{jN\left(\frac{2 \pi }{N}\right)n} } =e^{jk\left(\frac{2 \pi }{N}\right)n} e^{2 \pi n i} =e^{jk\left(\frac{2 \pi }{N}\right)n} $$
+	Inoltre anche i coefficienti $a_k$ sono periodici di periodo N \\
+	Inoltre essendo una serie a coefficienti finiti , non vi sono problemi di convergenza e quindi ogni segnale periodico ammette una serie di Fourier (discreta)
+	\subsubsection{Proprietà DFS}
+	Sia \(x[n]\) un segnale periodico con periodo \(N\) e \(X[k]\) la sua DFS. Valgono le seguenti proprietà:
+	
+	\begin{enumerate}
+		\item \textbf{Linearità}:
+		\[
+		a x[n] + b y[n] \leftrightarrow a X[k] + b Y[k]
+		\]
+		
+		\item \textbf{Simmetria per segnali reali}:
+		\[
+		x[n] \text{ reale} \Rightarrow X[-k] = X[k]^*
+		\]
+		
+		\item \textbf{Traslazione nel tempo}:
+		\[
+		x[n - m] \leftrightarrow e^{-j \frac{2\pi}{N} k m} X[k]
+		\]
+		
+		\item \textbf{Traslazione in frequenza (Modulazione)}:
+		\[
+		e^{j \frac{2\pi}{N} k_0 n} x[n] \leftrightarrow X[k - k_0]
+		\]
+		
+		\item \textbf{Convoluzione periodica}:
+		\[
+		(x \ast y)[n] = \sum_{m=0}^{N-1} x[m] y[n - m] \leftrightarrow X[k] \cdot Y[k]
+		\]
+		
+		\item \textbf{Prodotto nel tempo}:
+		\[
+		x[n] \cdot y[n] \leftrightarrow \frac{1}{N} (X \ast Y)[k]
+		\]
+		dove \(\ast\) è la convoluzione periodica in frequenza.
+		
+	
+		
+		\item \textbf{Teorema di Parseval}:
+		\[
+		\frac{1}{N} \sum_{n=0}^{N-1} |x[n]|^2 = \sum_{k=0}^{N-1} |X[k]|^2
+		\]
+		
+		\item \textbf{Periodicità}:
+		\[
+		X[k + N] = X[k], \quad x[n + N] = x[n]
+		\]
+		
+		\item \textbf{Simmetria circolare}:
+		\[
+		x[-n] \leftrightarrow X[-k] = X[N - k]
+		\]
+	\end{enumerate}
+	\newpage
+	\subsection{Trasformata di Fourier }
+	La trasformata di Fourier discreta di una sequenza di N numeri (complessi) è definita da 
+	$$X(v)=\sum_{n=-\infty}^{+\infty}x(n)e^{-j\left(\frac{2\pi}{N}\right) n } \ \ \ \ \ \ \text{Equazione di Analisi}$$
+	Ora possiamo anche definire l'antitrasformata di Fourier di un segnale discreto di N campioni
+	$$x(n)=\int_1 X(v)e^{j2\pi v n }dv \ \ \ \ \ \ \ \ \ \text{Equazione di sintesi}$$
+	Il periodo è uno 1 , poichè seguiamo il periodo dell'esponenziale complesso che sarebbe $2\pi$ ma definendo $v=\frac{1}{N}=\frac{\theta}{2\pi }$ quindi il periodo diventa uno quindi $X(v+1)=X(v)$. Quindi , dato il periodo di 1 , l'intervallo di integrazione può essere un qualsiasi intervallo di ampiezza unitario.\\   
+	A differenza della DTFS , esistono alcune condizione che garantiscono la convergenza della trasformata : 
+	\begin{itemize}
+		\item La serie converge se la sequenza è sommabile : 
+		$$\suminf |x(n)| < +\infty $$
+		Inoltre la sommabilità della sequenza la serie nell'equazione di analisi converge uniformemente ad una funzione continua 
+		\item La serie è ad energia finita : 
+		$$\suminf |x(n)|^2 < +\infty $$
+			\end{itemize}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
 	\section{Sistemi a tempo discreto}
 	\begin{definizione}(Tempo-invarianza)\\
@@ -982,13 +1081,61 @@ Quindi In conclusione :
 	$$\sum_{i=0}^n a_i(k)v(k-i)=\sum_{i=0}^m b_i(k)u(k-i) \ \ \ \ k \in \mathbb{Z}$$
 	dove $a_i(k),b_i(k)$ sono coefficienti  valori reali che possono dipendere dla tempo con $a_0,b_m,a_n$ non nulli
 	Se invece abbiamo un sistema \textbf{SISO lineare tempo.invariante} abbiamo che l'equazione alle differenza diventa 
-	$$\sisdiscr$$
+	\begin{equation}
+		\sisdiscr
+	\end{equation}
 	\begin{itemize}
 		\item Se $n=0$ il sistema viene descritto dall'equazione 
 		$$v(k)=\sum_{i=0}^{m}\frac{b_i}{a_0}u(k-i)  \ \ \ k \in \mathbb{Z}$$
-		Questo modello è chiamato \textbf{Modello a media mobile}
+		Questo modello è chiamato \textbf{Modello a media mobile (MA)}
 		\item Se $m=0$ il sistema viene descritto dall'equazione
 		$$\sum_{i=0}^{n}\frac{a_i}{b_0}v(k-i)=u(k)$$
-		Questo modello è chiamato \textbf{Modello autoregressivo}
+		Questo modello è chiamato \textbf{Modello autoregressivo (AR)}
 	\end{itemize}
+	Inoltre ogni sistema descritto dall'equazione (1) può sempre essere pensato come la serie del modello MA 
+	$$z(k)=\sum_{i=0}^{m}b_i u(k-i) \ \ \ k \in \mathbb{Z}$$
+	e del modello AR
+	$$\sum_{i=0}^{n}a_iv(k-i)=z(k)$$
+	Per questo i modelli descritti descritti  da (1) sono noti come \textbf{modelli autoregressivi a parametri mobile (ARMA)}
+	\subsection{Evoluzione Libera}
+	\begin{definizione}(Evoluzione libera) \\
+		Data l'equazione alle differenze $$\sisdiscro$$ con condizioni iniziali $$v(-1),v(-2), \dots , v(-n)$$
+l'evoluzione libera $v_l(k) \ \ k \geq 0$ del sistema è la soluzione ell'equazione alle differenza omogenea associata
+$$\sum_{i=0}^{n}a_i v(k-i)=0$$
+	\end{definizione}
+	\begin{definizione}(Equazione caratteristica)\\
+		Data l'equazione alle differenze omogenea
+		$$\sum_{i=0}^{n}a_i v(k-i)=0$$
+		l'equazione algebrica 
+		$$d(z):=\sum_{i=0}^{n}a_iz^{-i}=\sum_{i=0}^{n}a_{n-1} z^i=0$$
+		si chiama \textcolor{blue}{equazione caratteristica del sistema}. \\
+		Avendo assunto $a_0\neq 0 \ , a_n \neq 0$ avrò un polinomio di grado n , inoltre il polinomio si dice \textit{monico} se $a_0=1$  
+	\end{definizione}
+	\begin{definizione}(radici del sistema)
+		Siano $\la_1 , \dots , \la _r \in \C$ con ($r \leq n$) le radice caratteristiche dell'equazione caratteristica sono 
+		$$d(z):=\sum_{i=0}^{n}a_iz^{-i}=\sum_{i=0}^{n}a_{n-1} z^i=0$$
+		con molteplicità $\mu_1 , \dots , \mu_r \in \mathbb{N}$ allora 
+		$$d(z)=\prod_{i=1}^r (z-\la_i)^{\mu_i}$$
+	\end{definizione}
+	\begin{definizione}(Modi del sistema)\\
+		Le soluzioni elementari dell'equazione alle differenze omogenea
+$$\sum_{i=0}^{n}a_i v(k-i)=0 \ \  \ \ k \geq 0$$
+sono le successioni 
+$$m_{i,j}=\frac{k^j}{j!}\la_i^k \ \ \ \ k \in \mathbb{Z}$$
+per $i=1, \dots , r \ j=0,\dots , \mu_i-1$ so chiamata \textbf{modi elementari del sistema}
+	\end{definizione}
+	\begin{teo}{Evoluzione della radice}{}
+		La soluzione $v_l(k)$ dell'equazione alle differenze omogenea 
+		$$\sum_{i=0}^{n}a_i v(k-i)=0 \ \  \ \ k \geq 0$$ 
+		può essere scritta come la combinazione lineare dei modi del sistema 
+		$$v_l(k)=\sum_{i=1}^{r}\sum_{j=0}^{\mu_i-1}c_{i,j}\frac{k^j}{j!}\la_i^k$$
+		dove i coefficienti $c_{i,j}$ sono determinati univocamente alle condizioni iniziali 
+		$$v(-1),v(-2), \dots , v(-n)$$
+	\end{teo}
+	La combinazione lineare di radici complesse coniugate può essere scritta nei seguenti modi 
+	\begin{align*}
+		&\sum_{i=1}^{r}\sum_{j=0}^{\mu_i-1}M_{i,j} \frac{k^j}{j}\rho_i^k \cos (\theta_ik+\varphi) \\
+		&\sum_{i=1}^{r}\sum_{j=0}^{\mu_i-1} \left(a_{i,j} \frac{k^j}{j}\rho_i^k \cos(\theta_i k) + b_{i,j}\frac{k^j}{j} \rho_i^k \sin(\theta_ik)\right) 
+	\end{align*}
+	per una coppia di radici complesse coniugate $\la_i,\overline{\la}_i \in \C $ con molteplicità $\mu_i$
  \end{document}

@@ -494,26 +494,27 @@ Definiamo gli operatori
 		Sia $f=u+iv$ , nell'identificazione $\C=\R^2$ è differenziabile in $z_0=(x_0,y_0)$ SSE lo sono le sue componenti u,v
 		\begin{align*}
 			u(x_0+h,y_0+k)&=u(x_0,y_0)+\partial_xu(x_0,y_0) \cdot h +\partial_xu(x_0.y_0) \cdot k+o(\norm{(h,k)})\\
-			v(_0+h,y_0+k)&=v(x_0,y_0)+\partial_xv(x_0,y_0) \cdot h +\partial_xv(x_0.y_0) \cdot k+o(\norm{(h,k)}) \\ 
+			v(x_0+h,y_0+k)&=v(x_0,y_0)+\partial_xv(x_0,y_0) \cdot h +\partial_xv(x_0.y_0) \cdot k+o(\norm{(h,k)}) \\ 
 			(h,k)&\rightarrow 0
 		\end{align*}
 		Ponendo $w=(h,k)=h+ik$ sommando otteniamo la differenziabilità di f notando che 
-		$$h=\frac{\omega+\overline{w}}{2} \ \ \  \ h=\frac{\omega-\overline{w}}{2}  $$
+		$$h=\frac{\omega+\overline{w}}{2} \ \ \  \ k=\frac{\omega-\overline{w}}{2}  $$
 	\end{proof}
 	\begin{definizione}
 		Siano $f:\Omega\rightarrow \C \ e \ z_0 \in \Omega$. Se esiste il limite di funzioni in due variabili 
-		$$f'(z_0)=\lim_{w\rightarrow 0\in \C}\frac{f(z_0+w)-f(z_0)}{w}$$ questo si dice derivata in senso complesso di f in $z_0$
+		$$f'(z_0)=\lim_{w\in \C\rightarrow 0}\frac{f(z_0+w)-f(z_0)}{w}$$ questo si dice derivata in senso complesso di f in $z_0$
 	\end{definizione}
+	f è derivabile in senso complesso esiste esiste la derivata in sesnso complesso $\forall z_0 \in \Omega$
 	\begin{proposizione}
 		$f:\Omega \rightarrow \C$ è \textit{derivabile in senso complesso} in $z_0 \in \Omega $ se e solo se esiste $c \in \C$ tale che :
 		$$f(z_0+w)=f(z_0)+cw+o(\norm{w}) \ per \ w \rightarrow 0$$ e in tal caso $c=f'(z_0)$
 	\end{proposizione}
 	\begin{proposizione}
-		$f:\Omega \in \C$ si dice \textbf{olomorfa} nell'insieme $\Omega$ se è derivabile in senso complesso in ogni punto di $\Omega$ e se $f'$ è continua . \\
+		$f:\Omega \rightarrow \C$ si dice \textbf{olomorfa} nell'insieme $\Omega$ se è derivabile in senso complesso in ogni punto di $\Omega$ e se $f'$ è continua . \\
 		Se $\Omega =\C$ la funzione si dice \textit{intera}
 	\end{proposizione}
 	\begin{proposizione}
-	La funzione 	$f:\Omega \in \C$  è olomorfa SSE è di classe $C^1$ e vale la condizione di \textbf{Cauchy-Riemann} 
+	La funzione 	$f:\Omega \rightarrow \C$  è olomorfa SSE è di classe $C^1$ e vale la condizione di \textbf{Cauchy-Riemann} 
 	$$\frac{\partial f}{\partial_{\overline{z}}}=0$$
 		\end{proposizione}
 	\textbf{Osservazione} : scritta $f=u+iv$ si ha : 
@@ -525,10 +526,10 @@ Definiamo gli operatori
 			\partial_xv=-\partial_yu
 		\end{cases}
 	\end{align*}
-	\textbf{Osservazione : } Prendiamo $F(z)=a(x,y)+iv(x,y)$ olomorfa con u,v due volte derivabili dalle condizione di Cauchy-Riemann in forma reali  $\begin{cases}
+	\textbf{Osservazione : } Prendiamo $f(z)=u(x,y)+iv(x,y)$ olomorfa con u,v due volte derivabili dalle condizione di Cauchy-Riemann in forma reali  $$\begin{cases}
 		\partial_xu=\partial_yv\\
-		-\partial_xv=\partial_yu
-	\end{cases}$. \\
+		\partial_xv=-\partial_yu
+	\end{cases}$$ \\
 	Ora deriviamo queste condizioni rispetto a x e somma membro a membro 
 	\begin{align*}
 \partial_{x^2}u-\partial_{xy}v+\partial_{xy}u+\partial_{x^2}v=0 \\
@@ -536,7 +537,7 @@ Definiamo gli operatori
 \partial_{xy}u-\partial_{y^2}v-\partial_{y^2}u-\partial_{xy}v=0 \\
 \text{Ora facciamo (1) - (2)}\\
 \partial_{x^2}u+\partial_{y^2}u+\partial_{x^2}v+\partial_{y^2}v=0 \\
-(\partial_{x^2}+\partial_{y^2}u)=0 \ \ \ \partial_{x^2}v+\partial_{y^2}v=0 \\
+(\partial_{x^2}u+\partial_{y^2}u)=0 \ \ \ \partial_{x^2}v+\partial_{y^2}v=0 \\
 \Delta u=0 \ \ \ \Delta v=0
 	\end{align*}
 	Le componenti di f sono funzioni armoniche , cioè funzione che risolvono l'equazioni di Laplace $$\Delta g=\nabla^2 g =0$$
@@ -548,24 +549,24 @@ Definiamo gli operatori
 		Sia $\Omega \subseteq \C $ aperto e limitato con $\partial \Omega = \Gamma$ unione di curva regolari $\Gamma=\gamma_1 \cup \dots \cup \gamma_n$ e sia f olomorfa su $\Omega \cup \Gamma$
 		$$\int_{\Gamma}f(z)dz=0$$
 	\end{teo}
-	\begin{teo}{Fomula di cauchy del cerchio}{}
+	\begin{teo}{Fomula di Cauchy del circolo}{}
 			Sia $\Omega \subseteq \C $ aperto e limitato con $\partial \Omega = \Gamma$ unione di curva regolari $\Gamma=\gamma_1 \cup \dots \cup \gamma_n$,infine sia f olomorfa su in $\Omega \cup \Gamma$. \\ Se $z_0 \in \Omega $ allora 
 			$$f(z_0)=\frac{1}{2 \pi i } \int_{\Gamma} \frac{f(z)}{z-z_0}dz $$
 	\end{teo}
-	Se fè oleomorfa e nota sul bordo $\Gamma$ allora conosciamo f su tutto $\Omega$ 
+	Se f è oleomorfa e nota sul bordo $\Gamma$ allora conosciamo f su tutto $\Omega$ 
 	\begin{proof}
-		sia $\delta > 0$ tale che $$B(z_0 , \delta)\in \Omega$$ Per il teorema (5.1) abbiamo che $$\frac{1}{2 \pi i }\int_{\Gamma \cup \gamma_{-\delta}} \frac{f(z)}{z-z0}=0$$ poichè la funzione è olomorfa in $\Omega \cup \Gamma \setminus z_0$
+		sia $\delta > 0$ tale che $$B(z_0 , \delta)\in \Omega$$ Per il teorema (5.1) abbiamo che $$\frac{1}{2 \pi i }\int_{\Gamma \cup \gamma_{-\delta}} \frac{f(z)}{z-z_0}dz=0$$ poichè la funzione $ \frac{f(z)}{z-z0}$ è olomorfa in $\Omega \cup \Gamma \setminus z_0$
 		\begin{align*}
-			\frac{1}{2 \pi i }\int_{\Gamma} \frac{f(z)}{z-z0}=\frac{1}{2 \pi i }\int_{\gamma_{\delta}} \frac{f(z)}{z-z_0}
+			\frac{1}{2 \pi i }\int_{\Gamma} \frac{f(z)}{z-z0}dz=\frac{1}{2 \pi i }\int_{\gamma_{\delta}} \frac{f(z)}{z-z_0}dz
 		\end{align*}
-		Il bordo $\gamma_\delta= \{z \in \C \ |\ \norm{z-z_0}=\delta\}$ è parametrizzato da $\theta \mapsto z_0+e^{i\theta } \ ,\ \theta \in [0,2\pi]$. Risulta allora 
+		Il bordo $\gamma_\delta= \{z \in \C \ |\ \norm{z-z_0}=\delta\}$ allora $\gamma_{\delta}$ è $z=z_0+\delta e^{i\theta}  \Rightarrow dz=i\delta e^{i\theta}d\theta$. \\Risulta allora 
 		\begin{align*}
-\frac{1}{2 \pi i }\int_{\gamma_{\delta}} \frac{f(z)}{z-z0} &= \frac{1}{2 \pi i }\int_{0}^{2\pi} \frac{f(z_0+e^{i\theta})}{\delta e^{i\theta }}\delta ie^{i\theta } d\theta \\
+\frac{1}{2 \pi i }\int_{\gamma_{\delta}} \frac{f(z)}{z-z_0}dz &= \frac{1}{2 \pi i }\int_{0}^{2\pi} \frac{f(z_0+e^{i\theta})}{\delta e^{i\theta }}\delta ie^{i\theta } d\theta \\
 &=\frac{1}{2 \pi } \int_{0}^{2\pi}f(z_0+\delta e^{i\theta})d\theta\\
 		\end{align*}
-		Osservando che il primo membro è indipendente dalla delta ed utilizzando la conntinuità di f , si ottiene infine :
+		Osservando che il primo membro è indipendente dalla delta ed utilizzando la continuità di f , si ottiene infine :
 		\begin{align*}
-			\frac{1}{2 \pi i }\int_{\Gamma} \frac{f(z)}{z-z0}&=\lim_{\delta \rightarrow 0} \frac{1}{2 \pi } \int_{0}^{2\pi}f(z_0+\delta e^{i\theta})d\theta\\ 
+			\frac{1}{2 \pi i }\int_{\Gamma} \frac{f(z)}{z-z_0}&=\lim_{\delta \rightarrow 0} \frac{1}{2 \pi } \int_{0}^{2\pi}f(z_0+\delta e^{i\theta})d\theta\\ 
 			&=\frac{1}{2\pi}\int_{0}^{2\pi}f(z_0)d\theta\\ 
 			&= f(z_0) \\
 			\frac{1}{2 \pi i }	\int_{\Gamma} \frac{f(z)}{z-z0}&=f(z_0)
@@ -584,21 +585,22 @@ Definiamo gli operatori
 		Sia $f:D\rightarrow \C $ olomorfa su $D=\{z \in \C \ |\  \norm{z-z_0}<R\} $  allora 
 	$$f(z)=\sum_{n=0}^{+\infty}\frac{f^{(n)(z_0)}}{n!}(z-z_0)^n \ \ \ \ \forall z \in D$$
 	Sia $0<r<R$ e poniamo $D_r=\{z:\norm{z-z_0}<r\}$ , dalla formula di Cauchy abbiamo che 
-$$f(z)=\frac{1}{2 \pi i } \int_{\Gamma} \frac{f(\xi)}{\xi-z}d\xi \ \ su \ \ d_k$$
-Per $\xi \in \Gamma$ 
+$$f(z)=\frac{1}{2 \pi i } \int_{\Gamma} \frac{f(\xi)}{\xi-z}d\xi \ \ su \ \ D_r$$
+Per $\xi \in \Gamma(D_r)$ 
 \begin{align*}
 	\frac{f(\xi)}{\xi-z}&=\frac{f(\xi)}{\xi-z_0-z+z_0}\\
-	&\vdots \\
+	&=\frac{f(\xi)}{(\xi -z_0)\left(1-\frac{z-z_0}{\xi-z_0}\right)}\\
 	&=\frac{f(\xi)}{\xi-z_0} \ \frac{1}{1-\frac{z-z_0}{\xi-z_0}} \\
+	&= \frac{z-z_0}{\xi-z_0} < 1 \ \ \ \xi \in \Gamma(D_r) \ \ z_0 \in D_r\\
 	&=\frac{f(\xi)}{\xi-z_0}  \ \sum_{n=0}^{+\infty}\left(\frac{z-z_0}{\xi-z_0} \right)^n \\
 	f(z)=&\frac{1}{2 \pi i}\oint_{\Gamma}\frac{f(\xi)}{\xi-z_0}  \ \sum_{n=0}^{+\infty}\left(\frac{z-z_0}{\xi-z_0} \right)^n \\
-	&=\sum_{n=0}^{\infty}\left(\frac{1}{2\pi i}\oint_{\Gamma}\frac{f(\xi)}{(\xi-z_0)^{n+1}}  \right)(z-z_0)^n\\
+	&=\sum_{n=0}^{\infty}\underbrace{\left(\frac{1}{2\pi i}\oint_{\Gamma}\frac{f(\xi)}{(\xi-z_0)^{n+1}}  \right)}_{\text{F.di Cauchy per le derivate di f }}(z-z_0)^n\\
 	&=\sum_{n=0}^{\infty}\left(\frac{f^{n}(z_0)}{n!}\right)(z-z_0)^n
 \end{align*}
 	\end{proof}
 	Il fatto che una funzione con infinite derivate sia localmente rappresentabile in serie di potenze è \textbf{falso} se la funzione in questione non è derivabile in senso complesso \\
 	Esempio : $$f(x)= \begin{cases}
-		e^{-\frac{1}{x^2}} \ \ \ x \neq 0
+		e^{-\frac{1}{x^2}} \ \ \ x \neq 0\\
 		0 \ \ \ x=0 
 	\end{cases} $$ f(x) ammette infinite derivate e $f(0)=0\ \ \ \forall n \in \mathbb{N}$ , la serie di Taylor centrata in zero converge alla funzione nulla , tuttavia $f(x)\neq 0 \ \ \ \forall x \neq 0$   
 	\begin{definizione}(Funzione analitica)\\
@@ -675,9 +677,10 @@ Inoltre
 		\item f(z) ha in $z_0$ una singolarità \textbf{polare di ordine} $m\geq 1$ se $c_n=0$ per ogni $n <-m$ e $z_0$ è detto polo di ordine/molteplicità m
 	\end{itemize}
 \end{definizione} 
-\begin{definizione}(singolarità eliminabile)
-DA COMPLETARE
+\begin{definizione}(singolarità eliminabile)\\
+Sia $f: \Omega \rightarrow \C$ , $z_0$ si dice \textbf{singolarità eliminabile} di f se esiste una palla/disco di centro $z_0$ tale che f è \textit{olomorfa} in $B(z_0,r) \setminus \{z_0\}$ 
 \end{definizione}
+Una funzione complessa che ha una singolarità eliminabile può essere espressa in serie di Laurent nella palla . Si può dimostrare che la serie di Laurent converge totalmente nella corna circolare  $\varepsilon < |z-z_0|<R \ \ \ 0 < \varepsilon < R$
 \subsection{Residui}
 \begin{definizione}(Residuo) \\
 	Sia f olomorfa in intorno (disco) di $z_0$ tranne che in $z_0$ stesso . Si dice \textbf{residuo} di f in $z_0$ il coefficiente di $(z-z_0)^{-1}$ nello sviluppo in serie di Laurent di f centrato in $z_0$ 
@@ -689,7 +692,7 @@ DA COMPLETARE
 		Sia f olomorfa in un intorno di $z_0$ , tranne che in $z_0$ stesso. Allora $z_0$ è un polo di f di ordine m se esiste una funzione olomorfa g , con $g(z_0)\neq 0$ tale che 
 		\begin{align*}
 		f(z)&=\frac{g(z)}{(z-z_0)^m} \\
-		g(z)&=(z-z_0)^m g(z) \\
+		g(z)&=(z-z_0)^m f(z) \\
 		\lim_{z->z_0}g(z)&=g(z_0)=(z-z_0^m)f(z)\neq 0 
 	\end{align*}
 	\end{proposizione}
@@ -715,7 +718,7 @@ DA COMPLETARE
 		  \oint_{\Gamma}f(z)dz&=\oint_{\gamma_1 , \cup \dots \cup \gamma_k}f(z)dz \\
 		  &= \oint_{\gamma_1}f(z)dz + \dots + \oint_{\gamma_k}f(z)dz \\ 
 		  Ora  \ \ Res(f,z_0)& =\frac{1}{2 \pi i}\oint_{\partial D}f(z)dz\\ 
-		  &=2 \pi i \sum_{j=1}^{k}Res(f,z_j)
+		  \oint_{\gamma_1}f(z)dz &=2 \pi i \sum_{j=1}^{k}Res(f,z_j)
 	\end{align*}
 \end{proof}
 \subsection{Integrali del primo tipo}
@@ -789,8 +792,15 @@ $$vp \int_I f= vp \int Re(f) + i \ vp \int_I Im(f)$$
 \begin{lemma}(del cerchio piccolo) \\
 	Sia $z_0\in \Omega $ , f olomorfa in $\Omega \setminus \{z_0\}$  con $z_0$ polo di ordine 1 per f. Se $\theta_1 , \theta_2 \in \R \ , \theta_1 < \theta_2$ , posto $\gamma_\rho(\theta)=z_0+e^{i\theta} \ \theta \in [\theta_1,\theta_2]$ 
 	$$\lim_{\rho \rightarrow 0^+} \int_{\gamma_{\rho}}f(z)dz= i (\theta2 -\theta_2)Res(f,z_0) $$
-p\end{lemma}
+\end{lemma}
 \end{tcolorbox}
+\newpage
+\section{Trasformata di Laplace}
+\begin{definizione}
+	Una funzione $f \in \mathbb{L}_{loc}^1(\R_+)$ si dice trasformabile secondo Laplace o L-trasformabile se esiste $s \in \C$ tale che 
+	$$e^{-st}f$$ è una funzione assolutamente integrabile in $\R$
+\end{definizione}
+
 
 
 

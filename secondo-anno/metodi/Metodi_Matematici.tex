@@ -4,7 +4,8 @@
 \usepackage{wrapfig,lipsum}
 \usepackage[utf8]{inputenc} %lettere accentate da tastiera 
 \usepackage[T1]{fontenc} % higher quality font encoding
-
+ \usepackage{tabularx}
+ \usepackage{booktabs}
 %load the font and set it to default
 \usepackage{amsmath,amsthm,amsfonts,amssymb,mathrsfs}
 \usepackage[english,italian]{babel}
@@ -155,7 +156,7 @@ Calcoliamo l'energia di un polinomio di Fourier:
 \end{cases} \\
 &=T\sum_{h,k=-n}^n |\gamma_{k}|^2 
 \end{align*}
-Ora fissato il segnale periodco $x(t)$ e sia $P_n(t)$ un generico polinomio di Fourier periodico . Cerchiamo il polinomio di Fourier che meglio approssimo il segnale x nel senso dell'energia , cioè il polinomio di Fourier che minimizzi la seguente espressione 
+Ora fissato il segnale periodico $x(t)$ e sia $P_n(t)$ un generico polinomio di Fourier periodico . Cerchiamo il polinomio di Fourier che meglio approssimo il segnale x nel senso dell'energia , cioè il polinomio di Fourier che minimizzi la seguente espressione 
 \begin{align*}
 	||x(t)-P_n(t)||^2&= \int_{0}^{T}  |x(t)-P_n(t)|^2 dt \\ 
 	&=\int_{0}^{T} (x(t)-P_n(t))(\overline{x(t)}-\overline{P_n(t)})\ dt\\
@@ -171,7 +172,7 @@ Ora fissato il segnale periodco $x(t)$ e sia $P_n(t)$ un generico polinomio di F
 Dopo tutti sti cazzo di conti viene fuori che il coefficiente gamma del polinomio di Fourier necessaria a minimizzare l'energia è il seguente 
 $$\gamma_{k}= c_k=\frac{1}{T}\inT x(t) e^{-ik\omega t}dt \ \ \ \forall k=-n \dots n $$
 Questi sono chiamati Coefficienti di Fourier . \newpage
-Inoltre nelle seguente tabella sono presenti le equivalenze dei coeffcienti di Fourier nella forma complessa e nella forma "reale"  
+Inoltre nelle seguente tabella sono presenti le equivalenze dei coefficienti di Fourier nella forma complessa e nella forma "reale"  
 \begin{center}
 \begin{tabular}{||c||}
 	\hline
@@ -545,7 +546,7 @@ Definiamo gli operatori
 	\begin{definizione}
 		Sia $f:\Omega \subseteq \C \rightarrow \C $ con $\Omega$ aperto con $\partial \Omega = \Gamma$ curva regolare è detto olomorfa su $\Omega \cup \Gamma$ se esiste $\tilde{\Omega} \subseteq \C$ aperto contente  $\Omega \cup \Gamma$ su cui f è olomorfa 
 	\end{definizione}
-	\begin{teo}{}{}
+	\begin{teo}{Teorema Integrale di Cauchy}{}
 		Sia $\Omega \subseteq \C $ aperto e limitato con $\partial \Omega = \Gamma$ unione di curva regolari $\Gamma=\gamma_1 \cup \dots \cup \gamma_n$ e sia f olomorfa su $\Omega \cup \Gamma$
 		$$\int_{\Gamma}f(z)dz=0$$
 	\end{teo}
@@ -577,21 +578,21 @@ Definiamo gli operatori
 		$$f^{(m)}(z_0)=\frac{m!}{2 \pi i } \int_{\partial D}\frac{f(z)}{(z-z_0)^{m+1}}dz$$
  	\end{proposizione} 
  	\subsection{Serie di potenze}
-	\begin{teo}{}{}
+	\begin{teo}{Espansione in serie di Taylor}{}
 		Sia $f:\Omega \subseteq \C \rightarrow \C $ olomorfa su $D=\{z \in \C \ |\  \norm{z-z_0}<R\} $ allora 
 		$$f(z)=\sum_{n=0}^{+\infty}\frac{f^{(n)(z_0)}}{n!}(z-z_0)^n \ \ \ \ \forall z \in D$$
 	\end{teo}
 	\begin{proof}
-		Sia $f:D\rightarrow \C $ olomorfa su $D=\{z \in \C \ |\  \norm{z-z_0}<R\} $  allora 
+		Sia $f:D\rightarrow \C $ olomorfa su $D=\{z \in \C \ |\  \norm{z-z_0}<r\} $  allora 
 	$$f(z)=\sum_{n=0}^{+\infty}\frac{f^{(n)(z_0)}}{n!}(z-z_0)^n \ \ \ \ \forall z \in D$$
-	Sia $0<r<R$ e poniamo $D_r=\{z:\norm{z-z_0}<r\}$ , dalla formula di Cauchy abbiamo che 
+	Sia $0<r<R$ e poniamo $D_r=\{z:\norm{z-z_0}<r\}$ , dalla formula de; circolo di Cauchy abbiamo che 
 $$f(z)=\frac{1}{2 \pi i } \int_{\Gamma} \frac{f(\xi)}{\xi-z}d\xi \ \ su \ \ D_r$$
 Per $\xi \in \Gamma(D_r)$ 
 \begin{align*}
 	\frac{f(\xi)}{\xi-z}&=\frac{f(\xi)}{\xi-z_0-z+z_0}\\
 	&=\frac{f(\xi)}{(\xi -z_0)\left(1-\frac{z-z_0}{\xi-z_0}\right)}\\
 	&=\frac{f(\xi)}{\xi-z_0} \ \frac{1}{1-\frac{z-z_0}{\xi-z_0}} \\
-	&= \frac{z-z_0}{\xi-z_0} < 1 \ \ \ \xi \in \Gamma(D_r) \ \ z_0 \in D_r\\
+	&= \frac{z-z_0}{\xi-z_0} =\frac{z-z_0}{R}< 1 \ \ \ \xi \in \Gamma(D_r) \ \ z_0 \in D_r\\
 	&=\frac{f(\xi)}{\xi-z_0}  \ \sum_{n=0}^{+\infty}\left(\frac{z-z_0}{\xi-z_0} \right)^n \\
 	f(z)=&\frac{1}{2 \pi i}\oint_{\Gamma}\frac{f(\xi)}{\xi-z_0}  \ \sum_{n=0}^{+\infty}\left(\frac{z-z_0}{\xi-z_0} \right)^n \\
 	&=\sum_{n=0}^{\infty}\underbrace{\left(\frac{1}{2\pi i}\oint_{\Gamma}\frac{f(\xi)}{(\xi-z_0)^{n+1}}  \right)}_{\text{F.di Cauchy per le derivate di f }}(z-z_0)^n\\
@@ -614,7 +615,7 @@ Per $\xi \in \Gamma(D_r)$
 	\begin{proposizione}
 		Sia f olomorfa in $\Omega$ , $z_0\in \Omega$ è zero di ordine m se e solo se esiste un funzione g olomorfa in $\Omega$ con $g(z_0)\neq 0$ tale che 
 		$$f(z)=(z-z_0)^m g(z)$$	
-		In particolare uno zero di \textbf{molteplicità finita è isolato } , ossia esiste un introno U di $z_0\in \Omega$ tale che $f(z)\neq 0\ \ \  \ \forall z \in U \setminus \{z_0\} $
+		In particolare uno zero di \textbf{molteplicità finita è isolato } , ossia esiste un intorno U di $z_0\in \Omega$ tale che $f(z)\neq 0\ \ \  \ \forall z \in U \setminus \{z_0\} $
 		\end{proposizione}
 		\begin{proof}
 			Sia $z_0 \in \Omega $ uno zero di f di molteplicità e sia $R=dist(z_o,\partial \Omega)$ , per gli $\norm{z-z_0}< R$ si ha 
@@ -677,8 +678,8 @@ Inoltre
 		\item f(z) ha in $z_0$ una singolarità \textbf{polare di ordine} $m\geq 1$ se $c_n=0$ per ogni $n <-m$ e $z_0$ è detto polo di ordine/molteplicità m
 	\end{itemize}
 \end{definizione} 
-\begin{definizione}(singolarità eliminabile)\\
-Sia $f: \Omega \rightarrow \C$ , $z_0$ si dice \textbf{singolarità eliminabile} di f se esiste una palla/disco di centro $z_0$ tale che f è \textit{olomorfa} in $B(z_0,r) \setminus \{z_0\}$ 
+\begin{definizione}(singolarità isolata)\\
+Sia $f: \Omega \rightarrow \C$ , $z_0$ si dice \textbf{singolarità isolata} di f se esiste una palla/disco di centro $z_0$ tale che f è \textit{olomorfa} in $B(z_0,r) \setminus \{z_0\}$ 
 \end{definizione}
 Una funzione complessa che ha una singolarità eliminabile può essere espressa in serie di Laurent nella palla . Si può dimostrare che la serie di Laurent converge totalmente nella corna circolare  $\varepsilon < |z-z_0|<R \ \ \ 0 < \varepsilon < R$
 \subsection{Residui}
@@ -693,7 +694,7 @@ Una funzione complessa che ha una singolarità eliminabile può essere espressa 
 		\begin{align*}
 		f(z)&=\frac{g(z)}{(z-z_0)^m} \\
 		g(z)&=(z-z_0)^m f(z) \\
-		\lim_{z->z_0}g(z)&=g(z_0)=(z-z_0^m)f(z)\neq 0 
+		\lim_{z->z_0}g(z)&=g(z_0)=(z-z_0)^mf(z)\neq 0 
 	\end{align*}
 	\end{proposizione}
 \end{tcolorbox}
@@ -800,72 +801,55 @@ $$vp \int_I f= vp \int Re(f) + i \ vp \int_I Im(f)$$
 	Una funzione $f \in \mathbb{L}_{loc}^1(\R_+)$ si dice trasformabile secondo Laplace o L-trasformabile se esiste $s \in \C$ tale che 
 	$$e^{-st}f$$ è una funzione assolutamente integrabile in $\R$
 \end{definizione}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\section{Approfondimenti}
-\subsection{Teorema di Cauchy}
-Diamo una seconda formulazione del teorema di Cauchy , dando prima le necessarie definizione
-\begin{definizione}(Cycle)
-	A chain ($\gamma=a_1\gamma_1+a_2\gamma_2+\dots+a_n\gamma_n$) is a cycle if it can be represented as a sum of  closed curves
+Se f è L-trasformabile l'insieme 
+$$S(f)=\{s\in \C \ |\ e^{-st}f(t) \in L^1(\R) \}$$
+è detto \textcolor{red}{insieme di convergenza} della Trasformata Di Laplace di f ed è un semipiano del tipo 
+$$S(f)=\{s \in \C \ : \ Res(s)>p(f)\} \ oppure \ \{s \in \C : Res(s) \geq p(f) \}$$
+in cui 
+$$p(f)=\{p\in \R : t \mapsto e^{-pt}f(t) \in L^1(\R)\}$$
+ascissa di convergenza assoluta lla Trasformata di Laplace di f 9
+	% Tabella delle proprietà della trasformata di Laplace
+	% Colonna per le dimostrazioni lasciata vuota
+% Tabella delle proprietà della trasformata di Laplace con considerazioni sulla ROC
+\begin{table}[h!]
+	\centering
+	\renewcommand{\arraystretch}{1.3} % Aumenta l'altezza delle righe
+	\begin{tabularx}{\textwidth}{@{} l l l X @{} }
+		\toprule
+		\textbf{Proprietà} & \textbf{Dominio $t$} & \textbf{Dominio $s$} & \textbf{ROC} \\
+		\midrule
+		Linearità & $a\,f(t) + b\,g(t)$ & $a\,F(s) + b\,G(s)$ & Intersezione delle ROC di $F(s)$ e $G(s)$ \\
+		Traslazione nel tempo & $f(t - t_0)$ & $e^{-s t_0}F(s)$ & Stessa ROC di $F(s)$ (i poli non cambiano, cambia solo la moltiplicazione esponenziale) \\
+		Modulazione (in frequenza) & $e^{a t}f(t)$ & $F(s - a)$ & ROC traslata: $\{s:\,s - a\in\mathrm{ROC}_{F}\}$ \\
+		Scaling nel tempo & $f(a t)$ & $\frac{1}{|a|}F\bigl(\tfrac{s}{a}\bigr)$ & ROC scalata: $\{s:\,\tfrac{s}{a}\in\mathrm{ROC}_{F}\}$ \\
+		Derivata in $t$ & $\frac{d}{dt}f(t)$ & $s\,F(s) - f(0^-)$ & Stessa ROC di $F(s)$ \\
+		Convoluzione & $(f * g)(t)$ & $F(s)\,G(s)$ & Intersezione delle ROC di $F(s)$ e $G(s)$ \\
+		Coniugazione & $\overline{f(t)}$ & $\overline{F(\overline{s})}$ & ROC: $s\in \text{ROC}_F \Rightarrow \overline{s}\in \text{ROC}_{\overline{f}}$ \\
+		Proprietà iniziale & $f(0^+)$ & $\displaystyle\lim_{s\to\infty}sF(s)$ &  \\
+		Proprietà finale & $\displaystyle\lim_{t\to\infty}f(t)$ & $\displaystyle\lim_{s\to 0}sF(s)$ &   \\
+		\bottomrule
+	\end{tabularx}
+	\caption{Proprietà fondamentali della trasformata di Laplace con relativa regione di convergenza (ROC)}
+	\label{tab:prop_laplace_roc}
+\end{table}
+\begin{proof}(Scaling nel tempo)
+	\begin{align*}
+	\mathscr{L}(f(at))(s)&=\int_{0}^{+\infty}f(at)e^{-st}dt \\
+	& =\frac{1}{a}\int_{0}^{+\infty} f(at) e^{-\frac{as}{a}t}d(at)\\
+	& \xi=at \\
+	&=\frac{1}{a}\underbrace{\int_{0}^{+\infty}  f(\xi)e^{\frac{-s}{a}\xi} d\xi}_{F(\frac{s}{a})ò} \\
+		\end{align*}
+\end{proof}
+\begin{definizione}(Formula di Inversione)\\
+Sia $f \in L^1_{loc}(\R) $ assolutamente L-trasformabile. Se il numero reale $\rho_0 \in S(f)$  e se la funzione $\omega \mapsto \mathscr{L}f(\rho_0+i\omega)$ sta in $L^1(\R)$ allora f è continua su $\R$ e 
+$$f(t)=\frac{1}{2\pi i} \intinf \mathscr{L}f(p_o+i\omega)e^{(\rho_0+i\omega)t}dt$$ 
+per ogni $t 	\in \R$ (con $f(t)=0 \ \ \ \forall t <0$)
 \end{definizione}
-\begin{definizione}
-	A region is simply connected if its complement with  respect to the extended plane is connected 
-\end{definizione}
-\begin{definizione}
-	A cycle $\gamma$ in an open set $\Omega$ is said to be homologous to zero with respect to $\Omega$ if $n(\gamma,a)=0$ for all points a in the complement of $\Omega$
-\end{definizione}
-\begin{teorema}
-	if f is analytic n $\Omega$ , then $$\int_\gamma f(z)dz=0 $$ for all $\gamma$ homologous to zero in $\Omega$
-\end{teorema}
-if $\Omega$ is a simply connected domain the theorem holds for all cycle  . \\ The theorem can also be expressed in the following form 
-\begin{teorema}
-	$$f(z)=\frac{1}{2\pi i}\int_{\gamma}\frac{f(\xi)}{\xi-z}d\xi$$
-for every cycle $\gamma$ which is homologous to zero in $\Omega$
-\end{teorema}
-\begin{definizione}
-	A cycle $\gamma$ is said to bound the region $\Omega$ if and only if $n(\gamma,a)$ is defined and equal to 1 for all points $a \in \Omega$ and either undefined or equal to zero for all points $\notin \Omega$ 
-\end{definizione}
-\begin{teorema}(Variation of the Cauchy's Theorem) \\
-	If $\gamma$ bound a region $\Omega$ and f is holomorphic in $\Omega$ the 
-	$$\int_\gamma f(z)dz=0$$
-	and
-	$$f(z)=\frac{1}{2\pi i}\int_{\gamma}\frac{f(\xi)}{\xi-z}d\xi$$
-	\
-\end{teorema}
+\begin{proposizione}
+	Ogni funzione razionale è trasformata di Laplace  id una funzione $f \in L_{loc}^1(\R)$.\\
+	Se $ c \in C $ e $p \in \mathbb{Z}$ l'antitrasformata di $s \mapsto \frac{1}{(s-c)^p}$ è 
+	$$\mathscr{L}^{-1}\left(\frac{1}{(s-c)^p}\right)(t)=Y(t) e^{ct}\frac{t^{p-1}}{(p-1!)}$$
+	Inoltre la funzione $s\mapsto frac{e^{-as}}{(s-c)^p} \ \ \ \ c \in \c \ , \ a \in \C \ , \ p \in \mathbb{Z}$ è trasformata di Laplace di una $f \in L_{loc}^1(\R) \iff a \in R_+ $  e
+	$$\mathscr{L}^{-1}\left(\frac{e^{-as}}{(s-c)^p} \right)(t)=Y(t-a)e^{c(t-a)}\frac{(t-a)^{p-1}}{(p-1!)}$$ 
+\end{proposizione}
 \end{document}

@@ -71,6 +71,7 @@
 \newcommand{\sistema}{\sum_{i=0}^{n}a_i \frac{d^i v(t)}{dt^i}=\sum_{j=0}^{m}b_i \frac{d^i u(t)}{dit^i}}
 \newcommand{\sisdiscr}{\sum_{i=0}^n a_iv(k-i)=\sum_{i=0}^m b_iu(k-i) \ \ \ \ k \in \mathbb{Z}}
 \newcommand{\sisdiscro}{\sum_{i=0}^n a_iv(k-i)=\sum_{i=0}^m b_iu(k-i) \ \ \ \ k \geq 0}
+\newcommand{\sisdiscrdo}{\sum_{i=0}^n a_ih(k-i)=\sum_{i=0}^m b_i\delta(k-i) \ \ \ \ k \geq 0}
 \newcommand{\suminf}{\sum_{n=-\infty}^{\infty}}
 \title{Segnali e sistemi  }
 \author{Luca Mombelli}
@@ -1186,5 +1187,305 @@ per $i=1, \dots , r \ j=0,\dots , \mu_i-1$ so chiamata \textbf{modi elementari d
 			\item \textbf{Instabile} :\\ se esiste \textit{almeno} un modo divergente , ovvero esiste almeno una radice $\la_i $ tale che $\la_i >1 $ oppure $|\la_i|=1$ e la radice \textbf{non è semplice }
 		\end{itemize} 
 	\end{teo}
-	\subsection{Evoluzione forzata}
+	\newpage
+		\subsection{Evoluzione forzata}
+		\begin{definizione}(Risposta Implusiva)\\
+		Dato un sistema causale SISO LTI , descritto dall'equazione differenziale 
+		$$\sisdiscro$$
+		 \textbf{la riposta all'impulso $h(t)$} è la soluzione dell'equazione differenziale   
+		$$\sisdiscrdo$$
+		con condizioni iniziali nulle , il sistema è a riposo 
+		$$h(-1)= , h(-2)=0 , \dots , h(-n)=0
+		$$ 
+	\end{definizione}
+Per i sistemi a tempo discreto abbiamo le seguenti espressioni generali per la risposta impulsiva
+
+\begin{itemize}
+	\item se \( n = 0 \) (modello MA)
+	
+	\[
+	h(k) = \frac{1}{\bar{a}_0} \sum_{i=0}^m b_i \delta(k-i)
+	\]
+	
+	\item se \( n \geq 1 \, \text{e} \, n > m \)
+	
+	\[
+	h(k) = \sum_{i=1}^r \sum_{j=0}^{\mu_i-1} d_{i,j} \frac{k^j}{j!} \lambda_i^k \delta_{-1}(k)
+	\]
+	
+	\item se \( n \geq 1 \, \text{e} \, n \leq m \)
+	
+	\[
+	h(k) = \sum_{i=0}^{m-n} d_i \delta(k-i) + \sum_{i=1}^r \sum_{j=0}^{\mu_i-1} d_{i,j} \frac{k^j}{j!} \lambda_i^k \delta_{-1}(k-m+n-1)
+	\]
+\end{itemize}
+\begin{definizione}(Convoluzione discreta)
+	Il prodotto di convoluzione discreto tra due successioni \( v_1(k) \) e \( v_2(k) \), con \( k \in \mathbb{Z} \), è dato dalla successione \( [v_1 * v_2](k) \) definita dalla sommatoria
+	
+	\[
+	[v_1 * v_2](k) = \sum_{i=-\infty}^{+\infty} v_1(i)v_2(k-i)
+	\]
+	
+	\[
+	= \sum_{i=-\infty}^{+\infty} v_1(k-i)v_2(i) 
+	\]
+	
+	se esiste.
+\end{definizione}
+\begin{teo}{Evoluzione forzata}{}
+La risposta forzata di un sistema SISO LTI con risposta all'impulso $h(k)$ con condizioni iniziali nulle e input $u(k)$ è data dal prodotto di convoluzione 
+\begin{align*}
+	v_f(k)&=[h*u](k) \\
+	&=\sum_{i=0}^{+\infty} h(i)u(k-i) \\
+	&=\sum _{i=-\infty}^k h(k-i)u(i)
+ \end{align*}
+Inoltre se $u(k)=0 \ \ \forall k < 0 $  otteniamo che 
+\begin{align*}
+	v_f(k)&=[h*u](k) \\
+	&=\sum_{i=0}^{k} h(i)u(k-i) \\
+	&=\sum _{i=0}^k h(k-i)u(i)
+\end{align*}
+\end{teo}
+\begin{proof}
+	Sappiamo che partendo dalle condizioni iniziali nulle vale 
+	$$\sisdiscrdo$$
+	per la tempo-invarianza possiamo scrivere 
+	$$\sum_{i=0}^{n}a_ih(k-i-j)=\sum_{i=0}^{n}b_i\delta(k-i-j) \ \ \ \ \ k \geq 0 $$
+	e per la linearità (j non è legato all'indice delle sommatorie)
+	$$\sum_{i=0}^{n}a_iu(j)h(k-i-j)=\sum_{i=0}^{n}b_iu(j)\delta(k-i-j) \ \ \ \ \ k \geq 0 $$
+	Per il principio di sovrapposizione degli effetti vale anche 
+	$$\sum_{i=0}^{n}a_i \sum_j u(j)h(k-i-j)=\sum_{i=0}^{m}b_i\sum_ju(j)\delta(k-i-j) \ \ \ \ \ k \geq 0$$
+	Da cui segue 
+	$$\sum_{i=0}^{n}a_i [u*h](k-i)=\sum_{i=0}^{m}b_i [u*\delta](k-i) \ \ \ \ \ k \geq 0$$
+	e 
+	$$\sum_{i=0}^{n}a_i [u*h](k-i)=\sum_{i=0}^{m}b_i u(k-i) \ \ \ \ \ k \geq 0$$
+	Segue quindi che $[u*k](k)$ è la soluzione dell'equazione alle differenze con ingresso u(k) e condizioni iniziali nulle 
+\end{proof}
+
+
+
+
+
+
+
+	
+\begin{definizione}
+	
+
+	Il sistema  
+	\[
+	\sum_{i=0}^{n} a_i v(k-i) = \sum_{i=0}^{m} b_i u(k-i), \quad k \in \mathbb{Z}_+
+	\]
+	
+	inizialmente a riposo (i.e., condizioni iniziali nulle) è \textbf{BIBO stabile} se per ogni ingresso limitato  
+	
+	\[
+	|u(k)| < M_u, \quad k \in \mathbb{Z}_+
+	\]
+	
+	esiste \( M_v \) tale che anche l'uscita è un segnale limitato  
+	
+	\[
+	|v(k)| < M_v, \quad k \in \mathbb{Z}_+.
+	\]
+\end{definizione}
+\begin{teo}{(BIBO stabilità per sistemi LTI a tempo continuo)}{}
+
+
+	Il sistema LTI a tempo discreto \(\Sigma\), descritto dalla risposta impulsiva \(h(k)\), è BIBO stabile se e solo se \(h(k)\) è una successione sommabile (i.e., assolutamente integrabile), i.e.  
+	\[
+	h(k) \in \ell_1(\mathbb{R})
+	\]
+	
+	\[
+	\sum_{k=-\infty}^{+\infty} |h(k)| < +\infty.
+	\]
+	
+	Se il sistema è causale \((h(k) = 0, \forall k < 0)\), l'espressione precedente diventa
+	
+	\[
+	\sum_{k=0}^{+\infty} |h(k)| < +\infty.
+	\]
+\end{teo}
+
+\begin{lemma}
+	Dall'espressione della risposta impulsiva
+	\[
+	h(k) = \sum_{i=0}^{m-n} d_i \delta (k-i) + \sum_{i=1}^r \sum_{j=0}^{\mu_i-1} d_{i,j} \frac{k^j}{j!} \lambda_i^k \delta_{-1} (k-m+n-1)
+	\]
+	
+	segue che il sistema è BIBO stabile se tutti i modi che compaiono con coefficiente non nullo in \( h(k) \) sono asintoticamente stabili (convergenti a zero, \( |\lambda_i| < 1 \)).  
+\end{lemma}
+\begin{lemma}
+	La stabilità asintotica implica la BIBO stabilità ma non è vero il viceversa.
+\end{lemma}
+
+\newpage
+\section{Trasformata zeta}
+	\begin{definizione}(Trasformazione Zeta)
+	Data una successione v(k) , $k \in \mathbb{Z}$ , la trasformata Zeta di v(k) è data dalla serie 
+	$$\mathcal{Z}[v(k)]=\sum_{k§=-\infty}^{+\infty}v(k)z^{-k} \ \ \ \ \ \ z \in \C$$ se converge.\\
+	Se v(k) assume valori nulli solo per $k\in\mathbb{N}$ , la trasformata Zeta vale 
+	$$\mathcal{Z}[v(k)]=\sum_{k=0}^{+\infty}v(k)z^{-k } \ \ \ \ \ \ \ \ z \in \C$$
+	
+	\end{definizione}
+I punti del piano complesso $\C$ dove la serie converge definiscono la regione di convergenza. \\ Se la regione di convergenza non è l'insieme vuoto , allora contiene il complemento nel piano complesso do un cerchio chiuso nell'origine 
+$$ROC := \{z\in\C \ \ |\ \ |z|>r^{ROC} \}$$
+\begin{center}
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Proprietà} & \textbf{Dominio del tempo} & \textbf{Dominio Z} \\ 
+		\hline
+		Linearità & $a x[n] + b y[n]$ & $a X(z) + b Y(z)$ \\
+		\hline
+		Ritardo temporale & $x[n - k]$ & $z^{-k}X(z)+\sum_{i=-k}^{-1}f(i)z^{-k-i}$ \\
+		\hline
+		Anticipo temporale & $x[n + k]$ & $z^{k}X(z) - \sum_{i=0}^{k-1} x[i]z^{k-i}$ \\
+		\hline
+		Scalamento in frequenza & $a^n x[n]$ & $X\left(\frac{z}{a}\right)$ \\
+		\hline
+		Convoluzione & $x[n] * y[n]$ & $X(z) \cdot Y(z)$ \\
+		\hline
+		Derivata in Z & $n x[n]$ & $-z \frac{dX(z)}{dz}$ \\
+		\hline
+		Valore iniziale & $x[0]$ & $\lim_{z \to \infty} X(z)$ \\
+		\hline
+		Valore finale & $\lim_{n \to \infty} x[n]$ & $\lim_{z \to 1} (z-1)X(z)$ \\
+		\hline
+		Inversione temporale & $x[-n]$ & $X(z^{-1})$ \\
+		\hline
+		Prodotto nel tempo & $x[n] \cdot y[n]$ & $\frac{1}{2\pi j} \oint X(v) Y\left(\frac{z}{v}\right) v^{-1} dv$ \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\smallskip
+\textbf{Note:}
+\begin{itemize}
+	\item $X(z) = \mathcal{Z}\{x[n]\}$, $Y(z) = \mathcal{Z}\{y[n]\}$
+	\item Il teorema del valore finale vale solo se tutti i poli di $(z-1)X(z)$ sono interni al cerchio unitario.
+\end{itemize}
+\subsection{Analisi dei sistemi discreti con la trasformata Zeta}
+Consideriamo l'equazione alle differenze di un sistema SISO LTI:
+\[
+\sum_{i=0}^{n} a_i v(k - i) = \sum_{i=0}^{m} b_i u(k - i), \quad k \in \mathbb{Z}
+\]
+dove \(a_0 \neq 0\), \(a_n \neq 0\), e con condizioni iniziali \(v(-1), v(-2), \ldots, v(-n)\).  
+Se \(n \geq m\), possiamo riscrivere l'equazione come:
+\[
+\sum_{i=0}^{n} a_i v(k - i) = \sum_{i=0}^{n} b_i u(k - i), \quad k \in \mathbb{Z}.
+\]
+Assumiamo che l'ingresso sia una successione causale.
+
+\noindent
+Se \(u(k)\) ammette trasformata Zeta \(U(z)\), allora anche \(v(k)\) ammette trasformata Zeta \(V(z)\), per ogni condizione iniziale.  
+Calcolando la trasformata Zeta di entrambi i membri:
+\[
+\mathcal{Z}\left[\sum_{i=0}^{n} a_i v(k-i)\right] = \mathcal{Z}\left[\sum_{i=0}^{n} b_i u(k-i)\right]
+\]
+e sfruttando le proprietà di linearità e ritardo temporale:
+\[
+a_0 V(z) + \sum_{i=1}^{n} a_i \left( z^{-i} V(z) + \sum_{p=-i}^{-1} v(p) z^{-i-p} \right) = \sum_{i=0}^{n} b_i z^{-i} U(z).
+\]
+Raggruppando i termini:
+\begin{align*}
+	a_0 V(z) + \sum_{i=1}^n a_i z^{-i} V(z) + \sum_{i=1}^n a_i \sum_{p=-i}^{-1} v(p) z^{-i-p} &= \sum_{i=0}^n b_i z^{-i} U(z) \\
+	\sum_{i=0}^n a_i z^{-i} V(z) + \sum_{i=1}^n a_i \sum_{p=-i}^{-1} v(p) z^{-i-p} &= \sum_{i=0}^n b_i z^{-i} U(z).
+\end{align*}
+Moltiplicando entrambi i membri per \(z^n\):
+\[
+\sum_{i=0}^n a_i z^{n-i} V(z) + \sum_{i=1}^n a_i \sum_{p=-i}^{-1} v(p) z^{n-i-p} = \sum_{i=0}^n b_i z^{n-i} U(z).
+\]
+Definendo i polinomi:
+\begin{align*}
+	d(z) &:= \sum_{i=0}^{n} a_i z^{n-i}, \\
+	p(z) &:= -\sum_{i=1}^{n} a_i \sum_{p=-i}^{-1} v(p) z^{n-i-p}, \\
+	n(z) &:= \sum_{i=0}^{n} b_i z^{n-i},
+\end{align*}
+si ottiene:
+\[
+d(z) V(z) - p(z) = n(z) U(z), \quad z \in \mathbb{C}.
+\]
+\begin{itemize}
+	\item \(d(z)\) coincide con l'equazione caratteristica dell'evoluzione libera.
+	\item \(p(z)\) è un polinomio di grado \(\leq n\) che contiene le condizioni iniziali.
+\end{itemize}
+
+\section{Funzione di trasferimento}
+Dividendo per \(d(z)\):
+\[
+V(z) = \frac{p(z)}{d(z)} + \frac{n(z)}{d(z)} U(z), \quad z \in \mathbb{C}
+\]
+dove:
+\begin{itemize}
+	\item \(\dfrac{p(z)}{d(z)} = V_l(z)\): trasformata dell'evoluzione libera
+	\item \(\dfrac{n(z)}{d(z)} U(z) = V_f(z)\): trasformata dell'evoluzione forzata
+\end{itemize}
+La \textbf{funzione di trasferimento} è definita come:
+\[
+H(z) = \frac{n(z)}{d(z)} = \frac{b_0 z^n + b_1 z^{n-1} + \cdots + b_n}{a_0 z^n + a_1 z^{n-1} + \cdots + a_n}.
+\]
+Proprietà fondamentali:
+\begin{itemize}
+	\item \(H(z)\) è la trasformata Zeta della risposta impulsiva \(h(k)\): 
+	\[
+	H(z) = \mathcal{Z}[h(k)]
+	\]
+	\item Esiste corrispondenza biunivoca tra \(h(k)\) (causale) e \(H(z)\)
+	\item Radici di \(n(z)\): \textbf{zeri} della funzione di trasferimento
+	\item Radici di \(d(z)\): \textbf{poli} della funzione di trasferimento
+\end{itemize}
+
+\begin{teo}{BIBO stabilità}{}
+	Un sistema SISO LTI causale a tempo discreto con funzione di trasferimento \(H(z)\) (rapporto di polinomi coprimi) è BIBO stabile se e solo se tutti i poli di H(z) sono contenuti all'interno del cerchio unitario el piano complesso  :
+	\[
+ z_i \in \mathbb{D} = \{z \mid |z| < 1\}, \quad i = 1,\ldots,\deg d(z).
+	\]
+\end{teo}
+Condizioni equivalenti:
+\begin{enumerate}
+	\item La regione di convergenza di \(H(z)\) contiene il cerchio unitario \(\partial\mathbb{D}\)
+	\item \(H(z)\) è analitica in \(\{z \mid |z| \geq 1\} = \mathbb{C}\setminus\mathbb{D}\):
+	\[
+	\sup_{z \in \mathbb{C}\setminus\mathbb{D}} |H(z)| < \infty
+	\]
+	\item La risposta impulsiva è sommabile: \(\sum_{k=-\infty}^{\infty} |h(k)| < \infty\)
+\end{enumerate}
+
+\subsection{Dalla trasformata Zeta alla successione}
+Per \(V(z) = \dfrac{n(z)}{d(z)}\) razionale propria (\(\deg n(z) \leq \deg d(z)\)), con decomposizione:
+\[
+V(z) = \frac{n(z)}{z^{\nu}(z - \lambda_1)^{\mu_1} \cdots (z - \lambda_r)^{\mu_r}}, \quad \nu \geq 0
+\]
+(ROC: \(|z| > \max |\lambda_i|\)). Procedura di antitrasformazione:
+\begin{enumerate}
+	\item Calcolare \(V_1(z) = \dfrac{V(z)}{z}\) (funzione strettamente propria)
+	\item Decomporre in fratti semplici:
+	\[
+	V_1(z) = \sum_{i=0}^{\nu} \frac{A_i}{z^{i+1}} + \sum_{i=1}^{r} \sum_{j=0}^{\mu_i-1} \frac{C_{i,j}}{(z - \lambda_i)^{j+1}}
+	\]
+	\item Determinare i coefficienti \(A_i\), \(C_{i,j}\) tramite identità polinomiale
+	\item Riscrivere \(V(z) = z V_1(z)\):
+	\[
+	V(z) = \sum_{i=0}^{\nu} \frac{A_i}{z^i} + \sum_{i=1}^{r} \sum_{j=0}^{\mu_i-1} C_{i,j} \frac{z}{(z - \lambda_i)^{j+1}}
+	\]
+	\item Applicare le antitrasformate note:
+	\begin{align*}
+		\mathcal{Z}^{-1}\left\{\frac{1}{z^l}\right\} &= \delta(k - l) \\
+		\mathcal{Z}^{-1}\left\{\frac{z}{(z - \lambda_i)^{j+1}}\right\} &= \binom{k}{j} \lambda_i^{k-j} \quad \text{(causale)}
+	\end{align*}
+	ottenendo:
+	\[
+	v(k) = \sum_{i=0}^{\nu} A_i \delta(k - i) + \sum_{i=1}^{r} \sum_{j=0}^{\mu_i-1} C_{i,j} \binom{k}{j} \lambda_i^{k-j}
+	\]
+\end{enumerate}
+Osservazioni:
+\begin{itemize}
+	\item Per poli semplici (\(\mu_i = 1\)):
+	\[
+	C_{i,0} = \lim_{z \to \lambda_i} (z - \lambda_i) V_1(z)
+	\]
+	\item Applicabile a evoluzione libera (\(V(z) = p(z)/d(z)\)) e forzata (\(V(z) = H(z)U(z)\))
+\end{itemize}
  \end{document}

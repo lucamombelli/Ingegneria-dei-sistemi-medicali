@@ -73,12 +73,13 @@
 \newcommand{\sisdiscro}{\sum_{i=0}^n a_iv(k-i)=\sum_{i=0}^m b_iu(k-i) \ \ \ \ k \geq 0}
 \newcommand{\sisdiscrdo}{\sum_{i=0}^n a_ih(k-i)=\sum_{i=0}^m b_i\delta(k-i) \ \ \ \ k \geq 0}
 \newcommand{\suminf}{\sum_{n=-\infty}^{\infty}}
-\title{Segnali e sistemi  }
+\title{Appunti di Introduzione all'analisi dei segnali e sistemi   }
 \author{Luca Mombelli}
 \date{2024-25}
 
 \begin{document}
 	\maketitle
+	\newpage
 	\tableofcontents
 	\newpage
 	
@@ -100,14 +101,14 @@ A \ \ \ \ t_0 - \frac{T}{2} \leq t \leq t_0 + \frac{T}{2} \\
 \begin{align*}
 &\Lambda(t):=\begin{cases}
 1-|t|  \ \ \ -1 \leq t \leq 1 \\
-0 \ \ \ \text{altirimenti}
+0 \ \ \ \text{altrimenti}
 \end{cases}\\
 A \ &\Lambda(\frac{t-t_0}{T}):=\begin{cases}
 	A-(\frac{A}{T})|t-t_0|  \ \ \ t_0-T \leq t \leq t_0+T\\
-	0 \ \ \ \text{altirimenti}
+	0 \ \ \ \text{altrimenti}
 \end{cases}\\
 \end{align*}
-\item Impulso ideale unitario (Impulso di dirac) : \\ 
+\item Impulso ideale unitario (Impulso di Dirac) : \\ 
 è possibile vedere l'impulso di Dirac come il limite della seguente successione :
 $$\lim_{n\rightarrow +\infty} \left[ \frac{n}{2} \Pi \left(\frac{t}{2/n}\right)=\begin{cases}
 	\frac{n}{2} \ \ \ -\frac{1}{n}\leq t \leq \frac{1}{n}\\
@@ -136,10 +137,61 @@ $$\delta_{-2}(t):=\begin{cases}
 	t \ \ \ t \geq 0 \\
 0 \ \ \ \text{altrimenti}
 \end{cases}$$
-Inoltre può essere messe in relazione con il gradino e l'impulso di dirac nel seguente modo:
+Inoltre può essere messe in relazione con il gradino e l'impulso di Dirac nel seguente modo:
 $$\delta_{-1}(t)=\frac{d\ \delta_{-2}(t)}{dt} \ \ \ \ \ \   \delta(t)=\frac{d^2\ \delta_{-2}(t)}{d^2t}$$
 \end{itemize}
 \subsection{Caratterizzazione dei segnali} 
+\subsubsection{Operazioni fondamentali sui segnali}
+\begin{itemize}
+	\item Traslazione temporale  : \\
+	Questa operazione coinvolge la variabile indipendente : $y(t)=x(t-b) \ \ \ \ b \in \R$.
+	\begin{itemize}
+	\item Se $b>0$ il segnale y sarà in \textbf{ritardo} rispetto al segnale x
+	\item Se $b<0$ il segnale y sarà in \textbf{anticipo}  rispetto al segnale x 
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\linewidth]{traslazione}
+		\caption{Traslazione temporale}
+		\label{fig:traslazione}
+	\end{figure}
+	\end{itemize}
+	\item Cambiamento di Scala \label{ampiezza}: 
+	\begin{itemize}
+		\item Ampiezza : questa operazione coinvolge la variabile dipendente $y(t)=Ax(t)$ 
+		\begin{itemize}
+			\item se $A<0$ il segnale viene \textbf{invertito}
+			\item Se $|A| > 1$ il segnale viene amplificato
+			\item Se $0<|A|<1$ il segnale viene attenuato  
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.7\linewidth]{ampiezza}
+				\caption{Cambiamento di Scala nell'ampiezza }
+				\label{fig:ampiezza}
+			\end{figure}
+		\end{itemize}
+		\item Tempi : 
+		\begin{itemize}
+			\item Se $|a|>1$ compressione del segnale rispetto all'asse delle ordinate
+			\item Se $0<|a|<1$ espansione del segnale rispetto all'asse delle ordinate 
+			\item Se $a=-1$ riflessione del segnale 
+		\end{itemize}
+			\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.7\linewidth]{tempo}
+			\caption{ Cambiamento di scala nel tempo}
+			\label{fig:tempo}
+		\end{figure}
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
 \subsubsection{Simmetrie dei segnali}
 \begin{center}
 
@@ -270,9 +322,9 @@ V_{eff}(T) = \sqrt{P_x(T)} = \sqrt{\frac{1}{T} \int_{0}^{T} |x(t)|^2 dt} = RMS
 	$$f*(g+h)=f*g+f*h$$
 	\item Traslazione
 	\item Elemento neutro : \\
-	La convoluzione di un qualsiasi segnale con l'impulso di dirac fornisce il segnale stesso .Quindi l'impulso di Dirac è l'elemento neutro della convoluzione 
+	La convoluzione di un qualsiasi segnale con l'impulso di Dirac fornisce il segnale stesso .Quindi l'impulso di Dirac è l'elemento neutro della convoluzione 
 	$$\left[x*\delta\right](t)=\intinf x(\tau)\delta(t-\tau)=\intinf x(\tau)\delta(\tau-t)d\tau=x(t)$$
-	Inoltre se l'impluso di dirac è traslato di $t_0$ anche il segnale sarà traslato dello stesso fattore 
+	Inoltre se l'impulso di Dirac è traslato di $t_0$ anche il segnale sarà traslato dello stesso fattore 
 	$$(x*\delta_{t_0})(t)=x(t-t_0)$$
 	\item Area : \\
 	\begin{align*}
@@ -280,7 +332,7 @@ V_{eff}(T) = \sqrt{P_x(T)} = \sqrt{\frac{1}{T} \int_{0}^{T} |x(t)|^2 dt} = RMS
 		A(s)=A(x) \ A(y)
 	\end{align*}
 	\item Estensione e durata :\\
-	Definiamo l'estensione  e la duratoa di x e y (segnali come) $$e\left[x\right]=\left[t_x,T_x\right] , e\left[y\right]=\left[t_y,T_y\right] $$ $$D_x,D_y$$
+	Definiamo l'estensione  e la durata di x e y (segnali come) $$e\left[x\right]=\left[t_x,T_x\right] , e\left[y\right]=\left[t_y,T_y\right] $$ $$D_x,D_y$$
 	Sia $z(t)=x*y(t)$  allora questo segnale avrà estensione e durata pari a 
 	\begin{align*}
 		e\left[z\right]=e [x*y] &= [t_x+t_y,T_x+T_y ]\\
@@ -289,7 +341,7 @@ V_{eff}(T) = \sqrt{P_x(T)} = \sqrt{\frac{1}{T} \int_{0}^{T} |x(t)|^2 dt} = RMS
 \end{enumerate}
 \subsubsection{Convoluzione per segnali periodici}
 \begin{itemize}
-	\item Se solo uno dei due segnali è periodico allora possiamo utilizzare la normale definizione di convoluzione , che ci resituirà un segnale anch'esso periodico 
+	\item Se solo uno dei due segnali è periodico allora possiamo utilizzare la normale definizione di convoluzione , che ci restituirà un segnale anche'esso periodico 
 	\item Se entrambi i segnali sono periodici l'integrale diverge , dobbiamo quindi utilizzare una diversa definizione di convoluzione. 
 	$$x*y(t)=\int_{t_0}^{t_0+T}x(\tau)y(t-\tau) \ d\tau$$
 \end{itemize}
@@ -304,7 +356,13 @@ $$R_{xy}(\tau)=\lim_{T\rightarrow +\infty}\frac{1}{2T}\int_{-T}^{T}x(\tau)\overl
 \subsubsection{Proprietà}
 \begin{itemize}
 \item La Correlazione \textbf{non gode} della proprietà commutativa
-\item La durata del segnale risultato dalla cross relazione è 
+\item La funzione di cross correlazione è limita 
+\begin{itemize}
+	\item Segnali di energia 
+	$$|R_{xy}(\tau)| \leq \sqrt{E_x E_y}$$
+	\item Segnali di potenza
+		$$|R_{xy}(\tau)| \leq \sqrt{P_x P_y}$$
+\end{itemize}
 \item Relazione con l'operazione di convoluzione 
 \begin{align*}
 	R_{xy}(\tau)&= x(\tau) * \overline{y(-\tau)}\\
@@ -316,6 +374,12 @@ $$R_{xy}(0)=E_{xy}$$
 \subsubsection{Auto-correlazione}
 Se i due segnali x e y sono uguali a funzione di cross correlazione restituisce l'auto-correlazione : 
 $$R_x(\tau)=\intinf x(t)\overline{x(t-\tau)}dt$$
+Per i segnali di Potenza : 
+$$R_x(\tau)=\lim_{T\rightarrow \infty } \frac{1}{2T}\int_{-T}^{T} x(t) \overline{x(t-\tau)}dt$$
+Anche in questo caso valgono le proprietà della cross correlazione con qualche piccola variazione 
+\begin{itemize}
+	\item $R_x(\tau) \leq E_x \ \ \  (P_x \  \text{nel caso di segnali di potenza})$ inoltre la funzione di auto-correlazione presenta il suo va.ore di massimo nell'origine $R_x(0)=E_x \ \ (P_x)$
+\end{itemize}
 \subsection{Analisi in Frequenza}
 I concetti di estensione e durata possono essere trasferiti al dominio delle frequenze e diventano \textbf{estensione spettrale } $e[S]$ e \textbf{larghezza di Banda }$B_s$ , misura dell'estensione spettrale .\\ Tipicamente si fa riferimento alla banda monolatera , si considera la banda come metà della misura dell'estensione spettrale , considerando solo le frequenze positive  $$B=inf \{\overline{f}\in \R : |S(f)|=0\ \  \forall |f|> \overline{f}\}$$
 Banda e durata hanno una relazione inversa (durata infinita-> banda finita)
@@ -361,14 +425,10 @@ Risposta in frequenza :
 	H(f)&=A \left[1 - \Pi \left(\frac{f+f_0}{\Delta f}\right)-\Pi \left(\frac{f-f_0}{\Delta f}\right)\right]e^{-j2\pi f t_0} \\
 	h(t)&= A\delta (t-t_0)- (2 A \Delta f ) \ sinc (\Delta f (t-t_0)) \ cos(2 \pi f_0 (t-t_0))
 \end{align*}
-
-
+Banda passante = $(-\infty,-fc2) \ \cup \ (-fc1,fc1) \ \cup \ (fc2,+\infty) $ \\
+Banda oscura = $(-fc2 , -fc1) \ \cup \ (fc1,fc2)$\\
+con $ fc2>fc1>0$
 \end{enumerate}
-
-
-
-
-
 
 \newpage 
 
@@ -389,13 +449,13 @@ Un sistema è :
 	\item \textbf{forzato} se è influenzato da input esogeni. Gli input manipolabile vengono chiamati segnali di controllo , gli input sconosciuti vengono chiamati disturbi.
 \end{itemize}
 \begin{definizione} (Linearità)
-	\\ Un sistema dinamico $\Sigma$ è lineare se vale il principio della sovrapposizione degli effetti : per un sistema inizialmente a riposo , se i valori di output $v_1 , v_2$ corrispondenti ai valori di input $u_1,u_2$ allora l'ingresso $u=\alpha u_1 + \beta u_2$ corrisponde l'uscita $\alpha v_1 + \beta v_2$ qualuque siano i valori dei parametri $\alpha , \beta \in \R$
+	\\ Un sistema dinamico $\Sigma$ è lineare se vale il principio della sovrapposizione degli effetti : per un sistema inizialmente a riposo , se i valori di output $v_1 , v_2$ corrispondenti ai valori di input $u_1,u_2$ allora l'ingresso $u=\alpha u_1 + \beta u_2$ corrisponde l'uscita $\alpha v_1 + \beta v_2$ qualunque siano i valori dei parametri $\alpha , \beta \in \R$
 \end{definizione}
 \begin{definizione}(Tempo-invarianza)\\
 	Un sistema dinamico inizialmente a riposo è tempo invariante se traslazioni nel tempo dei valori assunti dagli ingressi $u(t)$ provocano le stesse traslazioni nel tempo dei valori assunti dalle uscite $v(t)$
 \end{definizione}
 \begin{definizione}(Causalità)\\
-	Un sistema dinamico inizialmente a riposo è causale se l'output al tempo t ($v(t)$) ,dipende solo dall'input al tempo t ($u(t)$). In altre parole , per determinare il valore dell'uscita ad un certo istante di tempo T , mon è necessario conoscere il valore dell'ingresso per istanti di tempo $t > T$
+	Un sistema dinamico inizialmente a riposo è causale se l'output al tempo t ($v(t)$) ,dipende solo dall'input al tempo t ($u(t)$). In altre parole , per determinare il valore dell'uscita ad un certo istante di tempo T , non è necessario conoscere il valore dell'ingresso per istanti di tempo $t > T$
 \end{definizione}
 \begin{definizione}(Stabilità esterna o BIBO , bounded-input bounded output)\\
 Un sistema dinamico a tempo continuo,  inizialmente a riposo  , $\Sigma$ è BIBO stabile se per ogni costante positiva $M_u$ esiste una costante positiva $M_v$ , tale che per ogni segnale di ingresso u(t) che soddisfa 
@@ -419,7 +479,7 @@ $$\sum_{i=0}^{n}a_i \frac{d^i v(t)}{d^it}=\sum_{j=0}^{m}b_j \frac{d^i u(t)}{d^it
 	\item se $n > m $ il sistema è detto \textbf{strettamente proprio }
 \end{itemize}
 \subsection{Evoluzione libera}
-Modello IO SISO LTI con istante inizale $t_0$
+Modello IO SISO LTI con istante iniziale $t_0$
 $$\sum_{i=0}^{n}a_i \frac{d^i v(t)}{d^it}=\sum_{j=0}^{m}b_j \frac{d^i u(t)}{d^it}  \ \ \ \ t \geq t_0\ \ a_i,b_j \in \R	$$
 Siccome il sistema è tempo-invariante assumiamo $t_0=0$ .\\Le condizioni iniziali del sistema sono : 
 $$v\left(0^{-}\right),\left.\frac{d v(t)}{d t}\right|_{t=0^{-}},\left.\frac{d^2 v(t)}{d t^2}\right|_{t=0^{-}}, \ldots,\left.\frac{d^{n-1} v(t)}{d t^{n-1}}\right|_{t=0^{-}}
@@ -460,7 +520,7 @@ $$d(s):=\prod_{i=1}^{r}(s-\la_i)^{\mu_i}$$
 	sono le funzioni 
 	\begin{align*}
 m_{i,j}&=\frac{t^j}{j!}e^{\la_i t}\\
-\forall t \in \R  \ , \ \forall i&= 1,\dots,r\  (\text{numero di radici disitnte}) \\ 
+\forall t \in \R  \ , \ \forall i&= 1,\dots,r\  (\text{numero di radici distinte}) \\ 
 \forall j&=0,\dots,\mu_i-1 \ (\mu_i= \text{molteplicità della soluzione})
 \end{align*}	
 \end{definizione}
@@ -469,7 +529,7 @@ m_{i,j}&=\frac{t^j}{j!}e^{\la_i t}\\
 		$$\sum_{i=0}^{n}a_i \frac{d^i v(t)}{d^it}=0$$
 		può essere scritta come una combinazione lineare dei modi del sistema , ovvero 
 		$$v_l(t)=\sum_{i=1}^{r}\sum_{j=0}^{\mu_i-1}c_{i,j}\frac{t^j}{j!}e^{\la_i t}$$
-		dove i coefficienti $c_i,j$ sono determinati univocamente dalle condizoni iniziali 
+		dove i coefficienti $c_i,j$ sono determinati univocamente dalle condizioni iniziali 
 		$$v\left(0^{-}\right),\left.\frac{d v(t)}{d t}\right|_{t=0^{-}},\left.\frac{d^2 v(t)}{d t^2}\right|_{t=0^{-}}, \ldots,\left.\frac{d^{n-1} v(t)}{d t^{n-1}}\right|_{t=0^{-}}
 		$$
 \end{teo}
@@ -514,8 +574,8 @@ il modo elementare $m_{i,j}(t)$ è:
 	\end{itemize}
 	\end{teo}
 	\subsection{Evoluzione forzata}
-	\begin{definizione}(Risposta Implusiva)\\
-		Dato un sistema causale SISO LTi , descritto dall'equazione differenziale 
+	\begin{definizione}(Risposta Impulsiva)\\
+		Dato un sistema causale SISO LTI , descritto dall'equazione differenziale 
 		$$\sum_{i=0}^{n}a_i \frac{d^i v(t)}{dt^i}=\sum_{j=0}^{m}b_j \frac{d^i u(t)}{dt^i}  \ \ \ \ t \geq 0	$$ \textbf{la riposta all'impulso $h(t)$} è la soluzione dell'equazione differenziale   
 		$$\sum_{i=0}^{n}a_i \frac{d^i h(t)}{dt^i}=\sum_{j=0}^{m}b_j \frac{d^i \delta(t)}{dt^i}  \ \ \ \ t \geq 0	$$
 		con condizioni iniziali nulle , il sistema è a riposo 
@@ -535,11 +595,11 @@ il modo elementare $m_{i,j}(t)$ è:
 	\end{teo}
 	\begin{proof}
 		Per $t>0$ la delta di Dirac e tutte le sue derivate sono identicamente nulle , quindi h(t) deve soddisfare per $t >0$ l'equazione omogenea 
-		$$\sum_{i=0}^n a_i \frac{d^i h(t)}{dt^i}=0 \ \ t > 0$$ con tutte le condizioni iniziali nulle. Dallo studio dell'evelouzione libera sappiamo che ha forma che deve essere del tipo 
+		$$\sum_{i=0}^n a_i \frac{d^i h(t)}{dt^i}=0 \ \ t > 0$$ con tutte le condizioni iniziali nulle. Dallo studio dell'evoluzione libera sappiamo che ha forma che deve essere del tipo 
 		$$h(t)=\sum_{i=1}^{r}\sum_{j=0}^{\mu_i-1}d_{i,j}\frac{t^j}{j!}e^{\la_i t}$$ il comportamento in $t=0$ dell'equazione precedente , consiste nella combinazione lineare dei termini 
 	\end{proof}
 	\begin{teo}{Causalità}{}
-	il sistema continuo LTI descritto dalla risposta implusiva h(t) è causale se e solo se h(t) è un segnale causale (è zero per i tempi negativi) $$h(t)=0 \ \ \  \forall t < 0$$
+	il sistema continuo LTI descritto dalla risposta impulsiva h(t) è causale se e solo se h(t) è un segnale causale (è zero per i tempi negativi) $$h(t)=0 \ \ \  \forall t < 0$$
 	\end{teo}
 	\begin{teo}{Evoluzione forzata}{}
 		La risposta forzata del sistema causale SISO LTI con risposta all'impulso h(t) , condizioni iniziali nulle , e input $u(t)$ è data dal prodotto di convoluzione 
@@ -558,14 +618,14 @@ il modo elementare $m_{i,j}(t)$ è:
 		\end{teo}
 		\begin{proof}
 			Consideriamo u(t) , h(t) segnali qualsiasi.\\
-			Sappiamo che partendo da condizioni inizali nulle abbiamo 
+			Sappiamo che partendo da condizioni iniziali nulle abbiamo 
 				$$\sum_{i=0}^{n}a_i \frac{d^i h(t)}{dt^i}=\sum_{j=0}^{m}b_j \frac{d^i \delta(t)}{dt^i} $$
 				Per la \textbf{tempo invarianza }abbiamo che 
 				$$\sum_{i=0}^{n}a_i \frac{d^i h(t-\tau)}{dt^i}=\sum_{j=0}^{m}b_j \frac{d^i \delta(t-\tau)}{dt^i}  \ \ \tau > 0$$
 				inoltre per la \textbf{linearità}
 				$$\sum_{i=0}^{n}a_i \frac{d^i \ c (h(t-\tau))}{dt^i}=\sum_{j=0}^{m}b_j \frac{d^i \ c(\delta(t-\tau))}{dt^i} $$
-				Al posto di c consideriamo $u(t)d\tau$
-					$$\sum_{i=0}^{n}a_i \frac{d^i \ u(t)d\tau (h(t-\tau))}{dt^i}=\sum_{j=0}^{m}b_j \frac{d^i \ u(t)d\tau(\delta(t-\tau))}{dt^i} $$
+				Al posto di c consideriamo $u(\tau)d\tau$
+					$$\sum_{i=0}^{n}a_i \frac{d^i \ u(\tau)d\tau (h(t-\tau))}{dt^i}=\sum_{j=0}^{m}b_j \frac{d^i \ u(\tau)d\tau(\delta(t-\tau))}{dt^i} $$
 					Per il principio di sovrapposizione degli effetti vale anche 
 						$$\sum_{i=0}^{n}a_i \frac{d^i \  (\sum_k u(\tau_k)h(t-\tau_k)d\tau_k)}{dt^i}=\sum_{j=0}^{m}b_j \frac{d^i \ \sum_k u(\tau_k)(\delta(t-\tau_k)d\tau_k)}{dt^i} $$
 						Passando all'integrale 
@@ -578,7 +638,7 @@ il modo elementare $m_{i,j}(t)$ è:
 						Quindi abbiamo dimostrato che $$v_f(t)=[h*u](t)$$
 		\end{proof}
 		\begin{teo}{BIBO stabilità per sistemi LTI a tempo continuo}
-			Il sistema LTI a tempo continuo $\Sigma$ descritto dalla risposta implusiva $h(t)$ è BIBO stabile se e solo se $h(t)\in L_1(\R)$ , quindi se h(t) è una funzione sommabile 
+			Il sistema LTI a tempo continuo $\Sigma$ descritto dalla risposta impulsiva $h(t)$ è BIBO stabile se e solo se $h(t)\in L_1(\R)$ , quindi se h(t) è una funzione sommabile 
 			$$\intinf |h(t)|dt < +\infty$$
 			Se il sistema è causale allora 
 			$$\int_{0^-}^{\infty}|h(t)|dt < +\infty$$
@@ -605,7 +665,7 @@ $$u(t)=sgn(h(-t))\begin{cases}
 \end{align*}
 	\end{proof}
 	\begin{teo}{(BIBO stabilità)}{}
-		Un sistema LTI a tempo continuo causale $\Sigma$ è BIBO stabile se e solo se i modi elementari che compaiono con coefficiente diverso da zero nell'espressione della risposta implulsiva 
+		Un sistema LTI a tempo continuo causale $\Sigma$ è BIBO stabile se e solo se i modi elementari che compaiono con coefficiente diverso da zero nell'espressione della risposta impulsiva 
 		$$h(t)=d_0 \delta(t)+\sum_{i=1}^{r}\sum_{j=0}^{\mu_i-1}d_{i,j}\frac{t^j}{j!}e^{\la_i t}\delta_{-1}(t) \ \ \ t \geq 0$$  
 		sono convergenti a zero 
 	\end{teo}
@@ -620,11 +680,11 @@ convergono a zero asintoticamente
 	$$\mathcal{L}[v(t)]=V(s)=\int_{0^-}^{+\infty}v(t) e^{-st}dt \ \ \ \ \ \ s=\sigma + \omega t \in \mathbb{C}$$
 	\subsection{Proprietà}
 	\begin{itemize}
-		\item \textbf{Linearità} : \\ La traformata di Laplace è lineare in virtù della linearità dell'integrale 
+		\item \textbf{Linearità} : \\ La trasformata di Laplace è lineare in virtù della linearità dell'integrale 
 		$$\mathcal{L}[a_1v_1(t)+a_2v_2(t)]=a_1\mathcal{L}[v_1(t)]+a_2\mathcal{L}[v_2(t)]$$
 		Inoltre l'ascissa di convergenza della trasformata $\mathcal{L}[a_1v_1(t)+a_2v_2(t)]$ è minore o uguale alla maggiore delle due ascisse di convergenza 
 		\item \textbf{Derivata} : \\
-		Se la funzione $v(t)$ è traformabile secondo Laplace  ed esistono finito le condizioni iniziali :  $$v\left(0^{-}\right),\left.\frac{d v(t)}{d t}\right|_{t=0^{-}},\left.\frac{d^2 v(t)}{d t^2}\right|_{t=0^{-}}, \ldots,\left.\frac{d^{ni-1} v(t)}{d t^{i-1}}\right|_{t=0^{-}} \ \ \ i \in \mathbb{N}
+		Se la funzione $v(t)$ è trasformabile secondo Laplace  ed esistono finito le condizioni iniziali :  $$v\left(0^{-}\right),\left.\frac{d v(t)}{d t}\right|_{t=0^{-}},\left.\frac{d^2 v(t)}{d t^2}\right|_{t=0^{-}}, \ldots,\left.\frac{d^{ni-1} v(t)}{d t^{i-1}}\right|_{t=0^{-}} \ \ \ i \in \mathbb{N}
 		$$  allora vale 
 		$$\mathcal{L}\left[\frac{d^iv(t)}{dt^i}\right]=s^i \mathcal{L}[v(t)] - \sum_{k=0}^{i-1}\frac{d^kv(t)}{dt^k} \big|_{t=0^-} s^{i-1-k}$$
 		Inoltre l'ascissa di convergenza di $\mathcal{L}\left[\frac{d^iv(t)}{dt^i}\right]$ è minore o uguale di quella della trasformata di v(t)
@@ -637,37 +697,32 @@ convergono a zero asintoticamente
 	v(t-\tau)\ \  t-\tau>0\\
 	0 \ \ t-\tau < 0
 	\end{cases}$$
-	$$\mathcal{L}{v(t-\tau)}=e^{-s\tau}V(s)$$
+	$$\mathcal{L}{v(t-\tau)}=e^{-s\tau}V(s)$$ 
 	\item \textbf{Moltiplicazione per una funzione esponenziale} : \\
 	Se v(t) ammette trasformata di Laplace con ascissa di convergenza $\alpha$ allora esiste 
 	$$\mathcal{L}[e^{\la t}v(t)]=V(s-\la)$$ e tale trasformata converge per $Re(s)>a +Re(\la) $
 	\item \textbf{Convoluzione} : 	\\
 	Sia $v_1(t),v_2(t)$ sono due funzioni nulle per $t<0$ e dotate di trasformata di Laplace  allora esiste 
 	$$\mathcal{L}[v_1*v_2(t)]=V_1(s)V_2(s)$$
-	L'asciussa di convergenza è minore o uguale di $max\left\{a_1,a_2\right\}$
+	L'ascissa di convergenza è minore o uguale di $max\left\{a_1,a_2\right\}$
 	\item \textbf{Integrale} : \\
 	Se v(t)  è dotata di trasformata di Laplace, allora esiste 
 	$$\mathcal{L}\left[\int_{0^-}^{t^+}v(\tau)d\tau\right]=\frac{V(s)}{s}$$
 	
-	\item \textbf{Teorema del valore finale:}\\ 
-	Sia v(t) una funzione dotata di trasformata di Laplace. Se esiste finito li limite all'infinito di v(t) allora vale la seguente formula 
-	$$\lim_{t \rightarrow \infty } v(t)=\lim_{s \rightarrow 0} s \ V(s)$$
-	\item \textbf{Teorema del valore iniziale :}\\
-	Sia v(t) una funzione dotata di trasformata di Laplace. Se esiste finito li limite $\lim_{t\rightarrow 0^+}v(t)$ allora vale la seguente formula 
-	$$\lim_{t \rightarrow 0^+} v(t)=\lim_{s \rightarrow \infty} s \ V(s)$$
+	$$\lim_{t \rightarrow 0^+} v(t)=\lim_{s \rightarrow \infty} s \ V\left(s\right)$$
 	\item \textbf{Cambiamento di scala :} \\ 
 		Sia v(t) una funzione dotata di trasformata di Laplace V(s) , con ascissa di convergenza $\alpha$ e sia r una costante reale positiva , allora 
-	$$\mathcal{L}\left[v(rt)\right]=\frac{1}{2}V(\frac{s}{r})$$
+	$$\mathcal{L}\left[v(rt)\right]=\frac{1}{|r|}V\left(\frac{s}{r}\right)$$
 	\end{itemize}
 	
-	Vogliamo utilizzare la trasfromata di Laplace per risolvere i sistemi causali LTI descritta da 
+	Vogliamo utilizzare la trasformata di Laplace per risolvere i sistemi causali LTI descritta da 
 	$$\sistema \ \ n \geq m \ \ \forall t \in \R \ \ a_n , b_n \neq 0$$
-	Se l'ingresso u(t) ha trasformata di Laplace allora anche v(t) ha trasformata di Laplace.\\ Inoltre sfruttando le proprietà della trasformata di Fuorier abbiamo che 
+	Se l'ingresso u(t) ha trasformata di Laplace allora anche v(t) ha trasformata di Laplace.\\ Inoltre sfruttando le proprietà della trasformata di Fourier abbiamo che 
 	\begin{align*}
 	\mathcal{L}\left[\frac{d^iv(t)}{dt^i}\right]&=s^i \mathcal{L}[v(t)] - \sum_{k=0}^{i-1}\frac{d^kv(t)}{dt^k} \Big|_{t=0^-} s^{i-1-k} \\ 
-	\mathcal{L}\left[\frac{d^iu(t)}{dt^i}\right]&=s^i U(s) \ \ (\text{poichè è una segnale causale})
+	\mathcal{L}\left[\frac{d^iu(t)}{dt^i}\right]&=s^i U(s) \ \ (\text{poiché è una segnale causale})
 		\end{align*}
-		Applicando la trasformata di laplace ad ogni componente del sistema abbiamo che 
+		Applicando la trasformata di Laplace ad ogni componente del sistema abbiamo che 
 		\begin{align*}
 			\mathcal{L}\left[\sum_{i=0}^{n}a_i \frac{d^i v(t)}{dt^i} \right]&=\mathcal{L}\left[\sum_{j=0}^{m}b_j \frac{d^iu(t)}{dt^i} \right] \\
 			a_0 V(s) + \sum_{i=1}^{n}a_i s^i V(s) - \sum_{i=1}^{n}a_i&\left(\sum_{k=0}^{i-1}\frac{d^kv(t)}{dt^k} \Big|_{t=0^-} s^{i-1-k}\right)= \sum_{j=0}^{m}b_j s^i U(s) \\
@@ -680,7 +735,7 @@ convergono a zero asintoticamente
 		\begin{definizione}(Funzione di trasferimento)
 			Il rapporto tra i polinomi $n(s) \ e \ d(s)$ 
 			$$H(s) = \frac{n(s)}{d(s)} \ \ \ s \in \mathbb{C} $$ \label{formu:1}
-			è detta funzione di traferimento di $\Sigma$
+			è detta funzione di trasferimento di $\Sigma$
 		\end{definizione}
 		Inoltre abbiamo che la funzione di trasferimento è la trasformata di Laplace della risposta all'impulso 
 		\begin{tcolorbox}
@@ -696,7 +751,7 @@ $$H(s):=\intinf h(t)e^{-st}$$
 		\end{tcolorbox}
 			Si ha che l'asse di convergenza della funzione di trasferimento vale 
 		$$max\left\{Re(\la_i) | \exists j : d_{i,j} \neq 0\right\}$$
-		Ricordando la formula \ref{formu:1} abbiamo che la funzione di trasferimento puo essere riscritta come 
+		Ricordando la formula \ref{formu:1} abbiamo che la funzione di trasferimento può essere riscritta come 
 		$$H(s)=\frac{b_ms^m+b^{m-1}s^{m-1}+\dots + b_0s^0}{a_ns^n+a_{n-1}s^{n-1}+\dots + a_0s^0}$$
 		La funzione è una funziona razionale nella variabile s , propria se $n \geq m$ , strettamente propria se $n > m$. Inoltre definiamo con $Re[s]$ lo spazio dei polinomi a coefficienti reali di s e con $Re(s)$ lo spazio della funzioni razionali di s .
 		Inoltre se esplicitiamo le radici dei polinomi otteniamo 
@@ -749,7 +804,7 @@ La riposta in frequenza H(jw) non è altro che la \textbf{trasforma di Fourier d
 $$H(jw)=\intinf h(t)e^{-jwt}dt$$
 Per sistemi causali 
 $$H(jw)=\int_{0^-}^{+\infty} h(t)e^{-jwt}dt$$
-Sempre per i sistemi BiBO stabili vale che 
+Sempre per i sistemi BIBO stabili vale che 
 $$H(s):=\intinf h(t)e^{-st}$$ si ha quindi che $$H(jw)=H(s)\big|_{s=jw}$$
 \subsection[Diagrammi]{Diagrammi di Bode}
 \begin{definizione}(Diagramma di Bode)\\
@@ -763,15 +818,15 @@ $$H(s):=\intinf h(t)e^{-st}$$ si ha quindi che $$H(jw)=H(s)\big|_{s=jw}$$
  \end{align*}
  quindi per graficare il logaritmo della riposta in frequenza dobbiamo graficare 
  \begin{itemize}
- 	\item il logaritmo naturale dell'ampiezza ( \textit{Diagramma di bode dell'ampiezza})
- 	\item il modulo della riposta (\textit{Diagramma di bode della fase})
+ 	\item il logaritmo naturale dell'ampiezza ( \textit{Diagramma di Bode dell'ampiezza})
+ 	\item il modulo della riposta (\textit{Diagramma di Bode della fase})
  \end{itemize}
  Inoltre invece di utilizzare il logaritmo naturale del modulo si usa il \textbf{decibel(dB)} 
  $$|H(jw)|_{db}=20\ \log_{10}|H(jw)|$$ Anche nell'asse delle ascisse non utilizzeremo w ma $\log_{10} w$
  Data la funzione di trasferimento come rapporto di polinomi 
  $$H(s)=K\frac{(s-z_1)^{\mu'_1} \ (s-z_2)^{\mu'_2}\ \dots \ (s-z_u)^{\mu'_u}}{(s-p_1)^{\mu_1} \ (s-p_2)^{\mu_2}\ \dots \ (s-p_r)^{\mu_r}}$$
  \begin{itemize}
-\item $z_i \in \R$ con molteplicità di $\mu_i'$ veranno riscritti come 
+\item $z_i \in \R$ con molteplicità di $\mu_i'$ verranno riscritti come 
 \begin{align*}
 	(s-z_i)&=-z_i (1+s\tau_i') \ \ \ \ \tau_i'=\frac{-1}{z_i} \\
 		(s-z_i)^{\mu'_i}&=(-z_i)^{\mu'_i} (1+s\tau_i')^{\mu'_i} 
@@ -781,7 +836,7 @@ $$H(s):=\intinf h(t)e^{-st}$$ si ha quindi che $$H(jw)=H(s)\big|_{s=jw}$$
 	(s-p_i&=-z_i (1+s\tau_i) \ \ \ \ \tau_i=\frac{-1}{p_i} \ \text{costante di tempo del polo } \\
 	(s-p_i)^{\mu_i}&=(-p_i)^{\mu_i} (1+s\tau_i)^{\mu_i} 
 \end{align*}
-\item zeri complessi coniugati $z_i ,\overline{z_i}$ di molplicità $\mu'_i$
+\item zeri complessi coniugati $z_i ,\overline{z_i}$ di molteplicità $\mu'_i$
  \begin{align*}
  	(s-z_i)(s-\overline{z_i})&=s^2 - 2 Re(z_i)+|z_i|^2\\
  	&=|z_i|^2\left(1+2 \ \frac{Re(z_i)}{|z_i|} \ \frac{s}{|z_i|}+\frac{s^2}{|z_i|^2}\right) \\
@@ -811,7 +866,7 @@ I parametri $\zeta'_i , \zeta_i$ vengono detti \textbf{coefficienti di smorzamen
 	H(s)&=K_B\frac{\prod_i (1+s\tau_i')^{\mu'_i}\prod_i\left(1+2\zeta'_i \frac{s}{\omega'_{ni}}-\frac{s^2}{\omega^{'2}_{ni} }\right)^{\mu'_{i}}}{s^v \prod_i (1+s\tau_i)^{\mu_i}\prod_i\left(1+2\zeta_i \frac{s}{\omega_{ni}}-\frac{s^2}{\omega^{2}_{ni}} \right) ^{\mu_i}} \\
 	K_B&=\frac{b_m \prod_i (\tau_i)^{\mu_i}\prod\left(\frac{1}{\omega^2_{ni}}\right)^{2\mu_i}}{a_n \prod_i (\tau'_i)^{\mu'_i}\prod\left(\frac{1}{\omega^{'2}_{ni}}\right)^{2\mu'_i}} \ \ \ \text{\textbf{Guadagno di Bode }}
 \end{align*}
-Ora sapendo che $H(jw)=H(s)\Big|_{s=jw}$ possiamo ricavare la forme di bode della riposta in frequenza 
+Ora sapendo che $H(jw)=H(s)\Big|_{s=jw}$ possiamo ricavare la forme di Bode della riposta in frequenza 
 \begin{tcolorbox}
 $$	H(jw)=K_B\frac{\prod_i (1+jw\tau_i')^{\mu'_i}\prod_i\left(1+2\zeta'_i \frac{jw}{\omega'_{ni}}-\frac{w^2}{\omega^{'2}_{ni} }\right)^{\mu'_{i}}}{(jw)^v \prod_i (1+jw\tau_i)^\mu_i\prod_i\left(1+2\zeta_i \frac{jw}{\omega_{ni}}-\frac{w^2}{\omega^{2}_{ni}} \right) ^{\mu_i}} \\$$
 \end{tcolorbox}
@@ -862,7 +917,7 @@ $$\begin{cases}
 		1 \ \ \ \  n=0 \\
 		o \ \ \ \  n \in \mathbb{Z}\setminus 0
 	\end{cases}$$ 
-	 Rappresenta , per certi aspetti , l'equivalente a tempo discreto dell'impulso di dirac 
+	 Rappresenta , per certi aspetti , l'equivalente a tempo discreto dell'impulso di Dirac 
 	\item Gradino unitario discreto :\\
 	$$\delta_{-1}(n)=\begin{cases}
 		1 \ \ \ \ n \geq 0 \\
@@ -878,7 +933,7 @@ $$\begin{cases}
 		1 \ \ \ 0 \leq n \leq N-1\\
 		0 \ \ \ \ altrimenti
 	\end{cases}$$
-	La N corrisponde al numero di campioni non nullo , inoltre , rispetto al caso continuo , la finstra rettangolare non ha campioni distribuiti simmetricamente rispetto all'origine. Possiamo creare una finestra rettangolare simmetrica solo se il numero di campioni N è dispari 
+	La N corrisponde al numero di campioni non nullo , inoltre , rispetto al caso continuo , la finestra rettangolare non ha campioni distribuiti simmetricamente rispetto all'origine. Possiamo creare una finestra rettangolare simmetrica solo se il numero di campioni N è dispari 
 	$$R_{2M+1}(n+M)=\begin{cases}
 	 1 \ \ \ \ -M \leq n \leq M \\
 	 0 \ \ \ \ altrimenti 
@@ -890,18 +945,43 @@ $$\begin{cases}
 	$$v(n)=Ae^{j\Phi}\la^n=A e^{j\Phi}\rho^n e^{j\theta n}=A(\cos(\theta n + \Phi)+i\sin(\theta n + \Phi)) \ \ \ n \in \mathbb{Z}$$
 	\item Successione sinusoidale discreta : \\
 	$$v(n)=A\cos(\theta n+\Phi) \ \ \ \ \ n \in \mathbb{Z}$$
-	La versione campionata (campioni equi spaziati) di un segnale periodico non è necessariamente un segnale periodico . Ciò si erifica se e solo se esistono due interi N e K con N non negativo tali che 
+	La versione campionata (campioni equi spaziati) di un segnale periodico non è necessariamente un segnale periodico . Ciò si verifica se e solo se esistono due interi N e K con N non negativo tali che 
 	$$\theta(n+N)+\phi=\theta n + \phi + 2 k\pi  \ \ \ \ \ \forall n \in \mathbb{Z}$$ oppure una condizione equivalente è $$\frac{\theta}{2\pi}=\frac{k}{N}$$
 	\item Successione sinusoidale modulata esponenzialmente \\ 
 	$$v(n)=A\rho^n \cos(\theta n+\phi)$$
 \end{enumerate}
 \subsection{Proprietà}
 \begin{itemize}
-	\item Cambiamento di Scala e traslazione : \\ 
-	Nel caso discreto è fondamentale6 l'ordine delle operazione : prima traslazione poi cambiamento di scala 
+	\item Operazioni fondamentali: \\ 
+\begin{itemize}
+	\item Traslazione : stessa operazione come nel caso continuo $y(t)=x(t-a) a \in \mathbb{Z}$
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\linewidth]{td}
+		\caption{Traslazione discreta}
+		\label{fig:td}
+	\end{figure}
+	\item Cambiamento di Scala : 
+	\begin{itemize}
+		\item Ampiezza : Le considerazione sono le stesse che abbiamo fatto per i segnali a tempo continuo \ref{ampiezza}  
+		\item Tempo : $y(n)=x(Nn)$
+		\begin{itemize}
+			\item Se $|a| >1 \ , a \in \mathbb{N}$   y(n) è ottenuto è ottenuto da x(n) prendendo  campioni a multipli interi  di N (a=N) e riportandoli in $\frac{n}{N}$ , questa operazione porta si ad una \textbf{compressione} ma anche ad una perdita di campioni ( \textbf{ decimazione})
+			\item Se $0<|a|<1$ , ponendo $a=\frac{1}{N}$  allora $y(n)=x\left(\frac{n}{N}\right)$ , questa definizione è valida solo per i multipli interi di N , quindi nel caso in cui n non sia multiplo intero di N mettiamo il segnale  y pari a zero 
+		\end{itemize} 
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.7\linewidth]{td1}
+		
+			\label{fig:td1}
+		\end{figure}
+		
+	\end{itemize}
+	
+\end{itemize}
 	\item Estensione e durata : \\
 	L'estensione di un segnale discreto può essere definita come un insieme di instanti contigui \\ 
-	La Durata invece è data dall' valore dell'instante finale meno il valore dell'instante iniziale più uno 
+	La durata di un segnale discreta è il numero di campioni diverso da zero 
 	\item Area : 
 	$$A_x=\sum_{n=-\infty}^{+\infty}x(n)$$
 	\item Valore medio : 
@@ -935,15 +1015,15 @@ $$\begin{cases}
 		$$\widetilde{\delta_T}=\sum_{n=-\infty}^{\infty}\delta(t-nT)$$ 
 		Ora possiamo definire la versione replicata nel seguente modo 
 		$$[rep_Tx](t)=[x(t)*\widetilde{\delta_t}]$$
-		Se passiamo nel dominio della frequenza possiamo calcolare $$X_{rep}(f)=\frac{1}{T}\suminf X\left(\frac{K}{T}\right)\delta\left(f-\frac{k}{T}\right)$$
+		Se passiamo nel dominio della frequenza possiamo calcolare $$X_{rep}(f)=\frac{1}{T}\sum_{k=-\infty}^{+\infty} X\left(\frac{k}{T}\right)\delta\left(f-\frac{k}{T}\right)$$
 		Possiamo vedere che la ripetizione nel dominio delle frequenze è una sequenza di valori discreti della trasformata di x in corrispondenza di $k/T$ e scalati di $1/T$;
 		Abbiamo che quindi \textcolor{blue}{una replicazione nel dominio del tempo corrisponde con un campionamento nel dominio della frequenza}
 	\end{definizione}
-	Campionare significa estrarre dal segnale analogico i valori che assumi in determinati istanti temporali.Se il campionamento è uniforme allora gli istanti temporali sono equispaziati di T , detto \textbf{periodo di campionamento} , mentre $f_c+\frac{1}{T}$ rappresenta la \textbf{frequenza di campionamento}.\\
-	Un modo semplice per campionare un segnale è ill \textbf{campionamento impulsivo} , ciuoe utilizzando il treno di impulsi. 
+	Campionare significa estrarre dal segnale analogico i valori che assumi in determinati istanti temporali.Se il campionamento è uniforme allora gli istanti temporali sono equispaziati di T , detto \textbf{periodo di campionamento} , mentre $f_c=\frac{1}{T}$ rappresenta la \textbf{frequenza di campionamento}.\\
+	Un modo semplice per campionare un segnale è il \textbf{campionamento impulsivo} , cioè utilizzando il treno di impulsi. 
 	$$x_p(t)=[samp_Tx](t)=\suminf x(nT)\delta(t-nT)$$
 	Se passiamo nel dominio della frequenza ed esiste la trasformata di Fourier del segnale , possiamo calcolare la trasformata di Fourier della versione campionata , allora troviamo che 
-	$$X_p(f)=\frac{1}{T}\suminf X(f-\frac{n}{T})=\frac{1}{T}[rep_{\frac{1}{T}}X](f)$$
+	$$X_p(f)=\frac{1}{T} \sum_{k=-\infty}^{+\infty} X(f-\frac{k}{T})=\frac{1}{T}[rep_{\frac{1}{T}}X](f)$$
 Quindi In conclusione : 
 \begin{itemize}
 	\item Campionamento nel dominio del tempo corrisponde ad una replicazione nel dominio della frequenza 
@@ -952,7 +1032,7 @@ Quindi In conclusione :
 	\begin{teo*}{del campionamento ideale}
 	Un segnale tempo continuo x(t) è rappresentato perfettamente dai suoi campioni presi con passo T ($f_c=\frac{1}{T}$) se : 
 	\begin{enumerate}
-	\item $x(t)$ è un segnale reale rigorisamente limitato in banda , con ciò intendendo che la funzione pari $|X_a(f)|$ ha supporto limitato
+	\item $x(t)$ è un segnale reale rigorosamente limitato in banda , con ciò intendendo che la funzione pari $|X_a(f)|$ ha supporto limitato
 	\item La frequenza di campionamento $f_c$ è maggiore della \textcolor{red}{frequenza di Nyquist $f_n=2B$} dove B rappresenta la larghezza di banda monolatera del segnale , che è definita come $$B=inf\{\overline{f}\in \R_+: |X_a(f)|=0 \ \ per \ \ |f|>\overline{f}\}$$
 	\end{enumerate}
 	\end{teo*}
@@ -970,16 +1050,16 @@ h_r(t)&=F^{-1}[H_r(f)](t)= (2f_LT) sinc(2f_Lt) \ \ \ \xrightarrow{f_L=f_c/2} sin
 		&= \suminf x(n)sinc \left(\frac{t-nT}{T}\right)
 	\end{align*}
 	Nel caso in cui campionassimo un segnale a durata limita , quindi banda \textit{illimitata} , oppure campionassimo un segnale a Banda limitato con frequenza minore di quella di Nyquist , le repliche risultano sovrapposte una all'altra , questo fenomeno prende il nome di \textbf{aliasing}.In presenza di aliasing non è possibile ricostruite il segnale di partenza. \\
-	Però e possibile utilizzare filtri \textbf{anti-alising} , cioè filtri di tipo passa-basso con risposta in frequenza costante e non nulla nell'intervallo [-B,B] e nulla al di fuori dell'intervallo e campionare l'uscita con frequenza maggiore di quella di Nyquist. Questo è fatto per preservare le frequenza che ci interessano per una specifica applicazione.	
+	Però e possibile utilizzare filtri \textbf{anti-aliasing} , cioè filtri di tipo passa-basso con risposta in frequenza costante e non nulla nell'intervallo [-B,B] e nulla al di fuori dell'intervallo e campionare l'uscita con frequenza maggiore di quella di Nyquist. Questo è fatto per preservare le frequenza che ci interessano per una specifica applicazione.	
 	\newpage
 	\subsection{Serie di Fourier}
 	Nel caso di un segnale x(n) a tempo discreto e periodico , $x(n+N)=x(n)$ dove N è il più piccolo intero che soddisfa la relazione $\theta=\frac{2\pi}{N}$ ($v_0=\frac{1}{N}$). \footnote{nel tempo discreto un fasore o segnale sinusoidale sono periodico solo se $v_0$ è razionale}.
 	Allora possiamo scrivere la DFS del segnale 
 	\begin{align*}
-		x(n)&=\sum_{k=0}^{N_1} a_k e^{jk\left(\frac{2 \pi }{N}\right)n} \ \ \ \ \ \ \ \ \ \ \ \text{Equazione di sintesi}\\
+		x(n)&=\sum_{k=0}^{N-1} a_k e^{jk\left(\frac{2 \pi }{N}\right)n} \ \ \ \ \ \ \ \ \ \ \ \text{Equazione di sintesi}\\
 		a_k&=\frac{1}{N} \sum_{k=0}^{N-1}x(n)e^{-jk\left(\frac{2 \pi }{N}\right)n}  \ \ \text{Equazione di analisi}
 	\end{align*}
-	Ci serve solo N esponenziali complessi per rappresentare un segnale discreto periodico con periodo N poichè 
+	Ci serve solo N esponenziali complessi per rappresentare un segnale discreto periodico con periodo N poiché 
 	$$e^{j(k+N)\left(\frac{2 \pi }{N}\right)n=e^{jk\left(\frac{2 \pi }{N}\right)n} e^{jN\left(\frac{2 \pi }{N}\right)n} } =e^{jk\left(\frac{2 \pi }{N}\right)n} e^{2 \pi n i} =e^{jk\left(\frac{2 \pi }{N}\right)n} $$
 	Inoltre anche i coefficienti $a_k$ sono periodici di periodo N \\
 	Inoltre essendo una serie a coefficienti finiti , non vi sono problemi di convergenza e quindi ogni segnale periodico ammette una serie di Fourier (discreta)
@@ -1038,11 +1118,11 @@ h_r(t)&=F^{-1}[H_r(f)](t)= (2f_LT) sinc(2f_Lt) \ \ \ \xrightarrow{f_L=f_c/2} sin
 	\newpage
 	\subsection{Trasformata di Fourier }
 	\subsubsection{DTFT}
-	Data una sequenza discreta $x[n]$ la DTFT mappa il segnale dal dominioo del tempo discreto a una funzione \textbf{funziona continua e periodica} nel dominio delle frequenze 
-	$$X(v)=\sum_{n=-\infty}^{+\infty}x(n)e^{-j\left(\frac{2\pi}{N}\right) n } \ \ \ \ \ \ \text{Equazione di Analisi}$$
+	Data una sequenza discreta $x[n]$ la DTFT mappa il segnale dal dominio del tempo discreto a una funzione \textbf{funziona continua e periodica} nel dominio delle frequenze 
+	$$X(\nu)=\sum_{n=-\infty}^{+\infty}x(n)e^{-j\left(2 \pi\nu\right) n } \ \ \ \ \ \ \text{Equazione di Analisi}$$
 		Ora possiamo anche definire l'antitrasformata di Fourier
-	$$x(n)=\int_1 X(v)e^{j2\pi v n }dv \ \ \ \ \ \ \ \ \ \text{Equazione di sintesi}$$
-	Il periodo è uno 1 , poichè seguiamo il periodo dell'esponenziale complesso che sarebbe $2\pi$ ma definendo $v=\frac{1}{N}=\frac{\theta}{2\pi }$ quindi il periodo diventa uno quindi $X(v+1)=X(v)$. Quindi , dato il periodo di 1 , l'intervallo di integrazione può essere un qualsiasi intervallo di ampiezza unitario.\\   
+	$$x(n)=\int_1 X(\nu)e^{j2\pi \nu n }dv \ \ \ \ \ \ \ \ \ \text{Equazione di sintesi}$$
+	Il periodo è uno 1 , poiché seguiamo il periodo dell'esponenziale complesso che sarebbe $2\pi$ ma definendo $v=\frac{1}{N}=\frac{\theta}{2\pi }$ quindi il periodo diventa uno quindi $X(v+1)=X(v)$. Quindi , dato il periodo di 1 , l'intervallo di integrazione può essere un qualsiasi intervallo di ampiezza unitario.\\   
 	A differenza della DTFS , esistono alcune condizione che garantiscono la convergenza della trasformata : 
 	\begin{itemize}
 		\item La serie converge se la sequenza è sommabile : 
@@ -1054,8 +1134,10 @@ h_r(t)&=F^{-1}[H_r(f)](t)= (2f_LT) sinc(2f_Lt) \ \ \ \xrightarrow{f_L=f_c/2} sin
 	\subsubsection{DFT}
 	Per la \textcolor{blue}{dualità tempo-frequenza} se eseguiamo un campionamento nel dominio della frequenza , quindi della DTFT , considerando campioni equi spaziati a multipli interi di $1/N$ , questo porta ad una replicazione nel tempo (compie ogni N punti).\\ Questi campioni equispaziati possono essere visti come coefficienti DFS delle sequenza  periodica $\tilde{x}(n)$ che si ottiene dalla replicazione nel tempo di $x(n)$ 
 	\begin{align*}
-		X(v)=\sum_{n=0}^{N-1}x(n)e^{-j2\pi v kn} \\ 
-		x(n) = \frac{1}{N} \sum_{n=0}^{N-1}X(k) e^{j2\pi v n }
+		X(v)=\sum_{n=0}^{N-1}x(n)e^{-j \frac{2 
+			\pi }{N}kn } \ \ \ \ \ k=0,\dots,N-1 \\ 
+		x(n) = \frac{1}{N} \sum_{k=0}^{N-1}X(k) e^{j \frac{2 
+				\pi }{N} n }  \ \ \ \ \ n =0,\dots,N-1
 	\end{align*}
 	
 	
@@ -1077,9 +1159,10 @@ h_r(t)&=F^{-1}[H_r(f)](t)= (2f_LT) sinc(2f_Lt) \ \ \ \xrightarrow{f_L=f_c/2} sin
 	
 	\newpage
 	\section{Sistemi a tempo discreto}
+	Le Definizione date in tempo continuo valgono anche in tempo discreto , scambiando t con k 
 	\begin{definizione}(Tempo-invarianza)\\
 		Un sistema dinamico inizialmente a riposo è \textbf{tempo invariante} se traslazioni nel tempo dei valori assunti dagli ingressi $u(k)$ provocano le stesse traslazioni nel tempo dei valori assunti dalle uscite $v(k)$.\\
-		In altre parole se u(k) produce v(k) allora $u(k-d)$ produce $v(k-d)$ con $d \in \mathbb{Z}$ (In realtà $d \in \mathbb{N}$ poichè nella realtà possiamo solo ritardare un segnale e non anticiparlo , non conoscendo il futuro)\\
+		In altre parole se u(k) produce v(k) allora $u(k-d)$ produce $v(k-d)$ con $d \in \mathbb{Z}$ (In realtà $d \in \mathbb{N}$ poiché nella realtà possiamo solo ritardare un segnale e non anticiparlo , non conoscendo il futuro)\\
 		Inoltre possiamo definire l'operatore \textbf{ritardo $\sigma$ } come 
 		$$[\sigma^d u](k)=u(k-d)$$
 			\end{definizione}
@@ -1091,7 +1174,7 @@ h_r(t)&=F^{-1}[H_r(f)](t)= (2f_LT) sinc(2f_Lt) \ \ \ \xrightarrow{f_L=f_c/2} sin
 	\end{definizione}
 	Un sistema \textbf{SISO lineare} può essere espresso nella seguente forma : 
 	$$\sum_{i=0}^n a_i(k)v(k-i)=\sum_{i=0}^m b_i(k)u(k-i) \ \ \ \ k \in \mathbb{Z}$$
-	dove $a_i(k),b_i(k)$ sono coefficienti  valori reali che possono dipendere dla tempo con $a_0,b_m,a_n$ non nulli
+	dove $a_i(k),b_i(k)$ sono coefficienti  valori reali che possono dipendere dal tempo con $a_0,b_m,a_n$ non nulli
 	Se invece abbiamo un sistema \textbf{SISO lineare tempo.invariante} abbiamo che l'equazione alle differenza diventa 
 	\begin{equation}
 		\sisdiscr
@@ -1108,11 +1191,31 @@ h_r(t)&=F^{-1}[H_r(f)](t)= (2f_LT) sinc(2f_Lt) \ \ \ \xrightarrow{f_L=f_c/2} sin
 	$$z(k)=\sum_{i=0}^{m}b_i u(k-i) \ \ \ k \in \mathbb{Z}$$
 	e del modello AR
 	$$\sum_{i=0}^{n}a_iv(k-i)=z(k)$$
-	Per questo i modelli descritti descritti  da (1) sono noti come \textbf{modelli autoregressivi a parametri mobile (ARMA)}
+	Per questo i modelli descritti descritti  da (1) sono noti come \textbf{modelli autoregressivi a parametri mobile (ARMA)}\\
+	Nel caso di sistemi a tempo discreto una condizione necessaria per la causalità è che il coefficienti $a_0\neq 0$ , dimostra perchè usando come esempio il seguente sistema
+	
+	\begin{align*}
+		a_0v(k)+a_1v(k-1)+a_2v(k-2)&=	b_0u(k)+b_1u(k-1)+b_2u(k-2) \\ 
+		a_0&=0 \\ 
+		a_1v(k-1)+a_2v(k-2)&=	b_0u(k)+b_1u(k-1)+b_2u(k-2) \\
+		h &= k-1 \\
+			a_1v(h)+a_2v(h-1)&=	b_0u(h+1)+b_1u(h)+b_2u(h-1) \\
+	\end{align*}
+	vediamo che il sistema ha quindi perso la sua causalità.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\subsection{Evoluzione Libera}
 	\begin{definizione}(Evoluzione libera) \\
 		Data l'equazione alle differenze $$\sisdiscro$$ con condizioni iniziali $$v(-1),v(-2), \dots , v(-n)$$
-l'evoluzione libera $v_l(k) \ \ k \geq 0$ del sistema è la soluzione ell'equazione alle differenza omogenea associata
+l'evoluzione libera $v_l(k) \ \ k \geq 0$ del sistema è la soluzione dell'equazione alle differenza omogenea associata
 $$\sum_{i=0}^{n}a_i v(k-i)=0$$
 	\end{definizione}
 	\begin{definizione}(Equazione caratteristica)\\
@@ -1136,7 +1239,7 @@ sono le successioni
 $$m_{i,j}=\frac{k^j}{j!}\la_i^k \ \ \ \ k \in \mathbb{Z}$$
 per $i=1, \dots , r \ j=0,\dots , \mu_i-1$ so chiamata \textbf{modi elementari del sistema}
 	\end{definizione}
-	\begin{teo}{Evoluzione della radice}{}
+	\begin{teo}{Evoluzione libera}{}
 		La soluzione $v_l(k)$ dell'equazione alle differenze omogenea 
 		$$\sum_{i=0}^{n}a_i v(k-i)=0 \ \  \ \ k \geq 0$$ 
 		può essere scritta come la combinazione lineare dei modi del sistema 
@@ -1189,7 +1292,7 @@ per $i=1, \dots , r \ j=0,\dots , \mu_i-1$ so chiamata \textbf{modi elementari d
 	\end{teo}
 	\newpage
 		\subsection{Evoluzione forzata}
-		\begin{definizione}(Risposta Implusiva)\\
+		\begin{definizione}(Risposta Impulsiva)\\
 		Dato un sistema causale SISO LTI , descritto dall'equazione differenziale 
 		$$\sisdiscro$$
 		 \textbf{la riposta all'impulso $h(t)$} è la soluzione dell'equazione differenziale   
@@ -1325,7 +1428,7 @@ Inoltre se $u(k)=0 \ \ \forall k < 0 $  otteniamo che
 	\begin{definizione}(Trasformazione Zeta)
 	Data una successione v(k) , $k \in \mathbb{Z}$ , la trasformata Zeta di v(k) è data dalla serie 
 	$$\mathcal{Z}[v(k)]=\sum_{k§=-\infty}^{+\infty}v(k)z^{-k} \ \ \ \ \ \ z \in \C$$ se converge.\\
-	Se v(k) assume valori nulli solo per $k\in\mathbb{N}$ , la trasformata Zeta vale 
+	Se v(k) assume valori non nulli solo per $k\in\mathbb{N}$ , la trasformata Zeta vale 
 	$$\mathcal{Z}[v(k)]=\sum_{k=0}^{+\infty}v(k)z^{-k } \ \ \ \ \ \ \ \ z \in \C$$
 	
 	\end{definizione}
@@ -1438,7 +1541,7 @@ Proprietà fondamentali:
 \end{itemize}
 
 \begin{teo}{BIBO stabilità}{}
-	Un sistema SISO LTI causale a tempo discreto con funzione di trasferimento \(H(z)\) (rapporto di polinomi coprimi) è BIBO stabile se e solo se tutti i poli di H(z) sono contenuti all'interno del cerchio unitario el piano complesso  :
+	Un sistema SISO LTI causale a tempo discreto con funzione di trasferimento \(H(z)\) (rapporto di polinomi coprimi) è BIBO stabile se e solo se tutti i poli di H(z) sono contenuti all'interno del cerchio unitario del piano complesso  :
 	\[
  z_i \in \mathbb{D} = \{z \mid |z| < 1\}, \quad i = 1,\ldots,\deg d(z).
 	\]
